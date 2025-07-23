@@ -1,15 +1,21 @@
 description: Plafond de l'abattement sur les pensions
 values:
+<<<<<<< HEAD:openfisca_nouvelle_caledonie/parameters/prelevements_obligatoires/impot_revenu/revenus_imposables/tspr/deduction_pension/plafond.yaml
   2001-09-25:
     value: 500000
   2003-11-21:
+=======
+  2021-01-01:
+    value: 500000
+  2023-01-01:
+>>>>>>> bfdd316 (Apply suggestions from code review):openfisca_nouvelle_caledonie/parameters/prelevements_obligatoires/impot_revenu/revenus_imposables/tspr/abattement_pension/plafond.yaml
     value: 550000
   2008-01-01:
     value: 550_000
 metadata:
-  short_label: Maxime BOLLENGIER
+  short_label: Plafond
   label_en: Ceiling of the pension allowance
-  short_label_en: Maxime BOLLENGIER
+  short_label_en: Ceiling
   unit: currency
   reference:
     2001-09-25:
