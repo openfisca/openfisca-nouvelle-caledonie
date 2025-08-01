@@ -408,8 +408,7 @@ class indemnites(Variable):
             max_(
                 foyer_fiscal.members("indemnites_elus_municipaux", period)
                 - min_(
-                    foyer_fiscal.members("indemnites_elus_municipaux", period)
-                    * taux,
+                    foyer_fiscal.members("indemnites_elus_municipaux", period) * taux,
                     foyer_fiscal.members("reliquat_abattement_sur_salaire", period),
                 ),
                 0,
