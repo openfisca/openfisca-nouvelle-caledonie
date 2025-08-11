@@ -1,0 +1,6 @@
+description: Taux d'équilibre pour le calcul de l'indexation des traitements dans la fonction publique
+values:
+  2006-01-01:
+    value: 0.074
+documentation: |
+    K_TauxEquilibre = K197

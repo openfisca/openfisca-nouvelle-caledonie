@@ -1,0 +1,6 @@
+description: Taux pour la cotisation salariée pour NCJ
+values:
+  2006-01-01:
+    value: 0.131
+documentation: |
+    K_TauxCLR_PS = K200

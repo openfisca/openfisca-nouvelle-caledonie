@@ -1,0 +1,17 @@
+description: Barème des cotisations patronales
+brackets:
+- threshold:
+    1919-01-01:
+      value: 0
+  rate:
+    1919-01-01:
+      value: 0.1015
+- threshold:
+    1919-01-01:
+      value: 548600
+  rate:
+    1919-01-01:
+      value: 0.0375
+documentation: |
+    K_TauxRuammTR1_PP = K359 K_PlafondRuamm = K357
+    K_TauxRuammTR2_PP = K283 K_PlafondRuamm = K357
