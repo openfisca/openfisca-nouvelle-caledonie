@@ -1,3 +1,5 @@
+"""Rémunération dans la fonction publique."""
+
 from openfisca_core.indexed_enums import Enum
 from openfisca_core.model_api import *
 from openfisca_nouvelle_caledonie.entities import Individu
@@ -58,16 +60,7 @@ class temps_de_travail(Variable):
     label = "Temps de travail"
     set_input = set_input_dispatch_by_period
     definition_period = MONTH
-    default_value = 0.1
-
-
-class temps_de_travail(Variable):
-    value_type = float
-    entity = Individu
-    label = "Temps de travail"
-    set_input = set_input_dispatch_by_period
-    definition_period = MONTH
-    default_value = 0.1
+    default_value = 1.0
 
 
 class traitement_brut(Variable):
