@@ -5,7 +5,7 @@ brackets:
       value: 0
   rate:
     1919-01-01:
-      value: 0.0385
+      value: 0.0285
 - threshold:
     1919-01-01:
       value: 548600

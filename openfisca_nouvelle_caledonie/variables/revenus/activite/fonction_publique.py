@@ -3,21 +3,37 @@ from openfisca_core.model_api import *
 from openfisca_nouvelle_caledonie.entities import Individu
 
 
-class CategorieFonctionPubliqueTerritoriale(Enum):
-    __order__ = " categorie_a categorie_b categorie_c non_concerne"
+class CategorieFonctionPublique(Enum):
+    __order__ = "categorie_a categorie_b categorie_c non_concerne"
     categorie_a = "Categorie A"
     categorie_b = "Categorie B"
     categorie_c = "Categorie C"
     non_concerne = "Non concerné"
 
 
-class categorie_fonction_publique_territoriale(Variable):
+class categorie_fonction_publique(Variable):
     value_type = Enum
-    possible_values = CategorieFonctionPubliqueTerritoriale
-    default_value = CategorieFonctionPubliqueTerritoriale.non_concerne
+    possible_values = CategorieFonctionPublique
+    default_value = CategorieFonctionPublique.non_concerne
     entity = Individu
     definition_period = MONTH
     label = "Categorie de l'emploi dans la fonction publique territoriale"
+
+
+class TypeFonctionPublique(Enum):
+    __order__ = "etat territoriale non_concerne"
+    etat = "État"
+    territoriale = "Territoriale"
+    non_concerne = "Non concerné"
+
+
+class type_fonction_publique(Variable):
+    value_type = Enum
+    possible_values = TypeFonctionPublique
+    default_value = TypeFonctionPublique.non_concerne
+    entity = Individu
+    definition_period = MONTH
+    label = "Type de l'emploi dans la fonction publique"
 
 
 class indice_fonction_publique(Variable):
@@ -65,7 +81,10 @@ class traitement_brut(Variable):
     def formula(individu, period, parameters):
         indice = individu("indice_fonction_publique", period)
         temps_de_travail = individu("temps_de_travail", period)
-        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point
+        type_fonction_publique = individu("type_fonction_publique", period)
+        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
+            type_fonction_publique
+        ]
 
         return indice * valeur_point * temps_de_travail
 
@@ -107,7 +126,10 @@ class indemnite_residence(Variable):
         taux_indexation_fonction_publique = individu(
             "taux_indexation_fonction_publique", period
         )
-        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point
+        type_fonction_publique = individu("type_fonction_publique", period)
+        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
+            type_fonction_publique
+        ]
 
         return (
             indice
@@ -127,14 +149,17 @@ class prime_fonction_publique(Variable):
     unit = "currency"
 
     def formula(individu, period, parameters):
-        cat = individu("categorie_fonction_publique_territoriale", period)
+        cat = individu("categorie_fonction_publique", period)
         prime = parameters(period).remuneration_fonction_publique.prime[cat]
 
         temps_de_travail = individu("temps_de_travail", period)
         taux_indexation_fonction_publique = individu(
             "taux_indexation_fonction_publique", period
         )
-        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point
+        type_fonction_publique = individu("type_fonction_publique", period)
+        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
+            type_fonction_publique
+        ]
 
         return (
             prime * valeur_point * temps_de_travail * taux_indexation_fonction_publique

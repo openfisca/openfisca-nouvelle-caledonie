@@ -1,0 +1,8 @@
+description: Valeur du point dans la fonction publique d'État
+values:
+  2006-01-01:
+    value: 587
+metadata:
+  unit: currency-XPF
+documentation: |
+    K_ValeurPointEtat = K017
