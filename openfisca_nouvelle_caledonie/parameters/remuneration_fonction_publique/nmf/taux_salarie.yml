@@ -1,0 +1,6 @@
+description: Taux pour la cotisation salariée pour NMF
+values:
+  2006-01-01:
+    value: 0.0066
+documentation: |
+    K_TauxMDF_PS = K286

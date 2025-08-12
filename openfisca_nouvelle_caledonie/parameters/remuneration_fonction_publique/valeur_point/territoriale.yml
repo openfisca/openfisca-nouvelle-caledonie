@@ -1,0 +1,8 @@
+description: Valeur du point dans la fonction publique territoriale
+values:
+  2006-01-01:
+    value: 565
+metadata:
+  unit: currency-XPF
+documentation: |
+    K_ValeurPoint = K014

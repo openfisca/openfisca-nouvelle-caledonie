@@ -1,0 +1,6 @@
+description: Taux pour la cotisation patronale pour NMF
+values:
+  2006-01-01:
+    value: 0.0124 # TODO DRH
+documentation: |
+    K_TauxMDF_PP = K287

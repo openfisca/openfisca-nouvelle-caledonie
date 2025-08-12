@@ -1,0 +1,6 @@
+description: Taux pour la cotisation salariée pour MCS
+values:
+  2006-01-01:
+    value: 0.03
+documentation: |
+    K_TauxCCS_PS = K305

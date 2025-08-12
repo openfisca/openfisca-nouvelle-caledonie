@@ -1,0 +1,6 @@
+description: Point de prime pour catégorie C
+values:
+  2006-01-01:
+    value: 22
+documentation: |
+    K_PointCatC = 22

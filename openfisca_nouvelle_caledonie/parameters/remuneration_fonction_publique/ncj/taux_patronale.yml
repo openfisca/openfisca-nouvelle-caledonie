@@ -1,0 +1,6 @@
+description: Taux pour la cotisation patronale pour NMF
+values:
+  2006-01-01:
+    value: 0.273
+documentation: |
+    K_TauxCLR_PP = K201

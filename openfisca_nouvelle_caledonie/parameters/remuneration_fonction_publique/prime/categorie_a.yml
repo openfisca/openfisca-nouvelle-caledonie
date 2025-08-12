@@ -1,0 +1,6 @@
+description: Point de prime pour catégorie A
+values:
+  2006-01-01:
+    value: 38
+documentation: |
+    K_PointCatA = 38

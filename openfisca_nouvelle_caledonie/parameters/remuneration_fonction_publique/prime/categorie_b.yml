@@ -1,0 +1,6 @@
+description: Point de prime pour catégorie B
+values:
+  2006-01-01:
+    value: 27
+documentation: |
+    K_PointCatB = 27

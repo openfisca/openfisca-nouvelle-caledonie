@@ -1,0 +1,17 @@
+description: Barème des cotisations salariées
+brackets:
+- threshold:
+    1919-01-01:
+      value: 0
+  rate:
+    1919-01-01:
+      value: 0.0285
+- threshold:
+    1919-01-01:
+      value: 548600
+  rate:
+    1919-01-01:
+      value: 0.0125
+documentation: |
+    K_TauxRuammTR1_PS = K358 K_PlafondRuamm = K357
+    K_TauxRuammTR2_PS = K282 K_PlafondRuamm = K357
