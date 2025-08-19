@@ -1,5 +1,13 @@
 # Changelog
 
+## 13.3.0 [#58](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/58)
+
+* Évolution du système socio-fiscal.
+* Périodes concernées : toutes.
+* Zones impactées : toutes.
+* Détails :
+  - Ajoute des règles de calculs de la Contribution calédonienne de solidarité (CCS)
+
 ## 13.3.0 [#57](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/57)
 
 * Évolution du système socio-fiscal.
