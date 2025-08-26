@@ -79,7 +79,36 @@ class traitement_brut(Variable):
             type_fonction_publique
         ]
 
-        return indice * valeur_point * temps_de_travail
+        ajustement = individu("traitement_brut_ajustement", period)
+
+        return indice * valeur_point * temps_de_travail + ajustement
+
+
+class traitement_brut_ajustement(Variable):
+    value_type = float
+    entity = Individu
+    label = "Ajustement au traitement brut"
+    set_input = set_input_divide_by_period
+    definition_period = MONTH
+    unit = "currency"
+
+
+class complement_brut(Variable):
+    value_type = float
+    entity = Individu
+    label = "Ressources brutes complémentaires"
+    set_input = set_input_divide_by_period
+    definition_period = MONTH
+    unit = "currency"
+
+
+class allocation_familiales_publiques(Variable):
+    value_type = float
+    entity = Individu
+    label = "Ressources brutes complémentaires"
+    set_input = set_input_divide_by_period
+    definition_period = MONTH
+    unit = "currency"
 
 
 class traitement_complement_indexation(Variable):
@@ -176,11 +205,14 @@ class base_cotisation_fonction_publique(Variable):
         )
         indemnite_residence = individu("indemnite_residence", period)
         prime_fonction_publique = individu("prime_fonction_publique", period)
+
+        complement_brut = individu("complement_brut", period)
         return (
             traitement_brut
             + traitement_complement_indexation
             + indemnite_residence
             + prime_fonction_publique
+            + complement_brut
         )
 
 
