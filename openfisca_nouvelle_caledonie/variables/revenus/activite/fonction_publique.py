@@ -258,6 +258,15 @@ class cotisation_MCS(Variable):
         return -P.taux_salarie * base
 
 
+class cotisation_NMF_taux_salarie(Variable):
+    value_type = float
+    entity = Individu
+    label = "Taux de cotisation salariée NMF"
+    set_input = set_input_divide_by_period
+    definition_period = MONTH
+    unit = "currency"
+
+
 class cotisation_NMFS(Variable):
     value_type = float
     entity = Individu
@@ -267,9 +276,18 @@ class cotisation_NMFS(Variable):
     unit = "currency"
 
     def formula(individu, period, parameters):
+        taux = individu("cotisation_NMF_taux_salarie", period)
         base = individu("base_cotisation_fonction_publique", period)
-        P = parameters(period).remuneration_fonction_publique.nmf
-        return -P.taux_salarie * base
+        return -taux * base
+
+
+class cotisation_NMF_taux_patronale(Variable):
+    value_type = float
+    entity = Individu
+    label = "Taux de cotisation patronale NMF"
+    set_input = set_input_divide_by_period
+    definition_period = MONTH
+    unit = "currency"
 
 
 class cotisation_NMFP(Variable):
@@ -281,9 +299,9 @@ class cotisation_NMFP(Variable):
     unit = "currency"
 
     def formula(individu, period, parameters):
+        taux = individu("cotisation_NMF_taux_patronale", period)
         base = individu("base_cotisation_fonction_publique", period)
-        P = parameters(period).remuneration_fonction_publique.nmf
-        return P.taux_patronale * base
+        return taux * base
 
 
 class cotisation_NCJS(Variable):
