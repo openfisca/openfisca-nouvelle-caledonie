@@ -63,6 +63,18 @@ class temps_de_travail(Variable):
     default_value = 1.0
 
 
+class est_retraite(Variable):
+    value_type = bool
+    entity = Individu
+    label = "Personne retraitée"
+    definition_period = MONTH
+
+    def formula(individu, period, parameters):
+        age_en_mois = individu("age_en_mois", period)
+        age_max = parameters(period).remuneration_fonction_publique.mois_retraite
+        return age_en_mois >= age_max
+
+
 class traitement_brut(Variable):
     value_type = float
     entity = Individu
@@ -81,7 +93,11 @@ class traitement_brut(Variable):
 
         ajustement = individu("traitement_brut_ajustement", period)
 
-        return indice * valeur_point * temps_de_travail + ajustement
+        est_retraite = individu("est_retraite", period)
+
+        return not_(est_retraite) * (
+            indice * valeur_point * temps_de_travail + ajustement
+        )
 
 
 class traitement_brut_ajustement(Variable):
@@ -152,8 +168,9 @@ class indemnite_residence(Variable):
         valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
             type_fonction_publique
         ]
+        est_retraite = individu("est_retraite", period)
 
-        return (
+        return not_(est_retraite) * (
             indice
             * valeur_point
             * temps_de_travail
@@ -183,7 +200,9 @@ class prime_fonction_publique(Variable):
             type_fonction_publique
         ]
 
-        return (
+        est_retraite = individu("est_retraite", period)
+
+        return not_(est_retraite) * (
             prime * valeur_point * temps_de_travail * taux_indexation_fonction_publique
         )
 
@@ -207,7 +226,10 @@ class base_cotisation_fonction_publique(Variable):
         prime_fonction_publique = individu("prime_fonction_publique", period)
 
         complement_brut = individu("complement_brut", period)
-        return (
+
+        est_retraite = individu("est_retraite", period)
+
+        return not_(est_retraite) * (
             traitement_brut
             + traitement_complement_indexation
             + indemnite_residence
@@ -304,10 +326,10 @@ class cotisation_NMFP(Variable):
         return taux * base
 
 
-class cotisation_NCJS(Variable):
+class base_cotisation_NCJ(Variable):
     value_type = float
     entity = Individu
-    label = "Cotisation salariée NCJ"
+    label = "Base pour les cotisations NCJ"
     set_input = set_input_divide_by_period
     definition_period = MONTH
     unit = "currency"
@@ -317,7 +339,19 @@ class cotisation_NCJS(Variable):
         taux_indexation_fonction_publique = individu(
             "taux_indexation_fonction_publique", period
         )
-        base = traitement_brut * taux_indexation_fonction_publique
+        return traitement_brut * taux_indexation_fonction_publique
+
+
+class cotisation_NCJS(Variable):
+    value_type = float
+    entity = Individu
+    label = "Cotisation salariée NCJ"
+    set_input = set_input_divide_by_period
+    definition_period = MONTH
+    unit = "currency"
+
+    def formula(individu, period, parameters):
+        base = individu("base_cotisation_NCJ", period)
 
         P = parameters(period).remuneration_fonction_publique.ncj
         return -P.taux_salarie * base
@@ -332,11 +366,7 @@ class cotisation_NCJP(Variable):
     unit = "currency"
 
     def formula(individu, period, parameters):
-        traitement_brut = individu("traitement_brut", period)
-        taux_indexation_fonction_publique = individu(
-            "taux_indexation_fonction_publique", period
-        )
-        base = traitement_brut * taux_indexation_fonction_publique
+        base = individu("base_cotisation_NCJ", period)
 
         P = parameters(period).remuneration_fonction_publique.ncj
         return P.taux_patronale * base
