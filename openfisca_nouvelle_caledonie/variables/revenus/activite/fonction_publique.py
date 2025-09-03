@@ -118,7 +118,7 @@ class complement_brut(Variable):
     unit = "currency"
 
 
-class allocation_familiales_publiques(Variable):
+class allocations_familiales_publiques(Variable):
     value_type = float
     entity = Individu
     label = "Ressources brutes complémentaires"
