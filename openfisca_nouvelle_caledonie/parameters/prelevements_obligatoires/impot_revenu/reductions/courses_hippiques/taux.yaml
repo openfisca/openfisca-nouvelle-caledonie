@@ -1,6 +1,6 @@
-description: Taux applicable pour la réduction d'impôt pour les dépenses de mécénat
+description: Taux applicable pour la réduction d'impôt pour les dons aux courses hippiques
 values:
-  2017-01-17:
+  2016-01-01:
     value: 0.50
 metadata:
   short_label: Taux
