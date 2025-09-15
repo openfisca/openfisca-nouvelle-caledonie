@@ -1,6 +1,6 @@
 description: Plafond du crédit d'impôt pour les investissements productifs industriels
 values:
-  2008-01-29:
+  2008-01-01:
     value: 0.5
 metadata:
   short_label: Investissements productifs industriels

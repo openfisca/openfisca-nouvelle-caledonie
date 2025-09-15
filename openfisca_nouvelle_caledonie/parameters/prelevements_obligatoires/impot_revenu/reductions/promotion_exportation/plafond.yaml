@@ -1,6 +1,6 @@
 description: Plafond de la réduction d'impôt sur le revenu pour la promotion de l'exportation
 values:
-  2017-01-17:
+  2016-01-01:
     value: 0.15
 metadata:
   short_label: Plafond
