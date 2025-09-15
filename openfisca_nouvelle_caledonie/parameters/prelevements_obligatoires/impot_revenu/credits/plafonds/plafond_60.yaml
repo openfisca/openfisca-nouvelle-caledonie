@@ -1,6 +1,6 @@
 description: Plafond du crédit d'impôt pour la souscription de parts de fonds communs de placement
 values:
-  2008-01-29:
+  2008-01-01:
     value: 0.6
 metadata:
   short_label: Souscription de parts de fonds communs de placement

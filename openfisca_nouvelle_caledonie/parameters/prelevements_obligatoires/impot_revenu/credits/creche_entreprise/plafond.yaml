@@ -1,6 +1,6 @@
 description: Plafond du crédit d'impôt pour les crèches d'entreprise
 values:
-  2010-12-31:
+  2011-01-01:
     value: 60_000_000
 metadata:
   short_label: Plafond

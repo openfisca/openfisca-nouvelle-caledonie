@@ -1,6 +1,6 @@
 description: Plafond de revenu pour bénéficier de la réduction d'impôt redistributive
 values:
-  2016-12-05:
+  2016-01-01:
     value: 6_100_000
 metadata:
   short_label: Plafond de revenu pour éligibilité

@@ -1,6 +1,6 @@
-description: Plafond de la réduction d'impôt sur le revenu pour les cotisations syndicales
+description: Plafond de la réduction d'impôt pour la participation au financement participatif
 values:
-  2020-01-20:
+  2020-01-01:
     value: 3_000_000
 metadata:
   short_label: Plafond

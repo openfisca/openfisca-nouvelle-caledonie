@@ -1,6 +1,6 @@
-description: Taux applicable pour la réduction d'impôt pour les dépenses de mécénat
+description: Taux applicable pour la réduction d'impôt pour la participation au financement participatif
 values:
-  2020-01-20:
+  2020-01-01:
     value: 0.50
 metadata:
   short_label: Taux

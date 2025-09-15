@@ -1,6 +1,6 @@
 description: Plafond du crédit d'impôt pour les investissements agréés
 values:
-  2008-01-29:
+  2008-01-01:
     value: 0.7
 metadata:
   short_label: Investissements agréés

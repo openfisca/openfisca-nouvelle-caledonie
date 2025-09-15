@@ -1,10 +1,10 @@
-description: Taux applicable pour la réduction d'impôt pour les dépenses de mécénat
+description: Taux applicable pour la réduction d'impôt pour les cotisations syndicales
 values:
-  2017-01-17:
+  2016-01-01:
     value: 0.66
 metadata:
   short_label: Taux
-  label_en: Tax reduction rate for donations
+  label_en: Tax reduction for union membership fees
   unit: /1
   documentation: |
     Article [LP. 136-6 du Code des Impôts de Nouvelle-Calédonie](https://juridoc.gouv.nc/juridoc/jdcodes.nsf/CIPlan/1184C88F0147D4914B2580BA001058B3?OpenDocument)
