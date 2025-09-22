@@ -15,8 +15,5 @@ brackets:
 metadata:
   short_label: Cotisation FSH employeur
   label_en: Employer's FSH contribution
-  reference:
-    2017-01-01:
-      title: TODO (et corriger date)
   rate_unit: /1
   threshold_unit: plafond_fsh
