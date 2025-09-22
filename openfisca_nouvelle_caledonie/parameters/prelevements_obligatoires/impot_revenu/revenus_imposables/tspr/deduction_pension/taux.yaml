@@ -6,6 +6,3 @@ metadata:
   short_label: Taux
   label_en: Rate of the pension allowance
   unit: /1
-  reference:
-    2008-01-01:
-      title: TODO (et corriger date)

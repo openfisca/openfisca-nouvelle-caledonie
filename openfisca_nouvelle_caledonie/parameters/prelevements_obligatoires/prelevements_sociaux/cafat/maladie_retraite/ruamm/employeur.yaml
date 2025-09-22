@@ -61,8 +61,5 @@ brackets:
 metadata:
   short_label: Cotisation RUAMM employeur
   label_en: Employer's RUAMM contribution
-  reference:
-    2023-01-01:
-      title: TODO (et corriger date)
   rate_unit: /1
   threshold_unit: plafond_CAFAT_RUAMM
