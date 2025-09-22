@@ -97,8 +97,8 @@ class ba(Variable):
     definition_period = YEAR
 
     def formula(individu, period):
-        return individu("benefices_agricoles_regime_forfaitaire", period) + max_(
+        return (
+            individu("benefices_agricoles_regime_forfaitaire", period) +
             individu("benefices_agricoles_regime_reel", period)
             - individu("deficits_agricoles_regime_reel", period),
-            0,
         )

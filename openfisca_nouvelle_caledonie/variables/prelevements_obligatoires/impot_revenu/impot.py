@@ -22,7 +22,7 @@ class revenu_brut_global(Variable):
             "revenu_categoriel_non_salarie", period
         )
 
-        return (
+        return round_(
             revenus_categoriels_tspr
             + revenu_categoriel_capital
             + revenu_categoriel_foncier
@@ -94,6 +94,7 @@ class impot_brut(Variable):
         revenu_net_global_imposable = foyer_fiscal("revenu_net_global_imposable", period)
         impot_brut_avant_quotient = foyer_fiscal("impot_brut_avant_quotient", period)
         total = impot_brut_avant_quotient * 1.0
+
         roles = [FoyerFiscal.DECLARANT_PRINCIPAL, FoyerFiscal.CONJOINT]
 
         for role in roles:
@@ -170,7 +171,7 @@ class imputations(Variable):
 
 
 class impot_apres_reductions(Variable):
-    value_type = float
+    value_type = int
     entity = FoyerFiscal
     label = "Impot net"
     definition_period = YEAR
@@ -180,10 +181,13 @@ class impot_apres_reductions(Variable):
         impot_apres_imputations = max_(
             impot_brut - foyer_fiscal("imputations", period), 0
         )
+        print(f"{impot_brut=}")
+        print(f"{impot_apres_imputations=}")
         reductions_palfonnees = min_(
                 max_(impot_apres_imputations - 5_000, 0),
                 foyer_fiscal("reductions_impot", period),
             )
+        print(f"{reductions_palfonnees=}")
 
         return max_(impot_apres_imputations - reductions_palfonnees, 0)
 
@@ -217,6 +221,11 @@ class impot_net(Variable):
         )
         reduction_impots_reintegrees = foyer_fiscal("reduction_impots_reintegrees", period)
 
+        print(f"{impot_apres_reductions=}")
+        print(f"{credits_impot=}")
+        print(f"{plus_values_professionnelles=}")
+        print(f"{reduction_impots_reintegrees=}")
+
         return floor(
             impot_apres_reductions - credits_impot + plus_values_professionnelles + reduction_impots_reintegrees
         )
@@ -248,7 +257,7 @@ class impot_et_ccs_apres_penalites(Variable):
 
 def calcul_impot_brut_2016(foyer_fiscal, period, parameters, rngi = None):
     """Calcul de l'impôt brut pour les résidents et non-résidents pour la période 2016 et suivantes."""
-    return floor(
+    return round_(
         where(
             foyer_fiscal("resident", period),
             calcul_impot_brut_resident_2016(foyer_fiscal, period, parameters, rngi),
@@ -259,7 +268,7 @@ def calcul_impot_brut_2016(foyer_fiscal, period, parameters, rngi = None):
 
 def calcul_impot_brut_2008_2015(foyer_fiscal, period, parameters, rngi_variable_name = "revenu_net_global_imposable"):
     """Calcul de l'impôt brut pour les résidents et non-résidents pour les périodes 2008-2015."""
-    return floor(
+    return round_(
         where(
             foyer_fiscal("resident", period),
             calcul_impot_brut_resident_2008_2015(foyer_fiscal, period, parameters, rngi_variable_name),
@@ -363,6 +372,7 @@ def calcul_impot_brut_resident_2016(foyer_fiscal, period, parameters, rngi = Non
     taux_plafond = parameters(
         period
     ).prelevements_obligatoires.impot_revenu.taux_plafond
+
     return min_(
         taux_plafond * revenu_net_global_imposable, impot_brut
     )

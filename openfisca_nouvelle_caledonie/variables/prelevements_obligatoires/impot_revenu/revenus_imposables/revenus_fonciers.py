@@ -17,7 +17,7 @@ from openfisca_nouvelle_caledonie.entities import FoyerFiscal
 
 
 class revenus_fonciers_soumis_ir(Variable):
-    value_type = float
+    value_type = int
     unit = "currency"
     cerfa_field = "AA"
     entity = FoyerFiscal
@@ -26,7 +26,7 @@ class revenus_fonciers_soumis_ir(Variable):
 
 
 class revenus_fonciers_soumis_ccs(Variable):
-    value_type = float
+    value_type = int
     unit = "currency"
     cerfa_field = "AD"
     entity = FoyerFiscal

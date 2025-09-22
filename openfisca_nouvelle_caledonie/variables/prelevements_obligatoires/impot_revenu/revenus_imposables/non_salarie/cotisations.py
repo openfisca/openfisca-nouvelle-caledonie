@@ -108,7 +108,7 @@ class reste_cotisations_apres_bic_ba_bnc(Variable):
     def formula(individu, period):
         return max_(
             (
-                individu("reste_cotisations_apres_bic_avant_ba", period)
+                individu("reste_cotisations_apres_bic_ba_avant_bnc", period)
                 - individu("bnc", period)  # Concerne tous les BNC
             ),
             0,

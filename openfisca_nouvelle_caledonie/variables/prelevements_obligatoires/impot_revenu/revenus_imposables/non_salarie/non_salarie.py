@@ -11,8 +11,8 @@ class revenu_categoriel_non_salarie(Variable):
     definition_period = YEAR
 
     def formula(foyer_fiscal, period):
-        return foyer_fiscal.sum(
-            foyer_fiscal.members("bic", period)
-            + foyer_fiscal.members("ba", period)
-            + foyer_fiscal.members("bnc", period)
-        )  # Ajouter régime réel à BA
+        return (
+            max_(foyer_fiscal.sum(foyer_fiscal.members("bic", period)), 0)
+            + max_(foyer_fiscal.sum(foyer_fiscal.members("ba", period)), 0)
+            + max_(foyer_fiscal.sum(foyer_fiscal.members("bnc", period)), 0)
+        )

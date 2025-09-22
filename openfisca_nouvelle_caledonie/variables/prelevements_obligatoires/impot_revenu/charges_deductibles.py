@@ -1,5 +1,8 @@
 """Charges déductibles du revenu global."""
 
+from numpy import ceil
+
+
 from openfisca_core.model_api import *
 from openfisca_nouvelle_caledonie.entities import FoyerFiscal
 
@@ -115,7 +118,7 @@ class interets_emprunt_residence_secondaire_anciens(Variable):
 
 class deduction_interets_emprunt(Variable):
     unit = "currency"
-    value_type = float
+    value_type = int
     entity = FoyerFiscal
     label = "Charges déductibles du revenu global au titre des intérêts d’emprunt pour votre résidence principale"
     definition_period = YEAR
@@ -147,7 +150,7 @@ class deduction_interets_emprunt(Variable):
             foyer_fiscal("interets_emprunt_noumea_etc_anciens", period)
             + foyer_fiscal("interets_emprunt_residence_secondaire_anciens", period)
         )
-        return (
+        return ceil(
             interets_emprunt_noumea_etc_recents
             + interets_emprunt_noumea_etc_moins_recents
             + interets_emprunt_hors_noumea_etc_et_anciens
