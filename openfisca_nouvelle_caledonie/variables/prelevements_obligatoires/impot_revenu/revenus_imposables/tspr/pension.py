@@ -1,6 +1,6 @@
 """Pensions."""
 
-from openfisca_core.model_api import YEAR, Variable, max_, min_, where
+from openfisca_core.model_api import YEAR, Variable, max_, min_, round_, where
 from openfisca_nouvelle_caledonie.entities import FoyerFiscal, Individu
 
 # PENSIONS, RETRAITES ET RENTES À TITRE GRATUIT
@@ -58,7 +58,7 @@ class pension_retraite_rente_imposables_rectifiees(Variable):
 
 
 class pension_imposable_apres_deduction_et_abattement(Variable):
-    value_type = float
+    value_type = int
     entity = FoyerFiscal
     label = "Pensions imposables après déduction et abattement"
     definition_period = YEAR
@@ -107,11 +107,11 @@ class pension_imposable_apres_deduction_et_abattement(Variable):
                 0,
             )
         )
-        return where(
+        return round_(where(
             foyer_fiscal("resident", period),
             pension_apres_abattement,
             pension_apres_abattements_non_resident,
-        )
+        ))
 
 
 # Revenus de la déclaration complémentaire

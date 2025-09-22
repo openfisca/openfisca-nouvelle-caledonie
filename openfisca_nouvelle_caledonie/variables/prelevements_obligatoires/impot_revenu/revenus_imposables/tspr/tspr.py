@@ -1,11 +1,11 @@
 """Traitements, alaires, pensions et rentes."""
 
-from openfisca_core.model_api import YEAR, Variable
+from openfisca_core.model_api import YEAR, Variable, round_
 from openfisca_nouvelle_caledonie.entities import FoyerFiscal
 
 
 class revenus_categoriels_tspr(Variable):
-    value_type = float
+    value_type = int
     entity = FoyerFiscal
     label = "Revenus catégoriels des traitements, salaires, pensions et rentes"
     definition_period = YEAR
@@ -24,10 +24,10 @@ class revenus_categoriels_tspr(Variable):
             "rentes_viageres_a_titre_onereux", period
         )
         return (
-            salaire_imposable_apres_deduction_et_abattement
-            + indemnites
-            + pension_imposable_apres_deduction_et_abattement
-            + rentes_viageres_a_titre_onereux
+            round_(salaire_imposable_apres_deduction_et_abattement)
+            + round_(indemnites)
+            + round_(pension_imposable_apres_deduction_et_abattement)
+            + round_(rentes_viageres_a_titre_onereux)
         )
 
 

@@ -480,7 +480,7 @@ class credits_impot(Variable):
         mecenat_entreprise = parameters(
             period
         ).prelevements_obligatoires.impot_revenu.credits.mecenat_entreprise
-        credit_mecenat_entreprise = where(
+        credit_mecenat_entreprise = np.ceil(where(
             foyer_fiscal("resident", period),
             min_(
                 np.ceil(
@@ -489,7 +489,7 @@ class credits_impot(Variable):
                 impot_apres_reductions - credits_totaux,
             ),
             0,
-        )
+        ))
 
         reliquat_plafond_credits = max_(
             reliquat_plafond_credits - credit_mecenat_entreprise,

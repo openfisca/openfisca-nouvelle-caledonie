@@ -1,6 +1,8 @@
 """Traitements et salaires."""
 
-from openfisca_core.model_api import YEAR, Variable, max_, min_, where
+from numpy import ceil
+
+from openfisca_core.model_api import YEAR, Variable, max_, min_, round_, where
 from openfisca_nouvelle_caledonie.entities import FoyerFiscal, Individu
 from openfisca_nouvelle_caledonie.variables.prelevements_obligatoires.impot_revenu.revenus_imposables.non_salarie import (
     get_multiple_and_plafond_cafat_cotisation,
@@ -214,7 +216,7 @@ class salaire_percu_net_de_cotisation(Variable):
 
 class deduction_frais_professionnels(Variable):
     unit = "currency"
-    value_type = float
+    value_type = int
     entity = Individu
     label = "Déduction des frais professionnels des salaires"
     definition_period = YEAR
@@ -237,10 +239,10 @@ class deduction_frais_professionnels(Variable):
             ),
             frais_professionnels_forfaitaire.plafond,
         )
-        return max_(
+        return ceil(max_(
             individu("frais_reels", period),
             deduction_forfaitaire,
-        )
+        ))
 
 
 class deduction_frais_professionnels_salaire_differe(Variable):
@@ -335,7 +337,7 @@ class reliquat_abattement_sur_salaire(Variable):
 
 
 class salaire_imposable_apres_deduction_et_abattement(Variable):
-    value_type = float
+    value_type = int
     entity = Individu
     label = "Salaire imposable après déduction et abattement"
     definition_period = YEAR
@@ -348,7 +350,7 @@ class salaire_imposable_apres_deduction_et_abattement(Variable):
         deduction = individu("deduction_frais_professionnels", period)
         abattement = individu("abattement_sur_salaire", period)
 
-        return max_(salaire_percu_net_de_cotisation - deduction - abattement, 0)
+        return round_(max_(salaire_percu_net_de_cotisation - deduction - abattement, 0))
 
 
 # Revenus de la déclaration complémentaire
@@ -435,7 +437,7 @@ class indemnites(Variable):
     definition_period = YEAR
 
     def formula(foyer_fiscal, period, parameters):
-        # 20 % de l'indemnité brute dans la limote du reste de l'abattement sur salaire
+        # 20 % de l'indemnité brute dans la limite du reste de l'abattement sur salaire
         taux = parameters(
             period
         ).prelevements_obligatoires.impot_revenu.revenus_imposables.tspr.abattement.taux
