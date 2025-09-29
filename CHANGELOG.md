@@ -1,5 +1,12 @@
 # Changelog
 
+## 13.4.0 [#59](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/59)
+
+* Évolution du système socio-fiscal.
+* Périodes concernées : toutes.
+* Détails :
+  - Ajoute des variables pour le calcul des rémunérations dans le public
+
 ## 13.3.2 [#60](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/60)
 
 * Changement mineur.
@@ -7,7 +14,6 @@
 * Détails :
   - Nettoie des commentaires dans les paramètres
   - Lint
-
 
 ## 13.3.1 [#58](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/58)
 
