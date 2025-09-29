@@ -1,5 +1,5 @@
-from openfisca_core.parameters import ParameterNode
 from openfisca_core.model_api import Reform
+from openfisca_core.parameters import ParameterNode
 
 period = "2022-12-01"
 

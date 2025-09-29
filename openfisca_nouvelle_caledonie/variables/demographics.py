@@ -7,7 +7,6 @@ See https://openfisca.org/doc/key-concepts/variables.html
 
 from datetime import date
 
-
 # Import from numpy the operations you need to apply on OpenFisca's population vectors
 # Import from openfisca-core the objects used to code the legislation in OpenFisca
 from numpy import datetime64, timedelta64, where
