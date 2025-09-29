@@ -5,6 +5,33 @@ from openfisca_core.model_api import *
 from openfisca_nouvelle_caledonie.entities import Individu
 
 
+class nb_mois_echelon(Variable):
+    value_type = int
+    entity = Individu
+    definition_period = MONTH
+
+    def formula(individu, period):
+        nb_mois = individu("nb_mois_echelon", period.last_month)
+        echelon = individu("echelon", period)
+        echelon_precedent = individu("echelon", period.last_month)
+        return select(echelon == echelon_precedent, nb_mois, 0) + 1
+
+
+class echelon(Variable):
+    value_type = str
+    entity = Individu
+    definition_period = MONTH
+
+    def formula(individu, period, parameters):
+        nb_mois_echelon = individu("nb_mois_echelon", period.last_month)
+        echelon = individu("echelon", period.last_month)
+        P = parameters(period).remuneration_fonction_publique.echelons.meta[echelon]
+        duree = P.duree_moyenne
+        suivant = P.suivant
+
+        return select(nb_mois_echelon >= duree, suivant, echelon)
+
+
 class CategorieFonctionPublique(Enum):
     __order__ = "categorie_a categorie_b categorie_c non_concerne"
     categorie_a = "Categorie A"
@@ -13,7 +40,15 @@ class CategorieFonctionPublique(Enum):
     non_concerne = "Non concerné"
 
 
-class categorie_fonction_publique(Variable):
+class __ForwardVariable(Variable):
+    def get_formula(self, period):
+        def f(entity, period):
+            return entity(self.__class__.__name__, period.last_month)
+
+        return f
+
+
+class categorie_fonction_publique(__ForwardVariable):
     value_type = Enum
     possible_values = CategorieFonctionPublique
     default_value = CategorieFonctionPublique.non_concerne
@@ -29,7 +64,7 @@ class TypeFonctionPublique(Enum):
     non_concerne = "Non concerné"
 
 
-class type_fonction_publique(Variable):
+class type_fonction_publique(__ForwardVariable):
     value_type = Enum
     possible_values = TypeFonctionPublique
     default_value = TypeFonctionPublique.non_concerne
@@ -45,8 +80,13 @@ class indice_fonction_publique(Variable):
     set_input = set_input_dispatch_by_period
     definition_period = MONTH
 
+    def formula(individu, period, parameters):
+        echelon = individu("echelon", period)
+        echelons = parameters(period).remuneration_fonction_publique.echelons.indice
+        return echelons[echelon]
 
-class taux_indexation_fonction_publique(Variable):
+
+class taux_indexation_fonction_publique(__ForwardVariable):
     value_type = float
     entity = Individu
     label = "Taux d'indexation pour la rémunération dans le secteur public"
@@ -54,7 +94,7 @@ class taux_indexation_fonction_publique(Variable):
     definition_period = MONTH
 
 
-class temps_de_travail(Variable):
+class temps_de_travail(__ForwardVariable):
     value_type = float
     entity = Individu
     label = "Temps de travail"
