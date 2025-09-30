@@ -24,7 +24,12 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Information Analysis",
 ]
 
-dependencies = ["openfisca-core[web-api]>=43.4"]
+dependencies = [
+    "isort>=5.13.2",
+    "openfisca-core[web-api]>=43.4",
+    "ruff>=0.11.2",
+    "yamllint>=1.37.0",
+]
 optional-dependencies.dev = [
     "isort>=5.13.2,<6",
     "ruff>=0.6.9,<1",

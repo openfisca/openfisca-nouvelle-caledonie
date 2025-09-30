@@ -62,7 +62,7 @@ class age_en_mois(Variable):
     label = "Âge (en mois)"
     definition_period = MONTH
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         date_naissance = individu("birth", period)
         epsilon = timedelta64(1)
         return (datetime64(period.start) - date_naissance + epsilon).astype(

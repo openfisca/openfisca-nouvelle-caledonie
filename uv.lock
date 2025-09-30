@@ -370,7 +370,10 @@ name = "openfisca-nouvelle-caledonie"
 version = "13.3.1"
 source = { editable = "." }
 dependencies = [
+    { name = "isort" },
     { name = "openfisca-core", extra = ["web-api"] },
+    { name = "ruff" },
+    { name = "yamllint" },
 ]
 
 [package.optional-dependencies]
@@ -383,10 +386,13 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "isort", specifier = ">=5.13.2" },
     { name = "isort", marker = "extra == 'dev'", specifier = ">=5.13.2,<6" },
     { name = "openfisca-core", extras = ["web-api"], specifier = ">=43" },
+    { name = "ruff", specifier = ">=0.11.2" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.6.9,<1" },
     { name = "ruff-lsp", marker = "extra == 'dev'", specifier = ">=0.0.57,<1" },
+    { name = "yamllint", specifier = ">=1.37.0" },
     { name = "yamllint", marker = "extra == 'dev'", specifier = ">=1.35.1" },
 ]
 provides-extras = ["dev"]
