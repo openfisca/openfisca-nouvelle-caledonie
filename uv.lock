@@ -338,7 +338,7 @@ wheels = [
 
 [[package]]
 name = "openfisca-core"
-version = "43.3.5"
+version = "43.4.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "dpath" },
@@ -352,9 +352,9 @@ dependencies = [
     { name = "strenum" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/a5/be/43904cf1324d61dc359eb2478e0ecc49159cb219b6a72655f00301709856/openfisca_core-43.3.5.tar.gz", hash = "sha256:dc8d1756f4eefeb7b0dc0e35c64951f0ed0a9a0a1e5e3fa7e2ebe7dfc2b2e6c0", size = 198679 }
+sdist = { url = "https://files.pythonhosted.org/packages/0e/55/31eeaa3c896dd49cb5316853855f960cf6ba1232f122895aee4834af613a/openfisca_core-43.4.0.tar.gz", hash = "sha256:3c4152617e3ca8ba6aa550337c09a2e952a5d484b7ccc4e5c1d4fc29c5867eb2", size = 198230 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/54/ea/3f559bd6ad115e64a51030cc9fc610d8ebfeec03147ac11d88e7c5c01abc/openfisca_core-43.3.5-py3-none-any.whl", hash = "sha256:12f5e87d3ef4cff5832fe637fa87b52ac1dd27756c23d3536bc86a85ca75b735", size = 259097 },
+    { url = "https://files.pythonhosted.org/packages/4b/a3/cef7e750b4aea942cbda7a90d125d92c076838961c5c0d9fcb38ae2f2938/openfisca_core-43.4.0-py3-none-any.whl", hash = "sha256:6649c6a501ced9842f04b64e5ea4e12b030e5300bd0c3f8e4ac5ef5e2ba307a0", size = 257665 },
 ]
 
 [package.optional-dependencies]
@@ -367,7 +367,7 @@ web-api = [
 
 [[package]]
 name = "openfisca-nouvelle-caledonie"
-version = "13.3.1"
+version = "13.4.0"
 source = { editable = "." }
 dependencies = [
     { name = "isort" },
@@ -388,7 +388,7 @@ dev = [
 requires-dist = [
     { name = "isort", specifier = ">=5.13.2" },
     { name = "isort", marker = "extra == 'dev'", specifier = ">=5.13.2,<6" },
-    { name = "openfisca-core", extras = ["web-api"], specifier = ">=43" },
+    { name = "openfisca-core", extras = ["web-api"], specifier = ">=43.4" },
     { name = "ruff", specifier = ">=0.11.2" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.6.9,<1" },
     { name = "ruff-lsp", marker = "extra == 'dev'", specifier = ">=0.0.57,<1" },

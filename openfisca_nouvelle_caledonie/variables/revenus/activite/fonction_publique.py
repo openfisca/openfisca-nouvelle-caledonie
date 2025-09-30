@@ -41,7 +41,7 @@ class CategorieFonctionPublique(Enum):
 
 
 class __ForwardVariable(Variable):
-    def get_formula(self, period):
+    def get_formula(self):
         def f(entity, period):
             return entity(self.__class__.__name__, period.last_month)
 

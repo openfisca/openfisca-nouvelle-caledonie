@@ -1,14 +1,19 @@
+"""This module defines the reform for public service remuneration echelons in Nouvelle-Calédonie.
+
+It provides parameter construction utilities and applies modifications to the remuneration_fonction_publique parameters.
+"""
+
 from openfisca_core.model_api import Reform
 from openfisca_core.parameters import ParameterNode
 
 period = "2022-12-01"
 
 
-def build_param(value):
+def build_param(value):  # noqa: D103
     return {"values": {period: value}}
 
 
-def build_meta_params(array_string):
+def build_meta_params(array_string):  # noqa: D103
     array = array_string.split(",")
     return array[0], {
         "suivant": build_param(array[1]),
@@ -17,7 +22,7 @@ def build_meta_params(array_string):
 
 
 class reform(Reform):
-    def __init__(self, tbs):
+    def __init__(self, tbs):  # noqa: D107
         super().__init__(tbs)
 
     def apply(self):
@@ -26,13 +31,15 @@ class reform(Reform):
                 "echelons", ParameterNode("echelons", data={})
             )
 
-            params = """FTTAE2011,FTTAE2012,12
-FTTAE2012,FTTAE2013,12
-FTTAE2013,FTTAE2013,0
-AG002N009,AG002N010,12
-AG002N010,AG002N010,0""".split("\n")
+            params = [
+                "FTTAE2011,FTTAE2012,12",
+                "FTTAE2012,FTTAE2013,12",
+                "FTTAE2013,FTTAE2013,0",
+                "AG002N009,AG002N010,12",
+                "AG002N010,AG002N010,0",
+            ]
             meta_items = [build_meta_params(p) for p in params]
-            meta_data = {a: b for (a, b) in meta_items}
+            meta_data = dict(meta_items)
             meta = ParameterNode("meta", data=meta_data)
             local_parameters.remuneration_fonction_publique.echelons.add_child(
                 "meta", meta
