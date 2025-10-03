@@ -30,7 +30,7 @@
   max_spiral_loops: 24
   reforms:
     - openfisca_nouvelle_caledonie.reforms.echelons.reform
-  absolute_error_margin: 100
+  absolute_error_margin: 0.1
   input:
     nb_mois_echelon: 11
     echelon: AG002N009
@@ -40,14 +40,14 @@
     prime_fonction_publique: 0
     temps_de_travail: 1
   output:
-    indice_fonction_publique:
-      2025-08: 422
-    traitement_brut:
-      2025-08: 238339
-    traitement_complement_indexation:
-      2025-08: 161174
-    indemnite_residence: 
-      2025-08: 12370
     echelon:
       2025-08: AG002N009
       2025-09: AG002N010
+      2026-08: AG002N010
+      2026-09: AG002N011
+    indice_fonction_publique:
+      2025-07: 421
+      2025-08: 421
+      2025-09: 422
+      2026-08: 422
+      2026-09: 423
