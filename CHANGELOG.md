@@ -1,6 +1,15 @@
 # Changelog
 
-## 13.3.0 [#58](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/58)
+## 13.3.2 [#60](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/60)
+
+* Changement mineur.
+* Périodes concernées : toutes.
+* Détails :
+  - Nettoie des commentaires dans les paramètres
+  - Lint
+
+
+## 13.3.1 [#58](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/58)
 
 * Évolution du système socio-fiscal.
 * Périodes concernées : toutes.
