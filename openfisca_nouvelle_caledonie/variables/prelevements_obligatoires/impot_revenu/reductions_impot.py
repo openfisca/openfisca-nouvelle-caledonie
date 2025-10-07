@@ -27,7 +27,6 @@ class reductions_impot(Variable):
                 period,
             )
             + foyer_fiscal("reduction_dons_organismes_aide_pme", period)
-
         )
 
 
