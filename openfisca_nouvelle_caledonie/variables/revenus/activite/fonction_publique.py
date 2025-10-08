@@ -5,15 +5,58 @@ from openfisca_core.model_api import *
 from openfisca_nouvelle_caledonie.entities import Individu
 
 
+class nb_mois_echelon(Variable):
+    value_type = int
+    entity = Individu
+    definition_period = MONTH
+
+    def formula(individu, period):
+        nb_mois = individu("nb_mois_echelon", period.last_month)
+        echelon = individu("echelon", period)
+        echelon_precedent = individu("echelon", period.last_month)
+        return where(echelon == echelon_precedent, nb_mois, 0) + 1
+
+
+class echelon(Variable):
+    value_type = str
+    entity = Individu
+    definition_period = MONTH
+
+    def formula(individu, period, parameters):
+        nb_mois_echelon = individu("nb_mois_echelon", period.last_month)
+        p = period.last_month
+        echelon = individu("echelon", p)
+        P = parameters(period).remuneration_fonction_publique.echelons.meta[echelon]
+        duree = P.duree_moyenne
+        suivant = P.suivant
+
+        return where(nb_mois_echelon >= duree, suivant, echelon)
+
+
 class CategorieFonctionPublique(Enum):
-    __order__ = "categorie_a categorie_b categorie_c non_concerne"
+    __order__ = "categorie_a categorie_b categorie_c categorie_d non_concerne"
     categorie_a = "Categorie A"
     categorie_b = "Categorie B"
     categorie_c = "Categorie C"
+    categorie_d = "Categorie D"
     non_concerne = "Non concerné"
 
 
-class categorie_fonction_publique(Variable):
+class __ForwardVariable(Variable):
+    def get_formula(self, _):
+        def f(entity, period):
+            return entity(self.__class__.__name__, period.last_month)
+
+        return f
+
+
+class matricule(__ForwardVariable):
+    value_type = str
+    entity = Individu
+    definition_period = MONTH
+
+
+class categorie_fonction_publique(__ForwardVariable):
     value_type = Enum
     possible_values = CategorieFonctionPublique
     default_value = CategorieFonctionPublique.non_concerne
@@ -29,7 +72,7 @@ class TypeFonctionPublique(Enum):
     non_concerne = "Non concerné"
 
 
-class type_fonction_publique(Variable):
+class type_fonction_publique(__ForwardVariable):
     value_type = Enum
     possible_values = TypeFonctionPublique
     default_value = TypeFonctionPublique.non_concerne
@@ -45,8 +88,13 @@ class indice_fonction_publique(Variable):
     set_input = set_input_dispatch_by_period
     definition_period = MONTH
 
+    def formula(individu, period, parameters):
+        echelon = individu("echelon", period)
+        echelons = parameters(period).remuneration_fonction_publique.echelons.indice
+        return echelons[echelon]
 
-class taux_indexation_fonction_publique(Variable):
+
+class taux_indexation_fonction_publique(__ForwardVariable):
     value_type = float
     entity = Individu
     label = "Taux d'indexation pour la rémunération dans le secteur public"
@@ -54,13 +102,25 @@ class taux_indexation_fonction_publique(Variable):
     definition_period = MONTH
 
 
-class temps_de_travail(Variable):
+class temps_de_travail(__ForwardVariable):
     value_type = float
     entity = Individu
     label = "Temps de travail"
     set_input = set_input_dispatch_by_period
     definition_period = MONTH
     default_value = 1.0
+
+
+class est_retraite(Variable):
+    value_type = bool
+    entity = Individu
+    label = "Personne retraitée"
+    definition_period = MONTH
+
+    def formula(individu, period, parameters):
+        age_en_mois = individu("age_en_mois", period)
+        age_max = parameters(period).remuneration_fonction_publique.mois_retraite
+        return age_en_mois >= age_max
 
 
 class traitement_brut(Variable):
@@ -79,7 +139,40 @@ class traitement_brut(Variable):
             type_fonction_publique
         ]
 
-        return indice * valeur_point * temps_de_travail
+        ajustement = individu("traitement_brut_ajustement", period)
+
+        est_retraite = individu("est_retraite", period)
+
+        return not_(est_retraite) * (
+            indice * valeur_point * temps_de_travail + ajustement
+        )
+
+
+class traitement_brut_ajustement(Variable):
+    value_type = float
+    entity = Individu
+    label = "Ajustement au traitement brut"
+    set_input = set_input_divide_by_period
+    definition_period = MONTH
+    unit = "currency"
+
+
+class complement_brut(Variable):
+    value_type = float
+    entity = Individu
+    label = "Ressources brutes complémentaires"
+    set_input = set_input_divide_by_period
+    definition_period = MONTH
+    unit = "currency"
+
+
+class allocations_familiales_publiques(Variable):
+    value_type = float
+    entity = Individu
+    label = "Ressources brutes complémentaires"
+    set_input = set_input_divide_by_period
+    definition_period = MONTH
+    unit = "currency"
 
 
 class traitement_complement_indexation(Variable):
@@ -123,8 +216,9 @@ class indemnite_residence(Variable):
         valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
             type_fonction_publique
         ]
+        est_retraite = individu("est_retraite", period)
 
-        return (
+        return not_(est_retraite) * (
             indice
             * valeur_point
             * temps_de_travail
@@ -154,7 +248,9 @@ class prime_fonction_publique(Variable):
             type_fonction_publique
         ]
 
-        return (
+        est_retraite = individu("est_retraite", period)
+
+        return not_(est_retraite) * (
             prime * valeur_point * temps_de_travail * taux_indexation_fonction_publique
         )
 
@@ -176,11 +272,17 @@ class base_cotisation_fonction_publique(Variable):
         )
         indemnite_residence = individu("indemnite_residence", period)
         prime_fonction_publique = individu("prime_fonction_publique", period)
-        return (
+
+        complement_brut = individu("complement_brut", period)
+
+        est_retraite = individu("est_retraite", period)
+
+        return not_(est_retraite) * (
             traitement_brut
             + traitement_complement_indexation
             + indemnite_residence
             + prime_fonction_publique
+            + complement_brut
         )
 
 
@@ -226,6 +328,15 @@ class cotisation_MCS(Variable):
         return -P.taux_salarie * base
 
 
+class cotisation_NMF_taux_salarie(Variable):
+    value_type = float
+    entity = Individu
+    label = "Taux de cotisation salariée NMF"
+    set_input = set_input_divide_by_period
+    definition_period = MONTH
+    unit = "currency"
+
+
 class cotisation_NMFS(Variable):
     value_type = float
     entity = Individu
@@ -234,10 +345,19 @@ class cotisation_NMFS(Variable):
     definition_period = MONTH
     unit = "currency"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
+        taux = individu("cotisation_NMF_taux_salarie", period)
         base = individu("base_cotisation_fonction_publique", period)
-        P = parameters(period).remuneration_fonction_publique.nmf
-        return -P.taux_salarie * base
+        return -taux * base
+
+
+class cotisation_NMF_taux_patronale(Variable):
+    value_type = float
+    entity = Individu
+    label = "Taux de cotisation patronale NMF"
+    set_input = set_input_divide_by_period
+    definition_period = MONTH
+    unit = "currency"
 
 
 class cotisation_NMFP(Variable):
@@ -248,10 +368,26 @@ class cotisation_NMFP(Variable):
     definition_period = MONTH
     unit = "currency"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
+        taux = individu("cotisation_NMF_taux_patronale", period)
         base = individu("base_cotisation_fonction_publique", period)
-        P = parameters(period).remuneration_fonction_publique.nmf
-        return P.taux_patronale * base
+        return taux * base
+
+
+class base_cotisation_NCJ(Variable):
+    value_type = float
+    entity = Individu
+    label = "Base pour les cotisations NCJ"
+    set_input = set_input_divide_by_period
+    definition_period = MONTH
+    unit = "currency"
+
+    def formula(individu, period):
+        traitement_brut = individu("traitement_brut", period)
+        taux_indexation_fonction_publique = individu(
+            "taux_indexation_fonction_publique", period
+        )
+        return traitement_brut * taux_indexation_fonction_publique
 
 
 class cotisation_NCJS(Variable):
@@ -263,11 +399,7 @@ class cotisation_NCJS(Variable):
     unit = "currency"
 
     def formula(individu, period, parameters):
-        traitement_brut = individu("traitement_brut", period)
-        taux_indexation_fonction_publique = individu(
-            "taux_indexation_fonction_publique", period
-        )
-        base = traitement_brut * taux_indexation_fonction_publique
+        base = individu("base_cotisation_NCJ", period)
 
         P = parameters(period).remuneration_fonction_publique.ncj
         return -P.taux_salarie * base
@@ -282,11 +414,7 @@ class cotisation_NCJP(Variable):
     unit = "currency"
 
     def formula(individu, period, parameters):
-        traitement_brut = individu("traitement_brut", period)
-        taux_indexation_fonction_publique = individu(
-            "taux_indexation_fonction_publique", period
-        )
-        base = traitement_brut * taux_indexation_fonction_publique
+        base = individu("base_cotisation_NCJ", period)
 
         P = parameters(period).remuneration_fonction_publique.ncj
         return P.taux_patronale * base

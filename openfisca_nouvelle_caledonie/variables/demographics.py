@@ -9,7 +9,7 @@ from datetime import date
 
 # Import from numpy the operations you need to apply on OpenFisca's population vectors
 # Import from openfisca-core the objects used to code the legislation in OpenFisca
-from numpy import where
+from numpy import datetime64, timedelta64, where
 
 from openfisca_core.periods import ETERNITY, MONTH
 from openfisca_core.variables import Variable
@@ -53,3 +53,18 @@ class age(Variable):
         return (period.start.year - birth_year) - where(
             is_birthday_past, 0, 1
         )  # If the birthday is not passed this year, subtract one year
+
+
+class age_en_mois(Variable):
+    value_type = int
+    unit = "months"
+    entity = Individu
+    label = "Âge (en mois)"
+    definition_period = MONTH
+
+    def formula(individu, period):
+        date_naissance = individu("birth", period)
+        epsilon = timedelta64(1)
+        return (datetime64(period.start) - date_naissance + epsilon).astype(
+            "timedelta64[M]"
+        )

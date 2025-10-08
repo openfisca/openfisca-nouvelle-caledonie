@@ -1,0 +1,56 @@
+- period: 2026-01
+  max_spiral_loops: 10
+  reforms:
+    - openfisca_nouvelle_caledonie.reforms.echelons.reform
+  input:
+    echelon: FTTAE2011
+    nb_mois_echelon: 0
+  output:
+    nb_mois_echelon:
+      2026-11: 10
+      2027-02: 1
+    echelon:
+      2027-02: FTTAE2012
+
+- period: 2026-01
+  max_spiral_loops: 24
+  reforms:
+    - openfisca_nouvelle_caledonie.reforms.echelons.reform
+  input:
+    echelon: FTTAE2011
+    nb_mois_echelon:
+      2026-01: 12
+  output:
+    echelon:
+      2026-02: FTTAE2012
+      2027-04: FTTAE2013
+      2027-02: FTTAE2013
+    nb_mois_echelon:
+      2026-02: 1
+
+- period: 2025-07
+  name: AS10007247
+  max_spiral_loops: 24
+  reforms:
+    - openfisca_nouvelle_caledonie.reforms.echelons.reform
+  absolute_error_margin: 0.1
+  input:
+    nb_mois_echelon: 11
+    echelon: AG002N009
+    type_fonction_publique: territoriale
+    taux_indexation_fonction_publique: 1.73
+    categorie_fonction_publique: categorie_b
+    prime_fonction_publique: 0
+    temps_de_travail: 1
+  output:
+    echelon:
+      2025-08: AG002N009
+      2025-09: AG002N010
+      2026-08: AG002N010
+      2026-09: AG002N011
+    indice_fonction_publique:
+      2025-07: 421
+      2025-08: 421
+      2025-09: 422
+      2026-08: 422
+      2026-09: 423
