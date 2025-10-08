@@ -14,7 +14,7 @@ class nb_mois_echelon(Variable):
         nb_mois = individu("nb_mois_echelon", period.last_month)
         echelon = individu("echelon", period)
         echelon_precedent = individu("echelon", period.last_month)
-        return select(echelon == echelon_precedent, nb_mois, 0) + 1
+        return where(echelon == echelon_precedent, nb_mois, 0) + 1
 
 
 class echelon(Variable):
@@ -24,19 +24,21 @@ class echelon(Variable):
 
     def formula(individu, period, parameters):
         nb_mois_echelon = individu("nb_mois_echelon", period.last_month)
-        echelon = individu("echelon", period.last_month)
+        p = period.last_month
+        echelon = individu("echelon", p)
         P = parameters(period).remuneration_fonction_publique.echelons.meta[echelon]
         duree = P.duree_moyenne
         suivant = P.suivant
 
-        return select(nb_mois_echelon >= duree, suivant, echelon)
+        return where(nb_mois_echelon >= duree, suivant, echelon)
 
 
 class CategorieFonctionPublique(Enum):
-    __order__ = "categorie_a categorie_b categorie_c non_concerne"
+    __order__ = "categorie_a categorie_b categorie_c categorie_d non_concerne"
     categorie_a = "Categorie A"
     categorie_b = "Categorie B"
     categorie_c = "Categorie C"
+    categorie_d = "Categorie D"
     non_concerne = "Non concerné"
 
 
@@ -46,6 +48,12 @@ class __ForwardVariable(Variable):
             return entity(self.__class__.__name__, period.last_month)
 
         return f
+
+
+class matricule(__ForwardVariable):
+    value_type = str
+    entity = Individu
+    definition_period = MONTH
 
 
 class categorie_fonction_publique(__ForwardVariable):

@@ -26,7 +26,7 @@ class reform(Reform):
                 "echelons", ParameterNode("echelons", data={})
             )
 
-            # VIASGRILLES[["Grille indiciaire - Code", "Grille Suivante", "Durée Moyenne"]] 
+            # VIASGRILLES[["Grille indiciaire - Code", "Grille Suivante", "Durée Moyenne"]]
             params = """FTTAE2011,FTTAE2012,12
 FTTAE2012,FTTAE2013,12
 FTTAE2013,FTTAE2013,0
