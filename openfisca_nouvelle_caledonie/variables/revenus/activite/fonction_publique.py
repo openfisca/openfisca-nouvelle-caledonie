@@ -43,7 +43,7 @@ class CategorieFonctionPublique(Enum):
 
 
 class __ForwardVariable(Variable):
-    def get_formula(self, period):
+    def get_formula(self):
         def f(entity, period):
             return entity(self.__class__.__name__, period.last_month)
 
@@ -345,7 +345,7 @@ class cotisation_NMFS(Variable):
     definition_period = MONTH
     unit = "currency"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         taux = individu("cotisation_NMF_taux_salarie", period)
         base = individu("base_cotisation_fonction_publique", period)
         return -taux * base
@@ -368,7 +368,7 @@ class cotisation_NMFP(Variable):
     definition_period = MONTH
     unit = "currency"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         taux = individu("cotisation_NMF_taux_patronale", period)
         base = individu("base_cotisation_fonction_publique", period)
         return taux * base
@@ -382,7 +382,7 @@ class base_cotisation_NCJ(Variable):
     definition_period = MONTH
     unit = "currency"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         traitement_brut = individu("traitement_brut", period)
         taux_indexation_fonction_publique = individu(
             "taux_indexation_fonction_publique", period

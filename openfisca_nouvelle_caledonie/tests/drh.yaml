@@ -8,6 +8,9 @@
   output:
     nb_mois_echelon:
       2026-11: 10
+      2027-02: 1
+    echelon:
+      2027-02: FTTAE2012
 
 - period: 2026-01
   max_spiral_loops: 24
