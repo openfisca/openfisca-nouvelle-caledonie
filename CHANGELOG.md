@@ -6,6 +6,7 @@
 * Périodes concernées : toutes.
 * Détails :
   - Ajoute des variables pour le calcul des rémunérations dans le public
+  - Ajoute une réforme pour ajouter les grilles d'échelons
 
 ### 13.3.2 [#60](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/60)
 
