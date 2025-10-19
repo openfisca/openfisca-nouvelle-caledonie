@@ -1,15 +1,12 @@
 """Réformes pour l'intégration des grilles d'échelons, il sera peut-être pertinent d'intégrer ça au constructeur du TBS."""
 
-from dotenv import load_dotenv
+import os
+
 import numpy as np
+import pandas as pd
+
 from openfisca_core.model_api import Reform
 from openfisca_core.parameters import ParameterNode
-import os
-import pandas as pd
-from sqlalchemy import create_engine
-
-load_dotenv()
-
 
 period = "2022-12-01"
 
@@ -27,7 +24,7 @@ def build_meta_params(next_name, value):
     }
 
 
-class reform(Reform):
+class GrilleReform(Reform):
     def __init__(self, tbs, meta_data, indice_data):
         """Réforme de base pour l'intégration de barèmes par échelon."""
         self.meta_data = meta_data
@@ -62,7 +59,7 @@ class reform(Reform):
         self.modify_parameters(modifier_function=modify_parameters)
 
 
-class ci_reform(reform):
+class CIReform(GrilleReform):
     def __init__(self, tbs):
         """Réforme pour réaliser les tests en CI."""
         meta_data = [
@@ -83,18 +80,3 @@ class ci_reform(reform):
             ["AG002N011", 423],
         ]
         super().__init__(tbs, meta_data, indice_data)
-
-
-class db_reform(reform):
-    def __init__(self, tbs):
-        """Réforme pour importer les grilles depuis une base de données."""
-        engine = create_engine(os.environ["DATABASE_URL"])
-
-        l_input_df = pd.read_sql("VIOFMVTP", con=engine)
-        grille_df = pd.read_sql("VIASGRILLES", con=engine)
-        grilleinm_df = pd.read_sql("VIASGRILLESINM", con=engine)
-
-        gcols = ["Grille indiciaire - Code", "Grille Suivante", "Durée Moyenne"]
-        lg = grille_df[gcols]
-        lgi = grilleinm_df[["Grille", "Inm"]]
-        super().__init__(tbs, lg.itertuples(index=False), lgi.itertuples(index=False))

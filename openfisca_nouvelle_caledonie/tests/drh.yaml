@@ -1,7 +1,7 @@
 - period: 2026-01
   max_spiral_loops: 10
   reforms:
-    - openfisca_nouvelle_caledonie.reforms.echelons.ci_reform
+    - openfisca_nouvelle_caledonie.reforms.echelons.CIReform
   input:
     echelon: FTTAE2011
     nb_mois_echelon: 0
@@ -15,7 +15,7 @@
 - period: 2026-01
   max_spiral_loops: 24
   reforms:
-    - openfisca_nouvelle_caledonie.reforms.echelons.ci_reform
+    - openfisca_nouvelle_caledonie.reforms.echelons.CIReform
   input:
     echelon: FTTAE2011
     nb_mois_echelon:
@@ -32,7 +32,7 @@
   name: AS10007247
   max_spiral_loops: 24
   reforms:
-    - openfisca_nouvelle_caledonie.reforms.echelons.ci_reform
+    - openfisca_nouvelle_caledonie.reforms.echelons.CIReform
   absolute_error_margin: 0.1
   input:
     nb_mois_echelon: 11
@@ -54,24 +54,3 @@
       2025-09: 422
       2026-08: 422
       2026-09: 423
-
-
-# - period: 2025-07
-#   name: AS10007247
-#   max_spiral_loops: 1
-#   reforms:
-#     - openfisca_nouvelle_caledonie.reforms.echelons.db_reform
-#   absolute_error_margin: 0.1
-#   input:
-#     nb_mois_echelon: 0
-#     echelon: E010 S001
-#     type_fonction_publique: territoriale
-#     taux_indexation_fonction_publique: 1.73
-#     categorie_fonction_publique: categorie_b
-#     prime_fonction_publique: 0
-#     temps_de_travail: 1
-#   output:
-#     echelon:
-#       2025-08: E010 S001
-#       2025-09: E010 S001
-#       2025-10: E010 S002
