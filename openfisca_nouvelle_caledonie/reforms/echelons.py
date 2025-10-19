@@ -13,10 +13,12 @@ def build_param(value):
     return {"values": {period: value}}
 
 
-def build_meta_params(next_name, value):
+def build_meta_params(name, next_name, value):
     """Permet la création des sous-arbres des échelons."""
+    next_value = next_name or name
+    assert next_value, name
     return {
-        "suivant": build_param(next_name),
+        "suivant": build_param(next_value),
         "duree_moyenne": build_param(value),
     }
 
@@ -36,7 +38,7 @@ class GrilleReform(Reform):
 
             # VIASGRILLES[["Grille indiciaire - Code", "Grille Suivante", "Durée Moyenne"]]
             meta_nodes = {
-                name: build_meta_params(next_name or name, value)
+                name: build_meta_params(name, next_name, value)
                 for [name, next_name, value] in self.meta_data
             }
             meta = ParameterNode("meta", data=meta_nodes)
