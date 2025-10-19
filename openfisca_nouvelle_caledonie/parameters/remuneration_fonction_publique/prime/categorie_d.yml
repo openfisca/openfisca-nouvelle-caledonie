@@ -1,0 +1,6 @@
+description: Point de prime pour catégorie D
+values:
+  2006-01-01:
+    value: 19
+documentation: |
+    K_PointCatD = 19
