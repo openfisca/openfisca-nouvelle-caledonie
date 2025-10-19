@@ -1,7 +1,16 @@
 # Changelog
 
+## 13.5.0 [#62](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/62)
+
+* Évolution du système socio-fiscal.
+* Périodes concernées :
+* Détails :
+  - Utilise une réforme pour charger les grilles de rémunération dans le public depuis une base de donnée
+  - Ajoute la gestion des primes pour la catégorie D
+
+
 ## 13.4.0 [#59](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/59)
-  
+
 * Évolution du système socio-fiscal.
 * Périodes concernées : toutes.
 * Détails :
