@@ -1,9 +1,6 @@
 """Réformes pour l'intégration des grilles d'échelons, il sera peut-être pertinent d'intégrer ça au constructeur du TBS."""
 
-import os
-
 import numpy as np
-import pandas as pd
 
 from openfisca_core.model_api import Reform
 from openfisca_core.parameters import ParameterNode
@@ -68,7 +65,7 @@ class CIReform(GrilleReform):
             ["FTTAE2013", "FTTAE2013", 0],
             ["AG002N009", "AG002N010", 12],
             ["AG002N010", "AG002N011", 12],
-            ["AG002N011", None, np.NaN],
+            ["AG002N011", None, np.nan],
         ]
 
         indice_data = [
