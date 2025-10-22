@@ -55,3 +55,68 @@
       2025-09: 422
       2026-08: 422
       2026-09: 423
+
+- period: 2025-07
+  input:
+    indice_fonction_publique: 100
+    employeur_public_direction: G0600001
+    temps_de_travail: 1
+    type_fonction_publique: territoriale
+    taux_indexation_fonction_publique: 1
+    prime_speciale_points: 14
+  output:
+    prime_speciale: 0
+
+- period: 2025-07
+  input:
+    employeur_public_direction: G0600000
+    temps_de_travail: 1
+    type_fonction_publique: territoriale
+    taux_indexation_fonction_publique: 1
+    prime_speciale_points: 14
+  output:
+    prime_speciale: 14*565
+
+- period: 2025-07
+  input:
+    employeur_public_direction: G0600000
+    temps_de_travail: 1
+    type_fonction_publique: territoriale
+    taux_indexation_fonction_publique: 1
+    prime_technicite_points: 10
+  output:
+    prime_technicite: 10*565
+
+- period: 2025-07
+  input:
+    employeur_public_direction: G0800000
+    echelon_carriere_normale_domaine: ER
+    temps_de_travail: 1
+    type_fonction_publique: territoriale
+    taux_indexation_fonction_publique: 1
+    prime_speciale_technicite_points: 9
+  output:
+    prime_speciale_technicite: 9*565
+
+- period: 2025-07
+  input:
+    employeur_public_direction: G98000KO
+    echelon_carriere_normale_domaine: ER
+    temps_de_travail: 1
+    type_fonction_publique: territoriale
+    taux_indexation_fonction_publique: 1
+    prime_speciale_technicite_points: 8
+  output:
+    prime_speciale_technicite: 8*565
+
+- period: 2025-07
+  input:
+    employeur_public_direction: G98000KO
+    echelon_carriere_normale_domaine: ER
+    temps_de_travail: 1
+    type_fonction_publique: territoriale
+    taux_indexation_fonction_publique: 1
+    prime_speciale_technicite_points: 8
+    prime_technicite: 1
+  output:
+    prime_speciale_technicite: 0
