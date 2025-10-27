@@ -120,3 +120,19 @@
     prime_technicite: 1
   output:
     prime_speciale_technicite: 0
+
+- period: 2025-07
+  reforms:
+    - openfisca_nouvelle_caledonie.reforms.echelons.CIReform
+  input:
+    echelon_carriere_normale: YTTAS1006
+  output:
+    echelon_carriere_normale_domaine: ST
+
+- period: 2025-07
+  reforms:
+    - openfisca_nouvelle_caledonie.reforms.echelons.CIReform
+  input:
+    echelon_carriere_normale: Y202 DX0U
+  output:
+    echelon_carriere_normale_domaine: non_concerne

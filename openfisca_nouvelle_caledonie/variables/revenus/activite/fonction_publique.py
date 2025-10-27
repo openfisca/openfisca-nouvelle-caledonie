@@ -33,6 +33,36 @@ class echelon(Variable):
         return where(nb_mois_echelon >= duree, suivant, echelon)
 
 
+class nb_mois_echelon_carriere_normale(Variable):
+    value_type = int
+    entity = Individu
+    definition_period = MONTH
+
+    def formula(individu, period):
+        nb_mois = individu("nb_mois_echelon_carriere_normale", period.last_month)
+        echelon = individu("echelon_carriere_normale", period)
+        echelon_precedent = individu("echelon_carriere_normale", period.last_month)
+        return where(echelon == echelon_precedent, nb_mois, 0) + 1
+
+
+class echelon_carriere_normale(Variable):
+    value_type = str
+    entity = Individu
+    definition_period = MONTH
+
+    def formula(individu, period, parameters):
+        nb_mois_echelon = individu(
+            "nb_mois_echelon_carriere_normale", period.last_month
+        )
+        p = period.last_month
+        echelon = individu("echelon_carriere_normale", p)
+        P = parameters(period).remuneration_fonction_publique.echelons.meta[echelon]
+        duree = P.duree_moyenne
+        suivant = P.suivant
+
+        return where(nb_mois_echelon >= duree, suivant, echelon)
+
+
 class echelon_carriere_normale_domaine(Variable):
     value_type = str
     entity = Individu
@@ -41,9 +71,9 @@ class echelon_carriere_normale_domaine(Variable):
     definition_period = MONTH
 
     def formula(individu, period, parameters):
+        echelon = individu("echelon_carriere_normale", period)
         P = parameters(period).remuneration_fonction_publique.echelons.meta[echelon]
-        duree = P.domaine
-        return echelons[echelon]
+        return P.domaine
 
 
 class CategorieFonctionPublique(Enum):
@@ -101,7 +131,7 @@ class employeur_public_direction(__ForwardVariable):
     label = "Identifiant de l'employeur public"
 
 
-class prime_speciale_points(Variable):
+class prime_speciale_points(__ForwardVariable):
     value_type = float
     entity = Individu
     definition_period = MONTH
@@ -134,7 +164,7 @@ class prime_speciale(Variable):
         )
 
 
-class prime_technicite_points(Variable):
+class prime_technicite_points(__ForwardVariable):
     value_type = float
     entity = Individu
     definition_period = MONTH
@@ -167,7 +197,7 @@ class prime_technicite(Variable):
         )
 
 
-class prime_speciale_technicite_points(Variable):
+class prime_speciale_technicite_points(__ForwardVariable):
     value_type = float
     entity = Individu
     definition_period = MONTH
