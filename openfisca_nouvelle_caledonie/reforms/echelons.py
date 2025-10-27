@@ -13,12 +13,14 @@ def build_param(value):
     return {"values": {period: value}}
 
 
-def build_meta_params(name, next_name, value):
+def build_meta_params(name, domaine, next_name, value):
     """Permet la création des sous-arbres des échelons."""
     next_value = next_name or name
     assert next_value, name
+    domaine_value = domaine or "non_concerne"
     return {
         "suivant": build_param(next_value),
+        "domaine": build_param(domaine_value),
         "duree_moyenne": build_param(value),
     }
 
@@ -38,8 +40,8 @@ class GrilleReform(Reform):
 
             # VIASGRILLES[["Grille indiciaire - Code", "Grille Suivante", "Durée Moyenne"]]
             meta_nodes = {
-                name: build_meta_params(name, next_name, value)
-                for [name, next_name, value] in self.meta_data
+                name: build_meta_params(name, domaine, next_name, value)
+                for [name, domaine, next_name, value] in self.meta_data
             }
             meta = ParameterNode("meta", data=meta_nodes)
             local_parameters.remuneration_fonction_publique.echelons.add_child(
@@ -62,12 +64,14 @@ class CIReform(GrilleReform):
     def __init__(self, tbs):
         """Réforme pour réaliser les tests en CI."""
         meta_data = [
-            ["FTTAE2011", "FTTAE2012", 12],
-            ["FTTAE2012", "FTTAE2013", 12],
-            ["FTTAE2013", "FTTAE2013", 0],
-            ["AG002N009", "AG002N010", 12],
-            ["AG002N010", "AG002N011", 12],
-            ["AG002N011", None, np.nan],
+            ["FTTAE2011", "ER", "FTTAE2012", 12],
+            ["FTTAE2012", "ER", "FTTAE2013", 12],
+            ["FTTAE2013", "ER", "FTTAE2013", 0],
+            ["AG002N009", "ER", "AG002N010", 12],
+            ["AG002N010", "ER", "AG002N011", 12],
+            ["AG002N011", "EQ", None, np.nan],
+            ["YTTAS1006", "ST", "YTTAS1007", 12],
+            ["Y202 DX0U", None, "Y202 DX0Z", 12],
         ]
 
         indice_data = [

@@ -1,5 +1,14 @@
 # Changelog
 
+## 13.6.0 [#63](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/63)
+
+* Évolution du système socio-fiscal.
+* Périodes concernées : toutes
+* Zones impactées : `variables/revenus/activite/fonction_publique.py`.
+* Détails :
+  - Enrichit la réforme qui permet d'importer des données d'échelons
+  - Ajoute des variables relatives à des primes de la fonction publique
+
 ## 13.5.0 [#62](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/62)
 
 * Évolution du système socio-fiscal.

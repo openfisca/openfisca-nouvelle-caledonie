@@ -33,6 +33,49 @@ class echelon(Variable):
         return where(nb_mois_echelon >= duree, suivant, echelon)
 
 
+class nb_mois_echelon_carriere_normale(Variable):
+    value_type = int
+    entity = Individu
+    definition_period = MONTH
+
+    def formula(individu, period):
+        nb_mois = individu("nb_mois_echelon_carriere_normale", period.last_month)
+        echelon = individu("echelon_carriere_normale", period)
+        echelon_precedent = individu("echelon_carriere_normale", period.last_month)
+        return where(echelon == echelon_precedent, nb_mois, 0) + 1
+
+
+class echelon_carriere_normale(Variable):
+    value_type = str
+    entity = Individu
+    definition_period = MONTH
+
+    def formula(individu, period, parameters):
+        nb_mois_echelon = individu(
+            "nb_mois_echelon_carriere_normale", period.last_month
+        )
+        p = period.last_month
+        echelon = individu("echelon_carriere_normale", p)
+        P = parameters(period).remuneration_fonction_publique.echelons.meta[echelon]
+        duree = P.duree_moyenne
+        suivant = P.suivant
+
+        return where(nb_mois_echelon >= duree, suivant, echelon)
+
+
+class echelon_carriere_normale_domaine(Variable):
+    value_type = str
+    entity = Individu
+    label = "Indice de rémunération pour le secteur public"
+    set_input = set_input_dispatch_by_period
+    definition_period = MONTH
+
+    def formula(individu, period, parameters):
+        echelon = individu("echelon_carriere_normale", period)
+        P = parameters(period).remuneration_fonction_publique.echelons.meta[echelon]
+        return P.domaine
+
+
 class CategorieFonctionPublique(Enum):
     __order__ = "categorie_a categorie_b categorie_c categorie_d non_concerne"
     categorie_a = "Categorie A"
@@ -79,6 +122,128 @@ class type_fonction_publique(__ForwardVariable):
     entity = Individu
     definition_period = MONTH
     label = "Type de l'emploi dans la fonction publique"
+
+
+class employeur_public_direction(__ForwardVariable):
+    value_type = str
+    entity = Individu
+    definition_period = MONTH
+    label = "Identifiant de l'employeur public"
+
+
+class prime_speciale_points(__ForwardVariable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Prime spéciale pour la DRHFPNC et la DBAF"
+    reference = "Délib 405 du 21/08/2008 et 440 du 30/12/2008"
+
+
+class prime_speciale(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Prime spéciale pour la DRHFPNC et la DBAF"
+    reference = "Délib 405 du 21/08/2008 et 440 du 30/12/2008"
+
+    def formula(individu, period, parameters):
+        direction = individu("employeur_public_direction", period)
+        elig = (direction == "G0901110") + (direction == "G0600000")
+
+        nb = individu("prime_speciale_points", period)
+        temps_de_travail = individu("temps_de_travail", period)
+        type_fonction_publique = individu("type_fonction_publique", period)
+        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
+            type_fonction_publique
+        ]
+        taux_indexation_fonction_publique = individu(
+            "taux_indexation_fonction_publique", period
+        )
+        return elig * (
+            nb * valeur_point * temps_de_travail * taux_indexation_fonction_publique
+        )
+
+
+class prime_technicite_points(__ForwardVariable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Prime spéciale pour la DRHFPNC et la DBAF"
+    reference = "Délib 405 du 21/08/2008 et 440 du 30/12/2008"
+
+
+class prime_technicite(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Prime technique pour la DRHFPNC et la DBAF"
+    reference = "Délib 405 du 21/08/2008 et 440 du 30/12/2008"
+
+    def formula(individu, period, parameters):
+        direction = individu("employeur_public_direction", period)
+        elig = (direction == "G0901110") + (direction == "G0600000")
+
+        nb = individu("prime_technicite_points", period)
+        temps_de_travail = individu("temps_de_travail", period)
+        type_fonction_publique = individu("type_fonction_publique", period)
+        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
+            type_fonction_publique
+        ]
+        taux_indexation_fonction_publique = individu(
+            "taux_indexation_fonction_publique", period
+        )
+        return elig * (
+            nb * valeur_point * temps_de_travail * taux_indexation_fonction_publique
+        )
+
+
+class prime_speciale_technicite_points(__ForwardVariable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Prime pour les dir DITTT, DIMENC, DINUM, DAVAR + filière technique des domaines rural, équipement, informatiques, si pas de prime équivalente"
+    reference = "Délib n°358 et n°359 du 18/01/2008, 417 du 26/11/2008"
+
+
+class prime_speciale_technicite(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Prime pour les dir DITTT, DIMENC, DINUM, DAVAR + filière technique des domaines rural, équipement, informatiques, si pas de prime équivalente"
+    reference = "Délib n°358 et n°359 du 18/01/2008, 417 du 26/11/2008"
+
+    def formula(individu, period, parameters):
+        direction = individu("employeur_public_direction", period)
+        elig_direction = (
+            sum(
+                [
+                    direction == d
+                    for d in ["G1400000", "G1300000", "G9800000", "G0800000"]
+                ]
+            )
+            > 0
+        )
+
+        domaine = individu("echelon_carriere_normale_domaine", period)
+        prime_technicite = individu("prime_technicite", period)
+        elig_domaine = (
+            sum([domaine == d for d in ["ER", "EQ", "IN"]]) * (prime_technicite == 0)
+            > 0
+        )
+        elig = elig_direction + elig_domaine
+
+        nb = individu("prime_speciale_technicite_points", period)
+        temps_de_travail = individu("temps_de_travail", period)
+        type_fonction_publique = individu("type_fonction_publique", period)
+        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
+            type_fonction_publique
+        ]
+        taux_indexation_fonction_publique = individu(
+            "taux_indexation_fonction_publique", period
+        )
+        return elig * (
+            nb * valeur_point * temps_de_travail * taux_indexation_fonction_publique
+        )
 
 
 class indice_fonction_publique(Variable):
@@ -272,6 +437,9 @@ class base_cotisation_fonction_publique(Variable):
         )
         indemnite_residence = individu("indemnite_residence", period)
         prime_fonction_publique = individu("prime_fonction_publique", period)
+        prime_speciale = individu("prime_speciale", period)
+        prime_technicite = individu("prime_technicite", period)
+        prime_speciale_technicite = individu("prime_speciale_technicite", period)
 
         complement_brut = individu("complement_brut", period)
 
@@ -282,6 +450,9 @@ class base_cotisation_fonction_publique(Variable):
             + traitement_complement_indexation
             + indemnite_residence
             + prime_fonction_publique
+            + prime_speciale
+            + prime_technicite
+            + prime_speciale_technicite
             + complement_brut
         )
 
