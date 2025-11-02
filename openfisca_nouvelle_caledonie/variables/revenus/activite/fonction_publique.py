@@ -61,19 +61,6 @@ class echelon(Variable):
         return where(nb_mois_echelon >= duree, suivant, echelon)
 
 
-class indice_fonction_publique(Variable):
-    value_type = float
-    entity = Individu
-    label = "Indice de rémunération pour le secteur public"
-    set_input = set_input_dispatch_by_period
-    definition_period = MONTH
-
-    def formula(individu, period, parameters):
-        echelon = individu("echelon_paie", period)
-        echelons = parameters(period).remuneration_fonction_publique.echelons.indice
-        return echelons[echelon]
-
-
 class echelon_domaine(Variable):
     value_type = str
     entity = Individu
