@@ -155,6 +155,13 @@ class employeur_public_direction(__ForwardVariable):
     label = "Identifiant de l'employeur public"
 
 
+class employeur_public_fonction(__ForwardVariable):
+    value_type = str
+    entity = Individu
+    definition_period = MONTH
+    label = "Code fonction dans la fonction publique"
+
+
 class taux_indexation_fonction_publique(__ForwardVariable):
     value_type = float
     entity = Individu

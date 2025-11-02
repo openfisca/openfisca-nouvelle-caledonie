@@ -3,19 +3,19 @@
   input:
     employeur_public_direction: G1500000
     temps_de_travail: 1
-    prime_dsf_fixe_montant: 35014
+    prime_dsf_fixe_montant: 35014 # K_TCY
   output:
     prime_dsf_fixe: 35014
 
 - name: AS10010725
   period: 2025-07
-  absolute_error_margin: 158
+  absolute_error_margin: 158 # TODO
   input:
     employeur_public_direction: G1500000
     traitement_brut: 211229
     traitement_complement_indexation: 183862
     indemnite_residence: 12294
-    prime_dsf_variable_numerateur: 45938931
-    prime_dsf_variable_denominateur: 699205260
+    prime_dsf_variable_numerateur: 45938931 # K_TCZ1
+    prime_dsf_variable_denominateur: 699205260 # K_KTZ2
   output:
     prime_dsf_variable: 26923

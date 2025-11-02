@@ -220,6 +220,118 @@ class prime_territoriale_c(Variable):
         return elig * (nb * valeur_point * temps_de_travail)
 
 
+class prime_sujetion_cadre_points(__ForwardVariable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Prime des personnels d’encadrement et assimilés"
+    reference = "Délib 393 du 25/06/2008"
+
+
+class prime_sujetion_cadre(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Prime des personnels d’encadrement et assimilés"
+    reference = "Délib 393 du 25/06/2008"
+
+    def formula(individu, period, parameters):
+        fonction = individu("employeur_public_fonction", period)
+        elig = fonction in ["T4A3", "T4SC", "T4SI"]
+
+        nb = individu("prime_sujetion_cadre_points", period)
+        temps_de_travail = individu("temps_de_travail", period)
+        type_fonction_publique = individu("type_fonction_publique", period)
+        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
+            type_fonction_publique
+        ]
+        return elig * (nb * valeur_point * temps_de_travail)
+
+
+class prime_sujetion_chef_secteur_points(__ForwardVariable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Indemnités de sujétion des personnels de direction des services publics de la Nouvelle-Calédonie"
+    reference = "Délib 218 du 8/11/2006"
+
+
+class prime_sujetion_chef_secteur(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Indemnités de sujétion des personnels de direction des services publics de la Nouvelle-Calédonie"
+    reference = "Délib 218 du 8/11/2006"
+
+    def formula(individu, period, parameters):
+        fonction = individu("employeur_public_fonction", period)
+        elig = fonction in ["T4CS", "T4A8", "T4A5"]
+
+        nb = individu("prime_sujetion_chef_secteur_points", period)
+        temps_de_travail = individu("temps_de_travail", period)
+        type_fonction_publique = individu("type_fonction_publique", period)
+        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
+            type_fonction_publique
+        ]
+        return elig * (nb * valeur_point * temps_de_travail)
+
+
+class prime_sujetion_chef_bureau_points(__ForwardVariable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Indemnités de sujétion des personnels de direction des services publics de la Nouvelle-Calédonie"
+    reference = "Délib 218 du 8/11/2006"
+
+
+class prime_sujetion_chef_bureau(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Indemnités de sujétion des personnels de direction des services publics de la Nouvelle-Calédonie"
+    reference = "Délib 218 du 8/11/2006"
+
+    def formula(individu, period, parameters):
+        fonction = individu("employeur_public_fonction", period)
+        elig = fonction in ["T4CB", "T4CI"]
+
+        nb = individu("prime_sujetion_chef_bureau_points", period)
+        temps_de_travail = individu("temps_de_travail", period)
+        type_fonction_publique = individu("type_fonction_publique", period)
+        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
+            type_fonction_publique
+        ]
+        return elig * (nb * valeur_point * temps_de_travail)
+
+
+class prime_sujetion_charge_mission_points(__ForwardVariable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Indemnité pour chargé de mission"
+    reference = "Délib 393 du 25/06/2008"
+
+
+class prime_sujetion_charge_mission(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Indemnité pour chargé de mission"
+    reference = "Délib 393 du 25/06/2008"
+
+    def formula(individu, period, parameters):
+        fonction = individu("employeur_public_fonction", period)
+        elig = fonction in ["T4CM"]
+
+        nb = individu("prime_sujetion_charge_mission_points", period)
+        temps_de_travail = individu("temps_de_travail", period)
+        type_fonction_publique = individu("type_fonction_publique", period)
+        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
+            type_fonction_publique
+        ]
+        return elig * (nb * valeur_point * temps_de_travail)
+
+
 class prime_fonction_publique(Variable):
     value_type = float
     entity = Individu
@@ -267,6 +379,10 @@ class primes_fonction_publique(Variable):
             "prime_territoriale_c",
             "prime_dsf_fixe",
             "prime_dsf_variable",
+            "prime_sujetion_cadre",
+            "prime_sujetion_chef_secteur",
+            "prime_sujetion_chef_bureau",
+            "prime_sujetion_charge_mission",
         ]
 
         return sum([individu(prime, period) for prime in noms])
