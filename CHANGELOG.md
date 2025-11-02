@@ -1,5 +1,13 @@
 # Changelog
 
+## 14.1.0 [#66](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/66)
+
+* Évolution du système socio-fiscal.
+* Périodes concernées : toutes.
+* Zones impactées : `variables/revenus/activite/fonction_publique*.py`.
+* Détails :
+  - Ajoute de nouvelles primes du public.
+
 ### 14.0.1 [#65](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/65)
 
 * Amélioration technique.
