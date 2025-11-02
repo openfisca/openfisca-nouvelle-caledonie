@@ -1,0 +1,28 @@
+- name: AS10007247
+  period: 2025-07
+  absolute_error_margin: 0.49
+  input:
+    base_cotisation_NCJ: 412325
+  output:
+    cotisation_NCJS: -54015
+    cotisation_NCJP: 112565
+
+- name: AS10007247
+  period: 2025-07
+  absolute_error_margin: 159
+  input:
+    indice_fonction_publique: 422
+    temps_de_travail: 1
+    type_fonction_publique: territoriale
+  output:
+    base_cotisation_NCJ: 412325
+
+- name: AS10004610
+  period: 2025-07
+  absolute_error_margin: 362
+  input:
+    indice_fonction_publique: 963
+    temps_de_travail: 1
+    type_fonction_publique: territoriale
+  output:
+    base_cotisation_NCJ: 940923

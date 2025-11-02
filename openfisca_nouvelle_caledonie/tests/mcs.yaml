@@ -1,0 +1,7 @@
+- name: AS10007247
+  period: 2025-07
+  absolute_error_margin: 0.49
+  input:
+    base_cotisation_fonction_publique: 238339 + 161112 + 12370 + 12702 + 16610 + 26381
+  output:
+    cotisation_MCS: -14025

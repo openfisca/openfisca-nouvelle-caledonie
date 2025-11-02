@@ -1,0 +1,19 @@
+- name: AS10014909
+  period: 2025-07
+  absolute_error_margin: 0.2
+  input:
+    base_cotisation_fonction_publique: 548600.0 + 61927.0
+    temps_de_travail: 0.9
+  output:
+    cotisation_RUAMMS: -16409
+
+
+- name: AS10004985
+  period: 2025-07
+  absolute_error_margin: 0.2
+  input:
+    base_cotisation_fonction_publique: 548600 + 50668
+    temps_de_travail: 0.5
+  output:
+    temps_de_travail: 0.5
+    # cotisation_RUAMMS: TODO
