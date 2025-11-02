@@ -6,6 +6,8 @@ from openfisca_nouvelle_caledonie.variables.revenus.activite.fonction_publique i
     __ForwardVariable,
 )
 
+from numpy.core.defchararray import startswith
+
 
 class prime_speciale_points(__ForwardVariable):
     value_type = float
@@ -122,6 +124,102 @@ class prime_speciale_technicite(Variable):
         )
 
 
+class prime_territoriale_a_points(__ForwardVariable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Prime pour les ingénieurs de la filière technique (hors aviation civil et météo dans leurs directions)"
+    reference = "Délib 74/CP du 12/02/2009"
+
+
+class prime_territoriale_a(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Prime pour les ingénieurs de la filière technique (hors aviation civil et météo dans leurs directions)"
+    reference = "Délib 74/CP du 12/02/2009"
+
+    def formula(individu, period, parameters):
+        echelon = individu("echelon", period)
+        grille_ok = startswith(list(echelon), "FTIN")  # TODO
+
+        direction = individu("employeur_public_direction", period)
+        direction_ok = (direction != "GM030000") * (direction != "MF-000")
+        elig = grille_ok * direction_ok
+
+        nb = individu("prime_territoriale_a_points", period)
+        temps_de_travail = individu("temps_de_travail", period)
+        type_fonction_publique = individu("type_fonction_publique", period)
+        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
+            type_fonction_publique
+        ]
+        return elig * (nb * valeur_point * temps_de_travail)
+
+
+class prime_territoriale_b_points(__ForwardVariable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Prime pour les techniciens de la filière technique (hors aviation civil et météo dans leurs directions)"
+    reference = "Délib 74/CP du 12/02/2009"
+
+
+class prime_territoriale_b(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Prime pour les techniciens de la filière technique (hors aviation civil et météo dans leurs directions)"
+    reference = "Délib 74/CP du 12/02/2009"
+
+    def formula(individu, period, parameters):
+        echelon = individu("echelon", period)
+        grille_ok = startswith(list(echelon), "FTTE")  # TODO
+
+        direction = individu("employeur_public_direction", period)
+        direction_ok = (direction != "GM030000") * (direction != "MF-000")
+        elig = grille_ok * direction_ok
+
+        nb = individu("prime_territoriale_b_points", period)
+        temps_de_travail = individu("temps_de_travail", period)
+        type_fonction_publique = individu("type_fonction_publique", period)
+        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
+            type_fonction_publique
+        ]
+        return elig * (nb * valeur_point * temps_de_travail)
+
+
+class prime_territoriale_c_points(__ForwardVariable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Prime pour les techniciens de la filière technique (hors aviation civil et météo dans leurs directions)"
+    reference = "Délib 74/CP du 12/02/2009"
+
+
+class prime_territoriale_c(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Prime pour les techniciens de la filière technique (hors aviation civil et météo dans leurs directions)"
+    reference = "Délib 74/CP du 12/02/2009"
+
+    def formula(individu, period, parameters):
+        echelon = individu("echelon", period)
+        grille_ok = startswith(list(echelon), "FTTA")  # TODO
+
+        direction = individu("employeur_public_direction", period)
+        direction_ok = (direction != "GM030000") * (direction != "MF-000")
+        elig = grille_ok * direction_ok
+
+        nb = individu("prime_territoriale_c_points", period)
+        temps_de_travail = individu("temps_de_travail", period)
+        type_fonction_publique = individu("type_fonction_publique", period)
+        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
+            type_fonction_publique
+        ]
+        return elig * (nb * valeur_point * temps_de_travail)
+
+
 class prime_fonction_publique(Variable):
     value_type = float
     entity = Individu
@@ -164,6 +262,9 @@ class primes_fonction_publique(Variable):
             "prime_speciale",
             "prime_technicite",
             "prime_speciale_technicite",
+            "prime_territoriale_a",
+            "prime_territoriale_b",
+            "prime_territoriale_c",
         ]
 
         return sum([individu(prime, period) for prime in noms])
