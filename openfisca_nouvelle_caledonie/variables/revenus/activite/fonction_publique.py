@@ -481,17 +481,6 @@ class base_cotisation_fonction_publique(Variable):
         )
 
 
-class ajustement_temps_travail_ruamm(Variable):
-    value_type = float
-    entity = Individu
-    label = "Cotisation salariée RUAMM"
-    definition_period = MONTH
-
-    def formula(individu, period, parameters):
-        temps_de_travail = individu("temps_de_travail", period)
-        return where(temps_de_travail < 0.8, temps_de_travail, 1)
-
-
 class cotisation_RUAMMS(Variable):
     value_type = float
     entity = Individu
@@ -502,9 +491,8 @@ class cotisation_RUAMMS(Variable):
 
     def formula(individu, period, parameters):
         base = individu("base_cotisation_fonction_publique", period)
-        ajust = individu("ajustement_temps_travail_ruamm", period)
         P = parameters(period).remuneration_fonction_publique.ruamm
-        return -P.bareme_salarie.calc(base * ajust) / ajust
+        return -P.bareme_salarie.calc(base)
 
 
 class cotisation_RUAMMP(Variable):
@@ -517,9 +505,8 @@ class cotisation_RUAMMP(Variable):
 
     def formula(individu, period, parameters):
         base = individu("base_cotisation_fonction_publique", period)
-        ajust = individu("ajustement_temps_travail_ruamm", period)
         P = parameters(period).remuneration_fonction_publique.ruamm
-        return P.bareme_patronale.calc(base * ajust) / ajust
+        return P.bareme_patronale.calc(base)
 
 
 class cotisation_MCS(Variable):
