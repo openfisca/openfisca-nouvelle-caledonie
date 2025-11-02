@@ -1,0 +1,6 @@
+- period: 2025-07
+  input:
+    employeur_public_echelle: [YOLO, ZERO]
+    temps_de_travail: [1, 1]
+  output:
+    prime_aviation_technicite: [0, 0]

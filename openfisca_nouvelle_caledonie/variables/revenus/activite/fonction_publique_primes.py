@@ -1,6 +1,7 @@
 """Primes dans la fonction publique."""
 
 from numpy.core.defchararray import startswith
+import numpy as np
 
 from openfisca_core.model_api import *
 from openfisca_nouvelle_caledonie.entities import Individu
@@ -93,13 +94,7 @@ class prime_speciale_technicite(Variable):
     def formula(individu, period, parameters):
         direction = individu("employeur_public_direction", period)
         elig_direction = (
-            sum(
-                [
-                    direction == d
-                    for d in ["G1400000", "G1300000", "G9800000", "G0800000"]
-                ]
-            )
-            > 0
+            sum([direction in ["G1400000", "G1300000", "G9800000", "G0800000"]]) > 0
         )
 
         domaine = individu("echelon_domaine", period)
@@ -237,7 +232,7 @@ class prime_sujetion_cadre(Variable):
 
     def formula(individu, period, parameters):
         fonction = individu("employeur_public_fonction", period)
-        elig = fonction in ["T4A3", "T4SC", "T4SI"]
+        elig = sum([fonction == f for f in ["T4A3", "T4SC", "T4SI"]])
 
         nb = individu("prime_sujetion_cadre_points", period)
         temps_de_travail = individu("temps_de_travail", period)
@@ -265,7 +260,7 @@ class prime_sujetion_chef_secteur(Variable):
 
     def formula(individu, period, parameters):
         fonction = individu("employeur_public_fonction", period)
-        elig = fonction in ["T4CS", "T4A8", "T4A5"]
+        elig = sum([fonction == f for f in ["T4CS", "T4A8", "T4A5"]])
 
         nb = individu("prime_sujetion_chef_secteur_points", period)
         temps_de_travail = individu("temps_de_travail", period)
@@ -293,7 +288,7 @@ class prime_sujetion_chef_bureau(Variable):
 
     def formula(individu, period, parameters):
         fonction = individu("employeur_public_fonction", period)
-        elig = fonction in ["T4CB", "T4CI"]
+        elig = sum([fonction == f for f in ["T4CB", "T4CI"]])
 
         nb = individu("prime_sujetion_chef_bureau_points", period)
         temps_de_travail = individu("temps_de_travail", period)
@@ -312,6 +307,23 @@ class prime_sujetion_charge_mission_points(__ForwardVariable):
     reference = "Délib 393 du 25/06/2008"
 
 
+class prime_aviation_technicite(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Prime de l'aviation civile et météorologie"
+    reference = "Délib 170 du 29/03/2006"
+
+    def formula(individu, period, parameters):
+        echelle = individu("employeur_public_echelle", period)
+        tch = parameters(period).remuneration_fonction_publique.tch
+        temps_de_travail = individu("temps_de_travail", period)
+
+        indexes = np.array([e if e in tch else "ZERO" for e in echelle])
+
+        return tch[indexes] * temps_de_travail
+
+
 class prime_sujetion_charge_mission(Variable):
     value_type = float
     entity = Individu
@@ -321,7 +333,7 @@ class prime_sujetion_charge_mission(Variable):
 
     def formula(individu, period, parameters):
         fonction = individu("employeur_public_fonction", period)
-        elig = fonction in ["T4CM"]
+        elig = sum([fonction == f for f in ["T4CM"]])
 
         nb = individu("prime_sujetion_charge_mission_points", period)
         temps_de_travail = individu("temps_de_travail", period)
@@ -383,6 +395,7 @@ class primes_fonction_publique(Variable):
             "prime_sujetion_chef_secteur",
             "prime_sujetion_chef_bureau",
             "prime_sujetion_charge_mission",
+            "prime_aviation_technicite",
         ]
 
         return sum([individu(prime, period) for prime in noms])
