@@ -9,7 +9,7 @@
 
 - name: AS10010725
   period: 2025-07
-  absolute_error_margin: 158 # TODO
+  absolute_error_margin: 158 # TO-DO
   input:
     employeur_public_direction: G1500000
     traitement_brut: 211229

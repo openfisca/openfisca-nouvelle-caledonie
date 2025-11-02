@@ -7,7 +7,7 @@
     type_fonction_publique: territoriale
     temps_de_travail: 1
   output:
-    prime_territoriale_a: 37129*0+38*1*565 # TODO
+    prime_territoriale_a: 37129*0+38*1*565 # TO-DO
 
 - name: AS10014909-KO
   period: 2025-07
@@ -29,7 +29,7 @@
     type_fonction_publique: territoriale
     temps_de_travail: 1
   output:
-    prime_territoriale_b: 26381*0+27*565 # TODO
+    prime_territoriale_b: 26381*0+27*565 # TO-DO
 
 - name: AS10138632
   period: 2025-07
@@ -40,4 +40,4 @@
     type_fonction_publique: territoriale
     temps_de_travail: 1
   output:
-    prime_territoriale_c: 21496*0+22*565 # TODO
+    prime_territoriale_c: 21496*0+22*565 # TO-DO

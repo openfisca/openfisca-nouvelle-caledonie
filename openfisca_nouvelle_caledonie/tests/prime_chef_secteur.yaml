@@ -6,7 +6,7 @@
     temps_de_travail: 1
     prime_sujetion_chef_secteur_points: 20 # K_PointTSF
   output:
-    prime_sujetion_chef_secteur: 19541*0 + 20*565 # TODO
+    prime_sujetion_chef_secteur: 19541*0 + 20*565 # TO-DO
 
 - name: AS10009216
   period: 2025-07
@@ -16,7 +16,7 @@
     temps_de_travail: 1
     prime_sujetion_chef_bureau_points: 20 # K_PointTSM
   output:
-    prime_sujetion_chef_bureau: 19541*0 + 20*565 # TODO
+    prime_sujetion_chef_bureau: 19541*0 + 20*565 # TO-DO
 
 - name: AS10020427
   period: 2025-07
@@ -26,4 +26,4 @@
     temps_de_travail: 1
     prime_sujetion_charge_mission_points: 48 # K_PointTSS
   output:
-    prime_sujetion_charge_mission: 46899*0 + 48*565 # TODO
+    prime_sujetion_charge_mission: 46899*0 + 48*565 # TO-DO

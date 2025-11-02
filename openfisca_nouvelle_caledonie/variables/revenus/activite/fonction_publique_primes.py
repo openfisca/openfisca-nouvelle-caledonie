@@ -1,12 +1,12 @@
 """Primes dans la fonction publique."""
 
+from numpy.core.defchararray import startswith
+
 from openfisca_core.model_api import *
 from openfisca_nouvelle_caledonie.entities import Individu
 from openfisca_nouvelle_caledonie.variables.revenus.activite.fonction_publique import (
     __ForwardVariable,
 )
-
-from numpy.core.defchararray import startswith
 
 
 class prime_speciale_points(__ForwardVariable):
@@ -141,7 +141,7 @@ class prime_territoriale_a(Variable):
 
     def formula(individu, period, parameters):
         echelon = individu("echelon", period)
-        grille_ok = startswith(list(echelon), "FTIN")  # TODO
+        grille_ok = startswith(list(echelon), "FTIN")  # TO-DO
 
         direction = individu("employeur_public_direction", period)
         direction_ok = (direction != "GM030000") * (direction != "MF-000")
@@ -173,7 +173,7 @@ class prime_territoriale_b(Variable):
 
     def formula(individu, period, parameters):
         echelon = individu("echelon", period)
-        grille_ok = startswith(list(echelon), "FTTE")  # TODO
+        grille_ok = startswith(list(echelon), "FTTE")  # TO-DO
 
         direction = individu("employeur_public_direction", period)
         direction_ok = (direction != "GM030000") * (direction != "MF-000")
@@ -205,7 +205,7 @@ class prime_territoriale_c(Variable):
 
     def formula(individu, period, parameters):
         echelon = individu("echelon", period)
-        grille_ok = startswith(list(echelon), "FTTA")  # TODO
+        grille_ok = startswith(list(echelon), "FTTA")  # TO-DO
 
         direction = individu("employeur_public_direction", period)
         direction_ok = (direction != "GM030000") * (direction != "MF-000")

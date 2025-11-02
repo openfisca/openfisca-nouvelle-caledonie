@@ -6,5 +6,4 @@
     temps_de_travail: 1
     prime_sujetion_cadre_points: 48 # K_PointTSG
   output:
-    prime_sujetion_cadre: 46899*0 + 48*565 # TODO
-
+    prime_sujetion_cadre: 46899*0 + 48*565 # TO-DO

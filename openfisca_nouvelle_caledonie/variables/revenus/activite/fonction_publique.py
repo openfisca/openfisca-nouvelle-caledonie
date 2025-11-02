@@ -162,6 +162,13 @@ class employeur_public_fonction(__ForwardVariable):
     label = "Code fonction dans la fonction publique"
 
 
+class employeur_public_echelle(__ForwardVariable):
+    value_type = str
+    entity = Individu
+    definition_period = MONTH
+    label = "Code échelle dans la fonction publique"
+
+
 class taux_indexation_fonction_publique(__ForwardVariable):
     value_type = float
     entity = Individu

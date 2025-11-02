@@ -22,7 +22,7 @@ class prime_dsf_fixe(Variable):
     label = "prime pour la DSF (et service du contentieux fiscal de la DAJ)"
     reference = "Délib 439 du 30/12/2008"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         direction = individu("employeur_public_direction", period)
         elig = direction == "G1500000"
 
@@ -54,7 +54,7 @@ class prime_dsf_variable(Variable):
     label = "prime pour la DSF (et service du contentieux fiscal de la DAJ)"
     reference = "Délib 439 du 30/12/2008"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         direction = individu("employeur_public_direction", period)
         elig = direction == "G1500000"
 
