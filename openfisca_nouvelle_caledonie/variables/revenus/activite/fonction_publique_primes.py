@@ -1,3 +1,5 @@
+"""Primes dans la fonction publique."""
+
 from openfisca_core.model_api import *
 from openfisca_nouvelle_caledonie.entities import Individu
 from openfisca_nouvelle_caledonie.variables.revenus.activite.fonction_publique import (
