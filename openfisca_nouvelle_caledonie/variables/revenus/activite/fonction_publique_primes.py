@@ -265,6 +265,8 @@ class primes_fonction_publique(Variable):
             "prime_territoriale_a",
             "prime_territoriale_b",
             "prime_territoriale_c",
+            "prime_dsf_fixe",
+            "prime_dsf_variable",
         ]
 
         return sum([individu(prime, period) for prime in noms])
