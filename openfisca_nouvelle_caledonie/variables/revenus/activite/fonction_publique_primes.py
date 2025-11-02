@@ -1,7 +1,7 @@
 """Primes dans la fonction publique."""
 
-from numpy.core.defchararray import startswith
 import numpy as np
+from numpy.core.defchararray import startswith
 
 from openfisca_core.model_api import *
 from openfisca_nouvelle_caledonie.entities import Individu
