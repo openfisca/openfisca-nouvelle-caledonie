@@ -90,7 +90,7 @@
 - period: 2025-07
   input:
     employeur_public_direction: G0800000
-    echelon_carriere_normale_domaine: ER
+    echelon_domaine: ER
     temps_de_travail: 1
     type_fonction_publique: territoriale
     taux_indexation_fonction_publique: 1
@@ -101,7 +101,7 @@
 - period: 2025-07
   input:
     employeur_public_direction: G98000KO
-    echelon_carriere_normale_domaine: ER
+    echelon_domaine: ER
     temps_de_travail: 1
     type_fonction_publique: territoriale
     taux_indexation_fonction_publique: 1
@@ -112,7 +112,7 @@
 - period: 2025-07
   input:
     employeur_public_direction: G98000KO
-    echelon_carriere_normale_domaine: ER
+    echelon_domaine: ER
     temps_de_travail: 1
     type_fonction_publique: territoriale
     taux_indexation_fonction_publique: 1
@@ -125,14 +125,14 @@
   reforms:
     - openfisca_nouvelle_caledonie.reforms.echelons.CIReform
   input:
-    echelon_carriere_normale: YTTAS1006
+    echelon: YTTAS1006
   output:
-    echelon_carriere_normale_domaine: ST
+    echelon_domaine: ST
 
 - period: 2025-07
   reforms:
     - openfisca_nouvelle_caledonie.reforms.echelons.CIReform
   input:
-    echelon_carriere_normale: Y202 DX0U
+    echelon: Y202 DX0U
   output:
-    echelon_carriere_normale_domaine: non_concerne
+    echelon_domaine: non_concerne
