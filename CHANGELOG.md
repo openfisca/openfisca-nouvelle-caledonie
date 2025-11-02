@@ -1,5 +1,15 @@
 # Changelog
 
+# 14.0.0 [#64](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/64)
+
+* Évolution du système socio-fiscal. 
+* Périodes concernées : toutes. 
+* Zones impactées : `variables/revenus/activite/fonction_publique.py`.
+* Détails :
+  - Corrige les calculs de cotisations dans le public, notamment la NCJ
+  - Fait cohabiliter `echelon` et `echelon_paie`.
+  - Supprime le suffixe `_carriere_normale` et ajoute le suffixe `_paie` dans les variables de paie dans le public.
+
 ## 13.6.0 [#63](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/63)
 
 * Évolution du système socio-fiscal.
