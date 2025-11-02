@@ -5,6 +5,34 @@ from openfisca_core.model_api import *
 from openfisca_nouvelle_caledonie.entities import Individu
 
 
+class nb_mois_echelon_paie(Variable):
+    value_type = int
+    entity = Individu
+    definition_period = MONTH
+
+    def formula(individu, period):
+        nb_mois = individu("nb_mois_echelon_paie", period.last_month)
+        echelon = individu("echelon_paie", period)
+        echelon_precedent = individu("echelon_paie", period.last_month)
+        return where(echelon == echelon_precedent, nb_mois, 0) + 1
+
+
+class echelon_paie(Variable):
+    value_type = str
+    entity = Individu
+    definition_period = MONTH
+
+    def formula(individu, period, parameters):
+        nb_mois_echelon = individu("nb_mois_echelon_paie", period.last_month)
+        p = period.last_month
+        echelon = individu("echelon_paie", p)
+        P = parameters(period).remuneration_fonction_publique.echelons.meta[echelon]
+        duree = P.duree_moyenne
+        suivant = P.suivant
+
+        return where(nb_mois_echelon >= duree, suivant, echelon)
+
+
 class nb_mois_echelon(Variable):
     value_type = int
     entity = Individu
@@ -33,45 +61,28 @@ class echelon(Variable):
         return where(nb_mois_echelon >= duree, suivant, echelon)
 
 
-class nb_mois_echelon_carriere_normale(Variable):
-    value_type = int
-    entity = Individu
-    definition_period = MONTH
-
-    def formula(individu, period):
-        nb_mois = individu("nb_mois_echelon_carriere_normale", period.last_month)
-        echelon = individu("echelon_carriere_normale", period)
-        echelon_precedent = individu("echelon_carriere_normale", period.last_month)
-        return where(echelon == echelon_precedent, nb_mois, 0) + 1
-
-
-class echelon_carriere_normale(Variable):
-    value_type = str
-    entity = Individu
-    definition_period = MONTH
-
-    def formula(individu, period, parameters):
-        nb_mois_echelon = individu(
-            "nb_mois_echelon_carriere_normale", period.last_month
-        )
-        p = period.last_month
-        echelon = individu("echelon_carriere_normale", p)
-        P = parameters(period).remuneration_fonction_publique.echelons.meta[echelon]
-        duree = P.duree_moyenne
-        suivant = P.suivant
-
-        return where(nb_mois_echelon >= duree, suivant, echelon)
-
-
-class echelon_carriere_normale_domaine(Variable):
-    value_type = str
+class indice_fonction_publique(Variable):
+    value_type = float
     entity = Individu
     label = "Indice de rémunération pour le secteur public"
     set_input = set_input_dispatch_by_period
     definition_period = MONTH
 
     def formula(individu, period, parameters):
-        echelon = individu("echelon_carriere_normale", period)
+        echelon = individu("echelon_paie", period)
+        echelons = parameters(period).remuneration_fonction_publique.echelons.indice
+        return echelons[echelon]
+
+
+class echelon_domaine(Variable):
+    value_type = str
+    entity = Individu
+    label = "Domaine"
+    set_input = set_input_dispatch_by_period
+    definition_period = MONTH
+
+    def formula(individu, period, parameters):
+        echelon = individu("echelon", period)
         P = parameters(period).remuneration_fonction_publique.echelons.meta[echelon]
         return P.domaine
 
@@ -224,7 +235,7 @@ class prime_speciale_technicite(Variable):
             > 0
         )
 
-        domaine = individu("echelon_carriere_normale_domaine", period)
+        domaine = individu("echelon_domaine", period)
         prime_technicite = individu("prime_technicite", period)
         elig_domaine = (
             sum([domaine == d for d in ["ER", "EQ", "IN"]]) * (prime_technicite == 0)
@@ -255,6 +266,19 @@ class indice_fonction_publique(Variable):
 
     def formula(individu, period, parameters):
         echelon = individu("echelon", period)
+        echelons = parameters(period).remuneration_fonction_publique.echelons.indice
+        return echelons[echelon]
+
+
+class indice_fonction_publique_paie(Variable):
+    value_type = float
+    entity = Individu
+    label = "Indice de rémunération pour le secteur public"
+    set_input = set_input_dispatch_by_period
+    definition_period = MONTH
+
+    def formula(individu, period, parameters):
+        echelon = individu("echelon_paie", period)
         echelons = parameters(period).remuneration_fonction_publique.echelons.indice
         return echelons[echelon]
 
@@ -297,7 +321,7 @@ class traitement_brut(Variable):
     unit = "currency"
 
     def formula(individu, period, parameters):
-        indice = individu("indice_fonction_publique", period)
+        indice = individu("indice_fonction_publique_paie", period)
         temps_de_travail = individu("temps_de_travail", period)
         type_fonction_publique = individu("type_fonction_publique", period)
         valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
@@ -372,7 +396,7 @@ class indemnite_residence(Variable):
     unit = "currency"
 
     def formula(individu, period, parameters):
-        indice = individu("indice_fonction_publique", period)
+        indice = individu("indice_fonction_publique_paie", period)
         temps_de_travail = individu("temps_de_travail", period)
         taux_indexation_fonction_publique = individu(
             "taux_indexation_fonction_publique", period
@@ -457,6 +481,17 @@ class base_cotisation_fonction_publique(Variable):
         )
 
 
+class ajustement_temps_travail_ruamm(Variable):
+    value_type = float
+    entity = Individu
+    label = "Cotisation salariée RUAMM"
+    definition_period = MONTH
+
+    def formula(individu, period, parameters):
+        temps_de_travail = individu("temps_de_travail", period)
+        return where(temps_de_travail < 0.8, temps_de_travail, 1)
+
+
 class cotisation_RUAMMS(Variable):
     value_type = float
     entity = Individu
@@ -467,8 +502,9 @@ class cotisation_RUAMMS(Variable):
 
     def formula(individu, period, parameters):
         base = individu("base_cotisation_fonction_publique", period)
+        ajust = individu("ajustement_temps_travail_ruamm", period)
         P = parameters(period).remuneration_fonction_publique.ruamm
-        return -P.bareme_salarie.calc(base)
+        return -P.bareme_salarie.calc(base * ajust) / ajust
 
 
 class cotisation_RUAMMP(Variable):
@@ -481,8 +517,9 @@ class cotisation_RUAMMP(Variable):
 
     def formula(individu, period, parameters):
         base = individu("base_cotisation_fonction_publique", period)
+        ajust = individu("ajustement_temps_travail_ruamm", period)
         P = parameters(period).remuneration_fonction_publique.ruamm
-        return P.bareme_patronale.calc(base)
+        return P.bareme_patronale.calc(base * ajust) / ajust
 
 
 class cotisation_MCS(Variable):
@@ -553,12 +590,17 @@ class base_cotisation_NCJ(Variable):
     definition_period = MONTH
     unit = "currency"
 
-    def formula(individu, period):
-        traitement_brut = individu("traitement_brut", period)
-        taux_indexation_fonction_publique = individu(
-            "taux_indexation_fonction_publique", period
-        )
-        return traitement_brut * taux_indexation_fonction_publique
+    def formula(individu, period, parameters):
+        indice = individu("indice_fonction_publique", period)
+        temps_de_travail = individu("temps_de_travail", period)
+        type_fonction_publique = individu("type_fonction_publique", period)
+        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
+            type_fonction_publique
+        ]
+
+        majoration_clr = 0.73
+
+        return indice * valeur_point * temps_de_travail * (1 + majoration_clr)
 
 
 class cotisation_NCJS(Variable):
