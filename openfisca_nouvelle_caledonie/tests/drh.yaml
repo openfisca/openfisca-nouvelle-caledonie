@@ -63,7 +63,6 @@
     temps_de_travail: 1
     type_fonction_publique: territoriale
     taux_indexation_fonction_publique: 1
-    prime_speciale_points: 14
   output:
     prime_speciale: 0
 
@@ -73,7 +72,6 @@
     temps_de_travail: 1
     type_fonction_publique: territoriale
     taux_indexation_fonction_publique: 1
-    prime_speciale_points: 14
   output:
     prime_speciale: 14*565
 
@@ -83,9 +81,8 @@
     temps_de_travail: 1
     type_fonction_publique: territoriale
     taux_indexation_fonction_publique: 1
-    prime_technicite_points: 10
   output:
-    prime_technicite: 10*565
+    prime_technicite: 13*565
 
 - period: 2025-07
   input:
@@ -94,9 +91,8 @@
     temps_de_travail: 1
     type_fonction_publique: territoriale
     taux_indexation_fonction_publique: 1
-    prime_speciale_technicite_points: 9
   output:
-    prime_speciale_technicite: 9*565
+    prime_speciale_technicite: 27*565
 
 - period: 2025-07
   input:
@@ -105,18 +101,6 @@
     temps_de_travail: 1
     type_fonction_publique: territoriale
     taux_indexation_fonction_publique: 1
-    prime_speciale_technicite_points: 8
-  output:
-    prime_speciale_technicite: 8*565
-
-- period: 2025-07
-  input:
-    employeur_public_direction: G98000KO
-    echelon_domaine: ER
-    temps_de_travail: 1
-    type_fonction_publique: territoriale
-    taux_indexation_fonction_publique: 1
-    prime_speciale_technicite_points: 8
     prime_technicite: 1
   output:
     prime_speciale_technicite: 0

@@ -1,0 +1,46 @@
+- name: AS10014909
+  period: 2025-07
+  absolute_error_margin: 15
+  input:
+    echelon: FTINE2011
+    employeur_public_direction: G1400000
+    type_fonction_publique: territoriale
+    temps_de_travail: 1
+    taux_indexation_fonction_publique: 1.73
+  output:
+    prime_territoriale_a: 37129
+
+- name: AS10014909-KO
+  period: 2025-07
+  input:
+    echelon: FTINE2011
+    employeur_public_direction: GM030000
+    type_fonction_publique: territoriale
+    temps_de_travail: 1
+    taux_indexation_fonction_publique: 1.73
+  output:
+    prime_territoriale_a: 0
+
+- name: AS10078845
+  period: 2025-07
+  absolute_error_margin: 11
+  input:
+    echelon: FTTEI2010
+    employeur_public_direction: G1400000
+    type_fonction_publique: territoriale
+    temps_de_travail: 1
+    taux_indexation_fonction_publique: 1.73
+  output:
+    prime_territoriale_b: 26381
+
+- name: AS10138632
+  period: 2025-07
+  absolute_error_margin: 8
+  input:
+    echelon: FTTAE1001
+    employeur_public_direction: G1400000
+    type_fonction_publique: territoriale
+    temps_de_travail: 1
+    taux_indexation_fonction_publique: 1.73
+  output:
+    prime_territoriale_c: 21496

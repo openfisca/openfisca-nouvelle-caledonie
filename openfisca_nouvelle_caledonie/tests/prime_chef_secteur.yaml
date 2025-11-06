@@ -1,0 +1,35 @@
+- name: AS10013631
+  period: 2025-07
+  input:
+    employeur_public_fonction: T4A8
+    type_fonction_publique: territoriale
+    temps_de_travail: 1
+  output:
+    prime_sujetion_chef_secteur: 19541*0 + 20*565 # TO-DO
+
+- name: AS10009216
+  period: 2025-07
+  input:
+    employeur_public_fonction: T4CB
+    type_fonction_publique: territoriale
+    temps_de_travail: 1
+  output:
+    prime_sujetion_chef_bureau: 19541*0 + 20*565 # TO-DO
+
+- name: AS10020427
+  period: 2025-07
+  input:
+    employeur_public_fonction: T4CM
+    type_fonction_publique: territoriale
+    temps_de_travail: 1
+  output:
+    prime_sujetion_charge_mission: 46899*0 + 48*565 # TO-DO
+
+- period: 2025-07
+  input:
+    employeur_public_fonction: [T4A8, T4CB, T4CM]
+    type_fonction_publique: [territoriale, territoriale, territoriale]
+    temps_de_travail: [1, 1, 1]
+    prime_sujetion_chef_secteur_points: [1, 20, 20] # K_PointTSF
+  output:
+    prime_sujetion_chef_secteur: [565, 0, 0]

@@ -1,0 +1,6 @@
+description: Dénominateur pour le calcul de la prime variable de la DSF
+values:
+  2006-01-01:
+    value: 699205260
+documentation: |
+    K_KTZ2 = 699205260

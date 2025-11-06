@@ -1,0 +1,7 @@
+points:
+  description: Points pour la prime spéciale technicité
+  values:
+    2006-01-01:
+      value: 27
+  documentation: |
+      K_PointTIE = 27

@@ -1,0 +1,29 @@
+- period: 2025-07
+  input:
+    employeur_public_echelle: [YOLO, ZERO]
+    temps_de_travail: [1, 1]
+  output:
+    prime_aviation_technicite: [0, 0]
+
+- name: AS10004610
+  period: 2025-07
+  reforms:
+    - openfisca_nouvelle_caledonie.reforms.prime_aviation_meteorologie.CIReform
+  input:
+    employeur_public_echelle: D036 C0
+    temps_de_travail: 1
+  output:
+    prime_aviation_technicite: 55501
+
+
+- name: AS10066744
+  period: 2025-07
+  reforms:
+    - openfisca_nouvelle_caledonie.reforms.echelons.CIReform
+    - openfisca_nouvelle_caledonie.reforms.prime_aviation_meteorologie.CIReform
+  input:
+    echelon: Y202 DX0U
+    nb_mois_echelon: 0
+    temps_de_travail: 0.8
+  output:
+    prime_aviation_technicite: 37397*0.8

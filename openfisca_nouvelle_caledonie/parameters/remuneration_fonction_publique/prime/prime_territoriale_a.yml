@@ -1,0 +1,7 @@
+points:
+  description: Points pour la prime des personnes en catégorie A de la fonction territoriale
+  values:
+    2006-01-01:
+      value: 38
+  documentation: |
+      K_PointTK4 = 38

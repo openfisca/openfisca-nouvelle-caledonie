@@ -155,6 +155,28 @@ class employeur_public_direction(__ForwardVariable):
     label = "Identifiant de l'employeur public"
 
 
+class employeur_public_fonction(__ForwardVariable):
+    value_type = str
+    entity = Individu
+    definition_period = MONTH
+    label = "Code fonction dans la fonction publique"
+
+
+class employeur_public_echelle(Variable):
+    value_type = str
+    entity = Individu
+    definition_period = MONTH
+    label = "Code échelle dans la fonction publique"
+
+    def formula(individu, period, parameters):
+        echelon = individu("echelon", period)
+        return (
+            parameters(period)
+            .remuneration_fonction_publique.echelons.meta[echelon]
+            .echelle
+        )
+
+
 class taux_indexation_fonction_publique(__ForwardVariable):
     value_type = float
     entity = Individu
@@ -318,6 +340,17 @@ class base_cotisation_fonction_publique(Variable):
         )
 
 
+class cotisation_RUAMM_ajustement(Variable):
+    value_type = float
+    entity = Individu
+    label = "Coefficient d'ajustement au temps de travail pour le calcul des cotisations RUAMM"
+    definition_period = MONTH
+
+    def formula(individu, period):
+        temps_de_travail = individu("temps_de_travail", period)
+        return where(temps_de_travail < 0.8, temps_de_travail, 1)
+
+
 class cotisation_RUAMMS(Variable):
     value_type = float
     entity = Individu
@@ -329,7 +362,10 @@ class cotisation_RUAMMS(Variable):
     def formula(individu, period, parameters):
         base = individu("base_cotisation_fonction_publique", period)
         P = parameters(period).remuneration_fonction_publique.ruamm
-        return -P.bareme_salarie.calc(base)
+
+        ajustement = individu("cotisation_RUAMM_ajustement", period)
+        not_nul_ajustement = where(ajustement == 0, 1, ajustement)
+        return -P.bareme_salarie.calc(base / not_nul_ajustement) * ajustement
 
 
 class cotisation_RUAMMP(Variable):
@@ -343,7 +379,9 @@ class cotisation_RUAMMP(Variable):
     def formula(individu, period, parameters):
         base = individu("base_cotisation_fonction_publique", period)
         P = parameters(period).remuneration_fonction_publique.ruamm
-        return P.bareme_patronale.calc(base)
+        ajustement = individu("cotisation_RUAMM_ajustement", period)
+        not_nul_ajustement = where(ajustement == 0, 1, ajustement)
+        return P.bareme_patronale.calc(base / not_nul_ajustement) * ajustement
 
 
 class cotisation_MCS(Variable):
@@ -366,7 +404,9 @@ class cotisation_NMF_taux_salarie(Variable):
     label = "Taux de cotisation salariée NMF"
     set_input = set_input_divide_by_period
     definition_period = MONTH
-    unit = "currency"
+
+    def formula(individu, period, parameters):
+        return parameters(period).remuneration_fonction_publique.nmf.taux_salarie
 
 
 class cotisation_NMFS(Variable):
@@ -389,7 +429,9 @@ class cotisation_NMF_taux_patronale(Variable):
     label = "Taux de cotisation patronale NMF"
     set_input = set_input_divide_by_period
     definition_period = MONTH
-    unit = "currency"
+
+    def formula(individu, period, parameters):
+        return parameters(period).remuneration_fonction_publique.nmf.taux_patronale
 
 
 class cotisation_NMFP(Variable):

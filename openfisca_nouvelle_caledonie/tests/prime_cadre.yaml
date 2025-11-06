@@ -1,0 +1,8 @@
+- name: AS10004029
+  period: 2025-07
+  input:
+    employeur_public_fonction: T4SC
+    type_fonction_publique: territoriale
+    temps_de_travail: 1
+  output:
+    prime_sujetion_cadre: 46899*0 + 48*565 # TO-DO
