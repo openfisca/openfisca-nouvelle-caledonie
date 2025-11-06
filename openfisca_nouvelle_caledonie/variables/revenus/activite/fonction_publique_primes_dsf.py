@@ -45,6 +45,7 @@ class prime_dsf_variable_denominateur(__ForwardVariable):
     definition_period = MONTH
     label = "prime pour la DSF (et service du contentieux fiscal de la DAJ)"
     reference = "Délib 439 du 30/12/2008"
+    default_value = 1
 
 
 class prime_dsf_variable(Variable):

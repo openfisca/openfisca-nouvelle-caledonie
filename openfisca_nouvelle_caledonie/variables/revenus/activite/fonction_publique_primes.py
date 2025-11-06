@@ -94,7 +94,13 @@ class prime_speciale_technicite(Variable):
     def formula(individu, period, parameters):
         direction = individu("employeur_public_direction", period)
         elig_direction = (
-            sum([direction in ["G1400000", "G1300000", "G9800000", "G0800000"]]) > 0
+            sum(
+                [
+                    direction == d
+                    for d in ["G1400000", "G1300000", "G9800000", "G0800000"]
+                ]
+            )
+            > 0
         )
 
         domaine = individu("echelon_domaine", period)
@@ -148,7 +154,16 @@ class prime_territoriale_a(Variable):
         valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
             type_fonction_publique
         ]
-        return elig * (nb * valeur_point * temps_de_travail)
+        taux_indexation_fonction_publique = individu(
+            "taux_indexation_fonction_publique", period
+        )
+        return (
+            elig
+            * nb
+            * valeur_point
+            * temps_de_travail
+            * taux_indexation_fonction_publique
+        )
 
 
 class prime_territoriale_b_points(__ForwardVariable):
@@ -180,7 +195,16 @@ class prime_territoriale_b(Variable):
         valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
             type_fonction_publique
         ]
-        return elig * (nb * valeur_point * temps_de_travail)
+        taux_indexation_fonction_publique = individu(
+            "taux_indexation_fonction_publique", period
+        )
+        return (
+            elig
+            * nb
+            * valeur_point
+            * temps_de_travail
+            * taux_indexation_fonction_publique
+        )
 
 
 class prime_territoriale_c_points(__ForwardVariable):
@@ -212,7 +236,16 @@ class prime_territoriale_c(Variable):
         valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
             type_fonction_publique
         ]
-        return elig * (nb * valeur_point * temps_de_travail)
+        taux_indexation_fonction_publique = individu(
+            "taux_indexation_fonction_publique", period
+        )
+        return (
+            elig
+            * nb
+            * valeur_point
+            * temps_de_travail
+            * taux_indexation_fonction_publique
+        )
 
 
 class prime_sujetion_cadre_points(__ForwardVariable):

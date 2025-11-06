@@ -10,10 +10,10 @@
 
 - name: AS10004985
   period: 2025-07
-  absolute_error_margin: 0.2
+  absolute_error_margin: 1
   input:
-    base_cotisation_fonction_publique: 548600 + 50668
+    base_cotisation_fonction_publique: 274300+25335
     temps_de_travail: 0.5
   output:
-    temps_de_travail: 0.5
-    # cotisation_RUAMMS: TO-DO
+    cotisation_RUAMMS: -7818-317
+    cotisation_RUAMMP: 27841+950

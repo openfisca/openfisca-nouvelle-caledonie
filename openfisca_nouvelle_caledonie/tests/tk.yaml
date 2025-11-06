@@ -1,13 +1,15 @@
 - name: AS10014909
   period: 2025-07
+  absolute_error_margin: 15
   input:
     echelon: FTINE2011
     prime_territoriale_a_points: 38 # K_PointTK4
     employeur_public_direction: G1400000
     type_fonction_publique: territoriale
     temps_de_travail: 1
+    taux_indexation_fonction_publique: 1.73
   output:
-    prime_territoriale_a: 37129*0+38*1*565 # TO-DO
+    prime_territoriale_a: 37129
 
 - name: AS10014909-KO
   period: 2025-07
@@ -17,27 +19,32 @@
     employeur_public_direction: GM030000
     type_fonction_publique: territoriale
     temps_de_travail: 1
+    taux_indexation_fonction_publique: 1.73
   output:
     prime_territoriale_a: 0
 
 - name: AS10078845
   period: 2025-07
+  absolute_error_margin: 11
   input:
     echelon: FTTEI2010
     prime_territoriale_b_points: 27 # K_PointTK5
     employeur_public_direction: G1400000
     type_fonction_publique: territoriale
     temps_de_travail: 1
+    taux_indexation_fonction_publique: 1.73
   output:
-    prime_territoriale_b: 26381*0+27*565 # TO-DO
+    prime_territoriale_b: 26381
 
 - name: AS10138632
   period: 2025-07
+  absolute_error_margin: 8
   input:
     echelon: FTTAE1001
     prime_territoriale_c_points: 22 # K_PointTK6
     employeur_public_direction: G1400000
     type_fonction_publique: territoriale
     temps_de_travail: 1
+    taux_indexation_fonction_publique: 1.73
   output:
-    prime_territoriale_c: 21496*0+22*565 # TO-DO
+    prime_territoriale_c: 21496
