@@ -1,12 +1,14 @@
 # Changelog
 
-## 14.1.0 [#66](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/66)
+# 15.0.0 [#66](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/66)
 
 * Évolution du système socio-fiscal.
 * Périodes concernées : toutes.
 * Zones impactées : `variables/revenus/activite/fonction_publique*.py`.
 * Détails :
   - Ajoute de nouvelles primes du public.
+  - Déplace le noeud de paramètres `remuneration_fonction_publique.prime` vers `remuneration_fonction_publique.prime.categorie`.
+  - Modifie la réforme qui enrichit le modèle des méta-données sur les échelons en ajoutant l'échelle des échelons.
 
 ### 14.0.1 [#65](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/65)
 
