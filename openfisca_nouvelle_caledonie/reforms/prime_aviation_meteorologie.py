@@ -13,7 +13,7 @@ def build_param(value):
     return {"values": {period: value}}
 
 
-class GrilleReform(Reform):
+class TableReform(Reform):
     def __init__(self, tbs, data):
         """Réforme de base pour l'intégration de barèmes par échelon."""
         self.data = data
@@ -33,7 +33,7 @@ class GrilleReform(Reform):
         self.modify_parameters(modifier_function=modify_parameters)
 
 
-class CIReform(GrilleReform):
+class CIReform(TableReform):
     def __init__(self, tbs):
         """Réforme pour réaliser les tests en CI."""
         data = [["D036 C0", 55501], ["D0321P0", 37397]]
