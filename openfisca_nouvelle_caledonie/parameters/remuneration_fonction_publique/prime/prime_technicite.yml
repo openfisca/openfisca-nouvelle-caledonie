@@ -1,0 +1,7 @@
+points:
+  description: Points pour la prime technicite
+  values:
+    2006-01-01:
+      value: 13
+  documentation: |
+      K_PointTCD = 13

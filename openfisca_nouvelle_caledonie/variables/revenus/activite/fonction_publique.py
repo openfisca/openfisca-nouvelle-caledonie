@@ -162,11 +162,19 @@ class employeur_public_fonction(__ForwardVariable):
     label = "Code fonction dans la fonction publique"
 
 
-class employeur_public_echelle(__ForwardVariable):
+class employeur_public_echelle(Variable):
     value_type = str
     entity = Individu
     definition_period = MONTH
     label = "Code échelle dans la fonction publique"
+
+    def formula(individu, period, parameters):
+        echelon = individu("echelon", period)
+        return (
+            parameters(period)
+            .remuneration_fonction_publique.echelons.meta[echelon]
+            .echelle
+        )
 
 
 class taux_indexation_fonction_publique(__ForwardVariable):

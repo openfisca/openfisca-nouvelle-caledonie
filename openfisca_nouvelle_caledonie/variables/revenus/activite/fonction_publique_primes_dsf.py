@@ -2,17 +2,17 @@
 
 from openfisca_core.model_api import *
 from openfisca_nouvelle_caledonie.entities import Individu
-from openfisca_nouvelle_caledonie.variables.revenus.activite.fonction_publique import (
-    __ForwardVariable,
-)
 
 
-class prime_dsf_fixe_montant(__ForwardVariable):
+class prime_dsf_fixe_montant(Variable):
     value_type = float
     entity = Individu
     definition_period = MONTH
     label = "prime pour la DSF (et service du contentieux fiscal de la DAJ)"
     reference = "Délib 439 du 30/12/2008"
+
+    def formula(individu, period, parameters):
+        return parameters(period).remuneration_fonction_publique.prime.dsf.fixe
 
 
 class prime_dsf_fixe(Variable):
@@ -31,21 +31,30 @@ class prime_dsf_fixe(Variable):
         return elig * montant * temps_de_travail
 
 
-class prime_dsf_variable_numerateur(__ForwardVariable):
+class prime_dsf_variable_numerateur(Variable):
     value_type = float
     entity = Individu
     definition_period = MONTH
     label = "prime pour la DSF (et service du contentieux fiscal de la DAJ)"
     reference = "Délib 439 du 30/12/2008"
 
+    def formula(individu, period, parameters):
+        return parameters(
+            period
+        ).remuneration_fonction_publique.prime.dsf.variable.numerateur
 
-class prime_dsf_variable_denominateur(__ForwardVariable):
+
+class prime_dsf_variable_denominateur(Variable):
     value_type = float
     entity = Individu
     definition_period = MONTH
     label = "prime pour la DSF (et service du contentieux fiscal de la DAJ)"
     reference = "Délib 439 du 30/12/2008"
-    default_value = 1
+
+    def formula(individu, period, parameters):
+        return parameters(
+            period
+        ).remuneration_fonction_publique.prime.dsf.variable.denominateur
 
 
 class prime_dsf_variable(Variable):

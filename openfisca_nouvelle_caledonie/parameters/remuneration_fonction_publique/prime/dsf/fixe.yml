@@ -1,0 +1,6 @@
+description: Montant de la prime fixe de la DSF
+values:
+  2006-01-01:
+    value: 35014
+documentation: |
+    K_TCY = 35014

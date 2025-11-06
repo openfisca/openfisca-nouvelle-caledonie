@@ -1,0 +1,6 @@
+description: Numérateur pour le calcul de la prime variable de la DSF
+values:
+  2006-01-01:
+    value: 45938931
+documentation: |
+    K_TCZ1 = 45938931
