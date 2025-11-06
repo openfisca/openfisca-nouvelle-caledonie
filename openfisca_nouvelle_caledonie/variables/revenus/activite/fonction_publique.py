@@ -346,7 +346,7 @@ class cotisation_RUAMM_ajustement(Variable):
     label = "Coefficient d'ajustement au temps de travail pour le calcul des cotisations RUAMM"
     definition_period = MONTH
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         temps_de_travail = individu("temps_de_travail", period)
         return where(temps_de_travail < 0.8, temps_de_travail, 1)
 

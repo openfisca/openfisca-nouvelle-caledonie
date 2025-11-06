@@ -1,7 +1,5 @@
 """Réformes pour l'intégration des valeurs pour la prime dans l'aviation civile et la météorologie. Il sera peut-être pertinent d'intégrer ça au constructeur du TBS."""
 
-import numpy as np
-
 from openfisca_core.model_api import Reform
 from openfisca_core.parameters import Parameter
 
