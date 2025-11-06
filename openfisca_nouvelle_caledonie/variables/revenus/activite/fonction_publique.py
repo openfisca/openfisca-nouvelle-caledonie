@@ -356,7 +356,8 @@ class cotisation_RUAMMS(Variable):
         P = parameters(period).remuneration_fonction_publique.ruamm
 
         ajustement = individu("cotisation_RUAMM_ajustement", period)
-        return -P.bareme_salarie.calc(base / ajustement) * ajustement
+        not_nul_ajustement = where(ajustement == 0, 1, ajustement)
+        return -P.bareme_salarie.calc(base / not_nul_ajustement) * ajustement
 
 
 class cotisation_RUAMMP(Variable):
@@ -371,7 +372,8 @@ class cotisation_RUAMMP(Variable):
         base = individu("base_cotisation_fonction_publique", period)
         P = parameters(period).remuneration_fonction_publique.ruamm
         ajustement = individu("cotisation_RUAMM_ajustement", period)
-        return P.bareme_patronale.calc(base / ajustement) * ajustement
+        not_nul_ajustement = where(ajustement == 0, 1, ajustement)
+        return P.bareme_patronale.calc(base / not_nul_ajustement) * ajustement
 
 
 class cotisation_MCS(Variable):
