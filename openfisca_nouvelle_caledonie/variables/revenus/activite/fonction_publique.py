@@ -404,7 +404,9 @@ class cotisation_NMF_taux_salarie(Variable):
     label = "Taux de cotisation salariée NMF"
     set_input = set_input_divide_by_period
     definition_period = MONTH
-    unit = "currency"
+
+    def formula(individu, period, parameters):
+        return parameters(period).remuneration_fonction_publique.nmf.taux_salarie
 
 
 class cotisation_NMFS(Variable):
@@ -427,7 +429,9 @@ class cotisation_NMF_taux_patronale(Variable):
     label = "Taux de cotisation patronale NMF"
     set_input = set_input_divide_by_period
     definition_period = MONTH
-    unit = "currency"
+
+    def formula(individu, period, parameters):
+        return parameters(period).remuneration_fonction_publique.nmf.taux_patronale
 
 
 class cotisation_NMFP(Variable):
