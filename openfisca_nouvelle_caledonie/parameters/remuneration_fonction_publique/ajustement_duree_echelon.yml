@@ -1,0 +1,5 @@
+description: Nombre de mois supplémentaires à passer dans les échelons
+values:
+  2006-01-01:
+    value: 0
+

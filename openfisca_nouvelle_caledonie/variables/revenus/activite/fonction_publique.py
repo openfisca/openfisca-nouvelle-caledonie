@@ -35,7 +35,8 @@ class echelon(Variable):
         p = period.last_month
         echelon = individu("echelon", p)
         P = parameters(period).remuneration_fonction_publique.echelons.meta[echelon]
-        duree = P.duree_moyenne
+        ajustement = parameters(period).remuneration_fonction_publique.ajustement_duree_echelon
+        duree = P.duree_moyenne + ajustement
         suivant = P.suivant
 
         return where(nb_mois_echelon >= duree, suivant, echelon)
@@ -76,7 +77,8 @@ class echelon_paie(Variable):
         p = period.last_month
         echelon = individu("echelon_paie", p)
         P = parameters(period).remuneration_fonction_publique.echelons.meta[echelon]
-        duree = P.duree_moyenne
+        ajustement = parameters(period).remuneration_fonction_publique.ajustement_duree_echelon
+        duree = P.duree_moyenne + ajustement
         suivant = P.suivant
 
         return where(nb_mois_echelon >= duree, suivant, echelon)
