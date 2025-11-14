@@ -1,5 +1,13 @@
 # Changelog
 
+## 15.0.1 [#67](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/67)
+
+* Évolution du système socio-fiscal.
+* Périodes concernées : toutes.
+* Zones impactées : `openfisca_nouvelle_caledonie/parameters/remuneration_fonction_publique/ajustement_duree_echelon`.
+* Détails :
+  - Ajoute un paramètre pour modifier la durée dans les échelons
+
 # 15.0.0 [#66](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/66)
 
 * Évolution du système socio-fiscal.
