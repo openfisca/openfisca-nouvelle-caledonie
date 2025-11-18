@@ -432,7 +432,7 @@ class prime_stabilite_points(Variable):
     reference = "Délib 423 du 20/03/2019"
 
     def formula(individu, period, parameters):
-        return parameters(period).remuneration_fonction_publique.tmi.points
+        return parameters(period).remuneration_fonction_publique.prime.prime_stabilite.points
 
 
 class prime_stabilite(Variable):
