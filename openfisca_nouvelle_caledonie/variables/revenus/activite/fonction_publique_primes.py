@@ -428,7 +428,7 @@ class prime_stabilite_points(Variable):
     value_type = float
     entity = Individu
     definition_period = MONTH
-    label = "Majoration pour grille de sage-femmes"
+    label = "Majoration pour grille de sages-femmes"
     reference = "Délib 423 du 20/03/2019"
 
     def formula(individu, period, parameters):
@@ -439,7 +439,7 @@ class prime_stabilite(Variable):
     value_type = float
     entity = Individu
     definition_period = MONTH
-    label = "Majoration pour grille de sage-femmes"
+    label = "Majoration pour grille de sages-femmes"
     reference = "Délib 423 du 20/03/2019"
 
     def formula(individu, period, parameters):
