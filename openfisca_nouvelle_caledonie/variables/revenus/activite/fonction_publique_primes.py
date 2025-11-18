@@ -424,6 +424,37 @@ class prime_aviation_technicite(Variable):
         return tch[indexes] * temps_de_travail
 
 
+class prime_stabilite_points(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Majoration pour grille de sage-femmes"
+    reference = "Délib 423 du 20/03/2019"
+
+    def formula(individu, period, parameters):
+        return parameters(period).remuneration_fonction_publique.tmi.points
+
+
+class prime_stabilite(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Majoration pour grille de sage-femmes"
+    reference = "Délib 423 du 20/03/2019"
+
+    def formula(individu, period, parameters):
+        echelle = individu("employeur_public_echelle", period)
+        elig = startswith(list(echelle), "S012")  # TO-DO
+
+        nb = individu("prime_stabilite_points", period)
+        temps_de_travail = individu("temps_de_travail", period)
+        type_fonction_publique = individu("type_fonction_publique", period)
+        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
+            type_fonction_publique
+        ]
+        return elig * (nb * valeur_point * temps_de_travail)
+
+
 class prime_fonction_publique(Variable):
     value_type = float
     entity = Individu
@@ -476,6 +507,7 @@ class primes_fonction_publique(Variable):
             "prime_sujetion_chef_bureau",
             "prime_sujetion_charge_mission",
             "prime_aviation_technicite",
+            "prime_stabilite",
         ]
 
         return sum([individu(prime, period) for prime in noms])
