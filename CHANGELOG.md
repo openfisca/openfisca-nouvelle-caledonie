@@ -1,6 +1,14 @@
 # Changelog
 
-## 15.0.1 [#67](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/67)
+## 15.1.0 [#68](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/68)
+
+* Évolution du système socio-fiscal.
+* Périodes concernées : toutes.
+* Zones impactées : `variables/revenus/activite/fonction_publique_primes.py`.
+* Détails :
+  - Ajoute la prime stabilité pour les sages-femmes.
+
+### 15.0.1 [#67](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/67)
 
 * Évolution du système socio-fiscal.
 * Périodes concernées : toutes.
