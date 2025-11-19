@@ -486,7 +486,7 @@ class prime_stabilite_2_points(Variable):
     entity = Individu
     definition_period = MONTH
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         echelle = individu("employeur_public_echelle", period)
         l_echelle = list(echelle)  # TO-DO
         cat_a_prefixes = [
