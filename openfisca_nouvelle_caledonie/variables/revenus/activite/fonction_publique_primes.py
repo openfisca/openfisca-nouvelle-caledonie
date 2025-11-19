@@ -527,9 +527,7 @@ class prime_stabilite_2(Variable):
     def formula(individu, period, parameters):
         employeur = individu("employeur_public", period)
         elig_employeurs = ["C1", "C2", "N2", "S1", "N1", "I1", "T4"]
-        elig = sum(
-            [elig_employeur == employeur for elig_employeur in elig_employeurs]
-        )  # TO-DO
+        elig = sum([elig_employeur == employeur for elig_employeur in elig_employeurs])
 
         nb = individu("prime_stabilite_2_points", period)
         temps_de_travail = individu("temps_de_travail", period)
