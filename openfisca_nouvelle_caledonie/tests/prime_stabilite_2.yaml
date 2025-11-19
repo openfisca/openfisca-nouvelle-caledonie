@@ -1,0 +1,35 @@
+- period: 2025-07
+  input:
+    employeur_public: C1
+    temps_de_travail: 1
+    prime_stabilite_2_points_categorie_a: 1
+    prime_stabilite_2_points_categorie_b: 0
+    employeur_public_echelle: S012AZD
+    type_fonction_publique: territoriale
+    taux_indexation_fonction_publique: 1
+  output:
+    prime_stabilite_2: 565
+
+- period: 2025-07
+  input:
+    employeur_public: NON_ELIGIBLE
+    temps_de_travail: 1
+    prime_stabilite_2_points_categorie_a: 1
+    prime_stabilite_2_points_categorie_b: 0
+    employeur_public_echelle: S012AZD
+    type_fonction_publique: territoriale
+    taux_indexation_fonction_publique: 1
+  output:
+    prime_stabilite_2: 0
+
+- period: 2025-07
+  input:
+    employeur_public: C1
+    temps_de_travail: 1
+    prime_stabilite_2_points_categorie_a: 1
+    prime_stabilite_2_points_categorie_b: 2
+    employeur_public_echelle: PM016
+    type_fonction_publique: territoriale
+    taux_indexation_fonction_publique: 1
+  output:
+    prime_stabilite_2: 2*565

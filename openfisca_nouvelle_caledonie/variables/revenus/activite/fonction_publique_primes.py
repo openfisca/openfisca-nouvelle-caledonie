@@ -452,7 +452,73 @@ class prime_stabilite(Variable):
         valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
             type_fonction_publique
         ]
-        return elig * (nb * valeur_point * temps_de_travail)
+        indexation = individu(
+            "taux_indexation_fonction_publique", period
+        )
+
+        return elig * (nb * valeur_point * temps_de_travail * indexation)
+
+class prime_stabilite_2_points_categorie_a(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+
+    def formula(individu, period, parameters):
+        return parameters(period).remuneration_fonction_publique.prime.prime_stabilite_2.categorie_a.points
+
+
+class prime_stabilite_2_points_categorie_b(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+
+    def formula(individu, period, parameters):
+        return parameters(period).remuneration_fonction_publique.prime.prime_stabilite_2.categorie_b.points
+
+
+class prime_stabilite_2_points(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+
+    def formula(individu, period, parameters):
+        echelle = individu("employeur_public_echelle", period)
+        l_echelle = list(echelle)  # TO-DO
+        cat_a_prefixes = ["S012", "S036", "S037", "S038", "PM002", "PM003", "PM004", "PM006", "PM007", "PM008", "PM029", "PMA10", "PMA12", "PMA13", "PMA17"]
+        cat_a = sum([startswith(l_echelle, prefix) for prefix in cat_a_prefixes])
+
+        cat_b_prefixes = ["PM016"]
+        cat_b = sum([startswith(l_echelle, prefix) for prefix in cat_b_prefixes])
+
+        p_a = individu("prime_stabilite_2_points_categorie_a", period)
+        p_b = individu("prime_stabilite_2_points_categorie_b", period)
+
+        return cat_a * p_a + cat_b * p_b
+
+
+class prime_stabilite_2(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Majoration pour grille de sages-femmes"
+    reference = "Délib 423 du 20/03/2019"
+
+    def formula(individu, period, parameters):
+        employeur = individu("employeur_public", period)
+        elig_employeurs =  ["C1", "C2", "N2", "S1", "N1", "I1", "T4"]
+        elig = sum([elig_employeur == employeur for elig_employeur in elig_employeurs])  # TO-DO
+
+        nb = individu("prime_stabilite_2_points", period)
+        temps_de_travail = individu("temps_de_travail", period)
+        type_fonction_publique = individu("type_fonction_publique", period)
+        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
+            type_fonction_publique
+        ]
+        indexation = individu(
+            "taux_indexation_fonction_publique", period
+        )
+
+        return elig * nb * valeur_point * temps_de_travail * indexation
 
 
 class prime_fonction_publique(Variable):
@@ -508,6 +574,7 @@ class primes_fonction_publique(Variable):
             "prime_sujetion_charge_mission",
             "prime_aviation_technicite",
             "prime_stabilite",
+            "prime_stabilite_2",
         ]
 
         return sum([individu(prime, period) for prime in noms])
