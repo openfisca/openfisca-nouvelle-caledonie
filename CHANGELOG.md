@@ -1,5 +1,14 @@
 # Changelog
 
+## 15.2.0 [#69](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/69)
+
+* Évolution du système socio-fiscal.
+* Périodes concernées : toutes.
+* Zones impactées : `variables/revenus/activite/fonction_publique_primes.py`.
+* Détails :
+  - Ajoute l'indexation à la prime stabilité.
+  - Ajoute la prime de stabilité expérimentale pour la réforme.
+
 ## 15.1.0 [#68](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/68)
 
 * Évolution du système socio-fiscal.
