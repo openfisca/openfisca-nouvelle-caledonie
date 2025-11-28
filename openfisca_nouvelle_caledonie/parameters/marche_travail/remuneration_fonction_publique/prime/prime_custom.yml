@@ -1,0 +1,10 @@
+echelons:
+  description: "Prime utilisée dans l’interface web pour les simulations personnalisées"
+  values:
+    2025-01-01:
+      value: []
+valeur:
+  description: "Prime utilisée dans l’interface web pour les simulations personnalisées"
+  values:
+    2025-01-01:
+      value: 0
