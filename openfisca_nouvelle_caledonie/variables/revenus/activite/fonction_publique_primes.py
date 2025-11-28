@@ -593,6 +593,24 @@ class prime_fonction_publique(Variable):
         )
 
 
+class prime_custom(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Prime personnalisée dans la fonction publique"
+
+    def formula(individu, period, parameters):
+        echelon = individu("echelon", period)
+        echelons_custom = parameters(
+            period
+        ).remuneration_fonction_publique.prime.prime_custom.echelons
+        valeur_prime = parameters(
+            period
+        ).remuneration_fonction_publique.prime.prime_custom.valeur
+
+        return (echelon in echelons_custom) * valeur_prime
+
+
 class primes_fonction_publique(Variable):
     value_type = float
     entity = Individu
@@ -621,6 +639,7 @@ class primes_fonction_publique(Variable):
             "prime_aviation_technicite",
             "prime_stabilite",
             "prime_stabilite_2",
+            "prime_custom",
         ]
 
         return sum([individu(prime, period) for prime in noms])
