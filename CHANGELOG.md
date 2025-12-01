@@ -1,5 +1,13 @@
 # Changelog
 
+## 15.3.0 [#56](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/56)
+
+  * Amélioration technique.
+  * Périodes concernées : toutes.
+  * Zones impactées : `parameters.prelevements_obligatoires.impot_revenu`.
+  * Détails :
+    - Complète les descriptions des paramètres et crée les fichiers de paramètres qui étaient préalablement en "dur"
+
 ## 15.2.0 [#69](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/69)
 
 * Évolution du système socio-fiscal.
@@ -45,8 +53,8 @@
 
 # 14.0.0 [#64](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/64)
 
-* Évolution du système socio-fiscal. 
-* Périodes concernées : toutes. 
+* Évolution du système socio-fiscal.
+* Périodes concernées : toutes.
 * Zones impactées : `variables/revenus/activite/fonction_publique.py`.
 * Détails :
   - Corrige les calculs de cotisations dans le public, notamment la NCJ
