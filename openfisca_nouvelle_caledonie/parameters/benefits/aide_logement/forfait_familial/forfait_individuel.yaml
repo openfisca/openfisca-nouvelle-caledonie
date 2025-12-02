@@ -1,4 +1,6 @@
-description: Amount of the basic income
+description: Montant du forfait individuel pour le calcul du forfait familial de l'aide au logement
+metadata:
+  unit: currency
 values:
   2015-12-01:
     value: 44500

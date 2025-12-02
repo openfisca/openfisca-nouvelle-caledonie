@@ -1,4 +1,6 @@
-description: Amount of the basic income
+description: Coefficient de base pour le calcul du forfait familial
+metadata:
+  unit: /1
 values:
   2015-12-01:
     value: 1

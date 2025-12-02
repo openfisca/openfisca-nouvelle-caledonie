@@ -4,3 +4,7 @@ values:
     value: 0.0066
 documentation: |
     K_TauxMDF_PP = K287
+metadata:
+  label_en: NMF employer rate
+  short_label: Taux patronale NMF
+  unit: /1
