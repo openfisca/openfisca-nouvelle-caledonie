@@ -4,3 +4,7 @@ values:
     value: 0.0066
 documentation: |
     K_TauxMDF_PS = K286
+metadata:
+  label_en: NMF employee rate
+  short_label: Taux salarié NMF
+  unit: /1
