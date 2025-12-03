@@ -1,5 +1,12 @@
 # Changelog
 
+## 15.3.1 [#71](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/71)
+* Amélioration technique.
+* Périodes concernées : toutes.
+* Zones impactées : `parameters`.
+* Détails :
+  - Ajout de métadonnées et début nettoyage
+
 ## 15.3.0 [#56](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/56)
 
   * Amélioration technique.
