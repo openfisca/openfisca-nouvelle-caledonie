@@ -1,7 +1,8 @@
 description: Pourcentage du loyer de référence lorsque le solde de revenu est négatif
 metadata:
   unit: /1
-  reference: Article 8 de la délibération n° 286 du 18 avril 2007
+documentation: |
+  Article 8 de la délibération n° 286 du 18 avril 2007
 chambre:
   2015-12-01:
     value: 0.20 # Clarification nécessaire
