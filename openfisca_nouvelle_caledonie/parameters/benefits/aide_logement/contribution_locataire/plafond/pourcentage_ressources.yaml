@@ -1,7 +1,8 @@
 description: Pourcentage de la base ressources pour le calcul de la contribution locataire
 metadata:
   rate_unit: /1
-  reference: Article 8 de la délibération n° 286 du 18 avril 2007
+documentation: |
+  Article 8 de la délibération n° 286 du 18 avril 2007
   type: single_amount
 brackets:
 - threshold:

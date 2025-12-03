@@ -1,7 +1,9 @@
 description: Pourcentage du solde de revenu caractérisant le plafond du supplément de loyer
 metadata:
   unit: /1
-  reference: Article 8 de la délibération n° 286 du 18 avril 2007
+documentation: |
+  Article 8 de la délibération n° 286 du 18 avril 2007
 values:
   2015-12-01:
     value: 0.5
+
