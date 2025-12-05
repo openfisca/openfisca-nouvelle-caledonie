@@ -4,4 +4,12 @@ metadata:
   label_en: Tax reductions
   income_tax_year: true
   order:
+  - reduction_impot_redistributive
+  - investissement_locatif
   - prestation_compensatoire
+  - mecenat
+  - dons_pme
+  - promotion_exportation
+  - courses_hippiques
+  - financement_participatif
+  - impot_minimum

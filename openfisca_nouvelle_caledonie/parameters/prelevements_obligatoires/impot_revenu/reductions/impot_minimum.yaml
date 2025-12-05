@@ -1,0 +1,8 @@
+description: Impôt minimum après réductions d'impôt
+values:
+  2015-01-01:
+    value: 5_000
+metadata:
+  unit: currency
+  short_label: Impôt minimum
+  label_en: Minimum income tax after tax reductions

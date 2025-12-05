@@ -436,11 +436,13 @@ class credits_impot(Variable):
         creche_entreprise = parameters(
             period
         ).prelevements_obligatoires.impot_revenu.credits.creche_entreprise
+
         credit_creche_entreprise = min_(
             creche_entreprise.taux
             * min_(
                 foyer_fiscal("creche_entreprise", period),
-                120_000_000,  # TODO: parameters
+                creche_entreprise.plafond
+                / creche_entreprise.taux,  # kept for compatibility with Java implementation (may be redundant)
             ),
             creche_entreprise.plafond,
         )

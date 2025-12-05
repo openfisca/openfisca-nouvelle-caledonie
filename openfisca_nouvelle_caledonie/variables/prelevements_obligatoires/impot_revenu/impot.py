@@ -192,13 +192,16 @@ class impot_apres_reductions(Variable):
     label = "Impot net"
     definition_period = YEAR
 
-    def formula(foyer_fiscal, period):
+    def formula(foyer_fiscal, period, parameters):
+        impot_minimum = parameters(
+            period
+        ).prelevements_obligatoires.impot_revenu.reductions.impot_minimum
         impot_brut = foyer_fiscal("impot_brut", period)
         impot_apres_imputations = max_(
             impot_brut - foyer_fiscal("imputations", period), 0
         )
         reductions_palfonnees = min_(
-            max_(impot_apres_imputations - 5_000, 0),
+            max_(impot_apres_imputations - impot_minimum, 0),
             foyer_fiscal("reductions_impot", period),
         )
 

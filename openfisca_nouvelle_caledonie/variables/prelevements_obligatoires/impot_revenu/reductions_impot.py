@@ -301,17 +301,20 @@ class reduction_investissement_locatif(Variable):
     unit = "currency"
     value_type = int
     entity = FoyerFiscal
-    label = "Réduction d'impôt pour investissement locatif"
+    label = "Réduction d'impôt pour investissement locatif (RILI)"
     definition_period = YEAR
 
-    def formula(foyer_fiscal, period):
+    def formula(foyer_fiscal, period, parameters):
+        plafond_rili = parameters(
+            period
+        ).prelevements_obligatoires.impot_revenu.reductions.investissement_locatif
         montant_investi = foyer_fiscal(
             "investissement_immeuble_neuf_habitation_principale", period
         ) + foyer_fiscal(
             "investissement_immeubles_neufs_acquis_loues_nus_habitation_principale",
             period,
         )
-        reduction = min_(ceil(montant_investi), 5_400_000)  # TODO: parameters
+        reduction = min_(ceil(montant_investi), plafond_rili)
         resident = foyer_fiscal("resident", period)
         return where(resident, reduction, 0)
 

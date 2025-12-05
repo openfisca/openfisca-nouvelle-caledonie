@@ -1,0 +1,8 @@
+descrîtion: Plafond de la réduction d'impôt pour investissement locatif (RILI)
+values:
+  2015-01-01:
+    value: 5_400_000
+metadata:
+  short_label: Plafond RILI
+  label_en: Ceiling for tax reduction for rental investment (RILI)
+  unit: currency
