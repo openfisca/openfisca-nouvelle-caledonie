@@ -1,6 +1,15 @@
 # Changelog
 
-## 15.3.1 [#71](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/71)
+## 15.4.0 [#73](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/73)
+
+* Amélioration technique.
+* Périodes concernées : toutes.
+* Zones impactées : `parameters/prelevements_obligatoires/impot_revenu/reductions`.
+* Détails :
+  - Ajout de paramètres codés en dur jusqu'ici.
+  - Corrections mineures de forme.
+
+### 15.3.1 [#71](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/71)
 * Amélioration technique.
 * Périodes concernées : toutes.
 * Zones impactées : `parameters`.
