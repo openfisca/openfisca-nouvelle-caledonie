@@ -481,9 +481,11 @@ class base_cotisation_NCJ(Variable):
             type_fonction_publique
         ]
 
-        majoration_clr = 0.73
+        taux_majoration = parameters(
+            period
+        ).remuneration_fonction_publique.ncj.taux_majoration
 
-        return indice * valeur_point * temps_de_travail * (1 + majoration_clr)
+        return indice * valeur_point * temps_de_travail * (1 + taux_majoration)
 
 
 class cotisation_NCJS(Variable):
