@@ -1,5 +1,13 @@
 # Changelog
 
+## 15.5.0 [#74](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/74)
+
+* Amélioration technique.
+* Périodes concernées : toutes.
+* Zones impactées : `parameters/parameters/remuneration_fonction_publique`.
+* Détails :
+  - Ajout de paramètres codés en dur jusqu'ici.
+
 ## 15.4.0 [#73](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/73)
 
 * Amélioration technique.
