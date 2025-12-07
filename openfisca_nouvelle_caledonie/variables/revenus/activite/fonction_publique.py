@@ -314,12 +314,16 @@ class indemnite_residence(Variable):
         ]
         est_retraite = individu("est_retraite", period)
 
+        taux = parameters(
+            period
+        ).remuneration_fonction_publique.indemnite_residence.taux
+
         return not_(est_retraite) * (
             indice
             * valeur_point
             * temps_de_travail
             * taux_indexation_fonction_publique
-            * 0.03
+            * taux
         )
 
 
