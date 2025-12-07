@@ -314,12 +314,16 @@ class indemnite_residence(Variable):
         ]
         est_retraite = individu("est_retraite", period)
 
+        taux = parameters(
+            period
+        ).remuneration_fonction_publique.indemnite_residence.taux
+
         return not_(est_retraite) * (
             indice
             * valeur_point
             * temps_de_travail
             * taux_indexation_fonction_publique
-            * 0.03
+            * taux
         )
 
 
@@ -477,9 +481,11 @@ class base_cotisation_NCJ(Variable):
             type_fonction_publique
         ]
 
-        majoration_clr = 0.73
+        taux_majoration = parameters(
+            period
+        ).remuneration_fonction_publique.ncj.taux_majoration
 
-        return indice * valeur_point * temps_de_travail * (1 + majoration_clr)
+        return indice * valeur_point * temps_de_travail * (1 + taux_majoration)
 
 
 class cotisation_NCJS(Variable):
