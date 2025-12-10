@@ -214,8 +214,7 @@ class taux_indexation_fonction_publique(Variable):
 
     def formula(individu, period, parameters):
         lieu = individu("zone_travail_fonction_publique", period)
-        taux = parameters(period).remuneration_fonction_publique.taux_indexation[lieu]
-        return taux
+        return parameters(period).remuneration_fonction_publique.taux_indexation[lieu]
 
 
 class temps_de_travail(__ForwardVariable):
