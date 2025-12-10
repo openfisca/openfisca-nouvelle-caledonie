@@ -190,12 +190,32 @@ class employeur_public_echelle(Variable):
         )
 
 
-class taux_indexation_fonction_publique(__ForwardVariable):
+class ZoneTravailFonctionPublique(Enum):
+    __order__ = "brousse noumea non_concerne"
+    brousse = "Brousse"
+    noumea = "Nouméa"
+    non_concerne = "Non concerné"
+
+
+class zone_travail_fonction_publique(__ForwardVariable):
+    value_type = Enum
+    possible_values = ZoneTravailFonctionPublique
+    default_value = ZoneTravailFonctionPublique.non_concerne
+    entity = Individu
+    label = "Lieu de travail pour le calcul du taux d'indexation"
+    definition_period = MONTH
+
+
+class taux_indexation_fonction_publique(Variable):
     value_type = float
     entity = Individu
     label = "Taux d'indexation pour la rémunération dans le secteur public"
-    set_input = set_input_dispatch_by_period
     definition_period = MONTH
+
+    def formula(individu, period, parameters):
+        lieu = individu("zone_travail_fonction_publique", period)
+        taux = parameters(period).remuneration_fonction_publique.taux_indexation[lieu]
+        return taux
 
 
 class temps_de_travail(__ForwardVariable):
