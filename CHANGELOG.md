@@ -1,5 +1,13 @@
 # Changelog
 
+## 15.6.0 [#75](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/75)
+
+* Évolution du système socio-fiscal.
+* Périodes concernées : toutes.
+* Zones impactées : `parameters/parameters/remuneration_fonction_publique`.
+* Détails :
+  - Ajoute la logique de zonage géographique pour le calcul du taux d'indexation de la rémunération dans la fonction publique
+
 ## 15.5.0 [#74](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/74)
 
 * Amélioration technique.

@@ -1,0 +1,6 @@
+- period: 2025-07
+  input:
+    zone_travail_fonction_publique: [noumea, brousse]
+  output:
+    taux_indexation_fonction_publique:
+      2025-08: [1.73, 1.94]
