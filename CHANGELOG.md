@@ -1,6 +1,6 @@
 # Changelog
 
-### 15.6.1 [#75](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/75)
+### 15.6.1 [#76](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/76)
 
 * Évolution du système socio-fiscal.
 * Périodes concernées : toutes.

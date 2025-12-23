@@ -305,12 +305,8 @@ class prime_sujetion_cadre(Variable):
         valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
             type_fonction_publique
         ]
-        taux_indexation_fonction_publique = individu(
-            "taux_indexation_fonction_publique", period
-        )
-        return elig * (
-            nb * valeur_point * temps_de_travail * taux_indexation_fonction_publique
-        )
+        taux_indexation = individu("taux_indexation_fonction_publique", period)
+        return elig * (nb * valeur_point * temps_de_travail * taux_indexation)
 
 
 class prime_sujetion_chef_secteur_points(Variable):
@@ -343,12 +339,8 @@ class prime_sujetion_chef_secteur(Variable):
         valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
             type_fonction_publique
         ]
-        taux_indexation_fonction_publique = individu(
-            "taux_indexation_fonction_publique", period
-        )
-        return elig * (
-            nb * valeur_point * temps_de_travail * taux_indexation_fonction_publique
-        )
+        taux_indexation = individu("taux_indexation_fonction_publique", period)
+        return elig * (nb * valeur_point * temps_de_travail * taux_indexation)
 
 
 class prime_sujetion_chef_bureau_points(Variable):
@@ -381,12 +373,8 @@ class prime_sujetion_chef_bureau(Variable):
         valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
             type_fonction_publique
         ]
-        taux_indexation_fonction_publique = individu(
-            "taux_indexation_fonction_publique", period
-        )
-        return elig * (
-            nb * valeur_point * temps_de_travail * taux_indexation_fonction_publique
-        )
+        taux_indexation = individu("taux_indexation_fonction_publique", period)
+        return elig * (nb * valeur_point * temps_de_travail * taux_indexation)
 
 
 class prime_sujetion_charge_mission_points(Variable):
@@ -419,12 +407,8 @@ class prime_sujetion_charge_mission(Variable):
         valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
             type_fonction_publique
         ]
-        taux_indexation_fonction_publique = individu(
-            "taux_indexation_fonction_publique", period
-        )
-        return elig * (
-            nb * valeur_point * temps_de_travail * taux_indexation_fonction_publique
-        )
+        taux_indexation = individu("taux_indexation_fonction_publique", period)
+        return elig * (nb * valeur_point * temps_de_travail * taux_indexation)
 
 
 class prime_aviation_technicite(Variable):
