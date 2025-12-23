@@ -279,7 +279,7 @@ class prime_direction_points(Variable):
     value_type = float
     entity = Individu
     definition_period = MONTH
-    label = "Prime des personnels d’encadrement et assimilés"
+    label = "Prime des personnels de direction"
 
     def formula(individu, period, parameters):
         return parameters(
@@ -291,8 +291,7 @@ class prime_direction(Variable):
     value_type = float
     entity = Individu
     definition_period = MONTH
-    label = "Prime des personnels d’encadrement et assimilés"
-    reference = "Délib 393 du 25/06/2008"
+    label = "Prime des personnels de direction"
 
     def formula(individu, period, parameters):
         fonction = individu("employeur_public_fonction", period)
@@ -312,7 +311,7 @@ class prime_adjoint_direction_points(Variable):
     value_type = float
     entity = Individu
     definition_period = MONTH
-    label = "Prime des personnels d’encadrement et assimilés"
+    label = "Prime des personnels adjoints de direction"
 
     def formula(individu, period, parameters):
         return parameters(
@@ -324,8 +323,7 @@ class prime_adjoint_direction(Variable):
     value_type = float
     entity = Individu
     definition_period = MONTH
-    label = "Prime des personnels d’encadrement et assimilés"
-    reference = "Délib 393 du 25/06/2008"
+    label = "Prime des personnels adjoints de direction"
 
     def formula(individu, period, parameters):
         fonction = individu("employeur_public_fonction", period)
