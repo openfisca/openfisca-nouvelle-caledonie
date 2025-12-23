@@ -1,0 +1,17 @@
+- period: 2025-07
+  input:
+    employeur_public_fonction: T4DR
+    type_fonction_publique: territoriale
+    temps_de_travail: 1
+    taux_indexation_fonction_publique: 1.1
+  output:
+    prime_direction: 88*565*1.1
+
+- period: 2025-07
+  input:
+    employeur_public_fonction: T4DA
+    type_fonction_publique: territoriale
+    temps_de_travail: 1
+    taux_indexation_fonction_publique: 1.1
+  output:
+    prime_adjoint_direction: 68*565*1.1
