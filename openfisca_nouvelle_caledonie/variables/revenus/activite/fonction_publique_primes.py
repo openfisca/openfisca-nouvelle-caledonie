@@ -275,6 +275,72 @@ class prime_territoriale_c(Variable):
         )
 
 
+class prime_direction_points(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Prime des personnels d’encadrement et assimilés"
+
+    def formula(individu, period, parameters):
+        return parameters(
+            period
+        ).remuneration_fonction_publique.prime.prime_direction.points
+
+
+class prime_direction(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Prime des personnels d’encadrement et assimilés"
+    reference = "Délib 393 du 25/06/2008"
+
+    def formula(individu, period, parameters):
+        fonction = individu("employeur_public_fonction", period)
+        elig = sum([fonction == f for f in ["T4DR", "T4DI", "T4A1"]])
+
+        nb = individu("prime_direction_points", period)
+        temps_de_travail = individu("temps_de_travail", period)
+        type_fonction_publique = individu("type_fonction_publique", period)
+        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
+            type_fonction_publique
+        ]
+        taux_indexation = individu("taux_indexation_fonction_publique", period)
+        return elig * (nb * valeur_point * temps_de_travail * taux_indexation)
+
+
+class prime_adjoint_direction_points(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Prime des personnels d’encadrement et assimilés"
+
+    def formula(individu, period, parameters):
+        return parameters(
+            period
+        ).remuneration_fonction_publique.prime.prime_adjoint_direction.points
+
+
+class prime_adjoint_direction(Variable):
+    value_type = float
+    entity = Individu
+    definition_period = MONTH
+    label = "Prime des personnels d’encadrement et assimilés"
+    reference = "Délib 393 du 25/06/2008"
+
+    def formula(individu, period, parameters):
+        fonction = individu("employeur_public_fonction", period)
+        elig = sum([fonction == f for f in ["T4DA", "T4DT", "T4A2"]])
+
+        nb = individu("prime_adjoint_direction_points", period)
+        temps_de_travail = individu("temps_de_travail", period)
+        type_fonction_publique = individu("type_fonction_publique", period)
+        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
+            type_fonction_publique
+        ]
+        taux_indexation = individu("taux_indexation_fonction_publique", period)
+        return elig * (nb * valeur_point * temps_de_travail * taux_indexation)
+
+
 class prime_sujetion_cadre_points(Variable):
     value_type = float
     entity = Individu
