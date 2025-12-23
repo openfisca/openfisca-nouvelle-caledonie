@@ -1,5 +1,13 @@
 # Changelog
 
+## 15.7.0 [#77](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/77)
+
+* Évolution du système socio-fiscal.
+* Périodes concernées : toutes.
+* Zones impactées : `variables/revenus/activite/fonction_publique*.py`.
+* Détails :
+  - Ajoute les primes de direction
+
 ### 15.6.1 [#76](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/76)
 
 * Évolution du système socio-fiscal.

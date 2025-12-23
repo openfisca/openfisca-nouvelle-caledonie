@@ -657,6 +657,8 @@ class primes_fonction_publique(Variable):
             "prime_territoriale_c",
             "prime_dsf_fixe",
             "prime_dsf_variable",
+            "prime_direction",
+            "prime_adjoint_direction",
             "prime_sujetion_cadre",
             "prime_sujetion_chef_secteur",
             "prime_sujetion_chef_bureau",
