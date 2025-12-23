@@ -4,5 +4,6 @@
     employeur_public_fonction: T4SC
     type_fonction_publique: territoriale
     temps_de_travail: 1
+    taux_indexation_fonction_publique: 1.1
   output:
-    prime_sujetion_cadre: 46899*0 + 48*565 # TO-DO
+    prime_sujetion_cadre: 46899*0 + 48*565*1.1 # TO-DO
