@@ -130,6 +130,37 @@ class autres_cotisations_gerant_cotisant_ruamm(Variable):  # TODO: remove me cot
     definition_period = YEAR
 
 
+class plafond_cotisations_deductibles_gerant_sarl_selarl_sci(Variable):
+    unit = "currency"
+    value_type = int
+    entity = Individu
+    definition_period = YEAR
+    label = "Plafond des cotisations déductibles des gérants de SARL, SELARL ou SCI soumise à l'IS"
+
+    # TODO: voir https://github.com/openfisca/openfisca-nouvelle-caledonie/issues/7
+    # Lp.123 du code des impôts de la NC :
+
+    # II - Le total des versements aux organismes de retraites au titre des cotisations d’assurance vieillesse
+    # souscrites à titre obligatoire ou volontaire, sont déductibles dans la limite de sept fois le montant du salaire
+    # plafond de la caisse de compensation des prestations familiales, des accidents du travail et de prévoyance des
+    # travailleurs (C.A.F.A.T.), relatif à la retraitel du mois de novembre de l'année de réalisation des revenus ,
+    # l’excédent est réintégré au bénéfice imposable. Cette limite s'apprécie par personne, quel que soit le nombre
+    # de revenus catégoriels dont elle est titulaire.
+
+    def formula_2008(individu, period, parameters):
+        period_plafond = period.start.offset("first-of", "month").offset(11, "month")
+        plafond_cafat_autres_regimes = parameters(
+            period_plafond
+        ).prelevements_obligatoires.prelevements_sociaux.cafat.autres_regimes.plafond_mensuel
+        return 10 * plafond_cafat_autres_regimes
+
+    def formula_2024(individu, period, parameters):
+        period_plafond = period.start.offset("first-of", "month").offset(11, "month")
+        plafond_cafat_retraite = parameters(
+            period_plafond
+        ).prelevements_obligatoires.prelevements_sociaux.cafat.maladie_retraite.plafond_retraite_mensuel
+        return 7 * plafond_cafat_retraite
+
 class cotisations(Variable):
     unit = "currency"
     value_type = float
@@ -137,29 +168,31 @@ class cotisations(Variable):
     definition_period = YEAR
     label = "Cotisations"
 
-    def formula_2022(individu, period, parameters):
-        # TODO: voir https://github.com/openfisca/openfisca-nouvelle-caledonie/issues/7
-        # Lp.123 du code des impôts de la NC :
 
-        # II - Le total des versements aux organismes de retraites au titre des cotisations d’assurance vieillesse
-        # souscrites à titre obligatoire ou volontaire, sont déductibles dans la limite de sept fois le montant du salaire
-        # plafond de la caisse de compensation des prestations familiales, des accidents du travail et de prévoyance des
-        # travailleurs (C.A.F.A.T.), relatif à la retraitel du mois de novembre de l'année de réalisation des revenus ,
-        # l’excédent est réintégré au bénéfice imposable. Cette limite s'apprécie par personne, quel que soit le nombre
-        # de revenus catégoriels dont elle est titulaire.
+    def formula_2008(individu, period, parameters):
         cotisations_retraite_gerant_cotisant_ruamm = individu(
             "cotisations_retraite_gerant_cotisant_ruamm", period
         )
         autres_cotisations_gerant_cotisant_ruamm = individu(
             "autres_cotisations_gerant_cotisant_ruamm", period
         )
-        period_plafond = period.start.offset("first-of", "month").offset(11, "month")
-        plafond_cafat_retraite = parameters(
-            period_plafond
-        ).prelevements_obligatoires.prelevements_sociaux.cafat.maladie_retraite.plafond_retraite_mensuel
-        return (
-            min_(cotisations_retraite_gerant_cotisant_ruamm, 7 * plafond_cafat_retraite)
+
+        plafond_cotisations_deductibles = individu(
+            "plafond_cotisations_deductibles_gerant_sarl_selarl_sci", period
+        )
+
+        gerant_sarl_selarl_sci_cotisant_ruamm = individu(
+            "gerant_sarl_selarl_sci_cotisant_ruamm", period
+        )
+
+        cotisations_gerant = (
+            min_(cotisations_retraite_gerant_cotisant_ruamm, plafond_cotisations_deductibles)
             + autres_cotisations_gerant_cotisant_ruamm
+        )
+        return where(
+            gerant_sarl_selarl_sci_cotisant_ruamm,
+            cotisations_gerant,
+            0
         )
 
 

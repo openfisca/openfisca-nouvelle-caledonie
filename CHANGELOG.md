@@ -1,5 +1,13 @@
 # Changelog
 
+### 15.7.1 [#78](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/78)
+
+* Amélioration technique.
+* Périodes concernées : toutes.
+* Zones impactées : `variables/prelevements_obligatoires/impot_revenu/revenus_imposables/tspr/salaire`
+* Détails :
+  - Corrige une erreur dans le calcul du plafond de cotisations déductibles pour les gérants cotisant au RUAMM.
+
 ## 15.7.0 [#77](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/77)
 
 * Évolution du système socio-fiscal.
@@ -20,7 +28,7 @@
 
 * Évolution du système socio-fiscal.
 * Périodes concernées : toutes.
-* Zones impactées : `parameters/parameters/remuneration_fonction_publique`.
+* Zones impactées : `parameters/remuneration_fonction_publique`.
 * Détails :
   - Ajoute la logique de zonage géographique pour le calcul du taux d'indexation de la rémunération dans la fonction publique
 
@@ -28,7 +36,7 @@
 
 * Amélioration technique.
 * Périodes concernées : toutes.
-* Zones impactées : `parameters/parameters/remuneration_fonction_publique`.
+* Zones impactées : `parameters/remuneration_fonction_publique`.
 * Détails :
   - Ajout de paramètres codés en dur jusqu'ici.
 
