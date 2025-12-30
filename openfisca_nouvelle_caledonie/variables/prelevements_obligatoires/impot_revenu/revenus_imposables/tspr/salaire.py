@@ -161,13 +161,13 @@ class plafond_cotisations_deductibles_gerant_sarl_selarl_sci(Variable):
         ).prelevements_obligatoires.prelevements_sociaux.cafat.maladie_retraite.plafond_retraite_mensuel
         return 7 * plafond_cafat_retraite
 
+
 class cotisations(Variable):
     unit = "currency"
     value_type = float
     entity = Individu
     definition_period = YEAR
     label = "Cotisations"
-
 
     def formula_2008(individu, period):
         cotisations_retraite_gerant_cotisant_ruamm = individu(
@@ -186,14 +186,13 @@ class cotisations(Variable):
         )
 
         cotisations_gerant = (
-            min_(cotisations_retraite_gerant_cotisant_ruamm, plafond_cotisations_deductibles)
+            min_(
+                cotisations_retraite_gerant_cotisant_ruamm,
+                plafond_cotisations_deductibles,
+            )
             + autres_cotisations_gerant_cotisant_ruamm
         )
-        return where(
-            gerant_sarl_selarl_sci_cotisant_ruamm,
-            cotisations_gerant,
-            0
-        )
+        return where(gerant_sarl_selarl_sci_cotisant_ruamm, cotisations_gerant, 0)
 
 
 class salaire_percu_net_de_cotisation(Variable):
