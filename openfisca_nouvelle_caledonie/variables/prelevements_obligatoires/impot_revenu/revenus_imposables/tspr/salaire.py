@@ -169,7 +169,7 @@ class cotisations(Variable):
     label = "Cotisations"
 
 
-    def formula_2008(individu, period, parameters):
+    def formula_2008(individu, period):
         cotisations_retraite_gerant_cotisant_ruamm = individu(
             "cotisations_retraite_gerant_cotisant_ruamm", period
         )
