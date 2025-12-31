@@ -593,7 +593,7 @@ class prime_fonction_publique(Variable):
         )
 
 
-class prime_custom(Variable):
+class prime_experimentale(Variable):
     value_type = float
     entity = Individu
     definition_period = MONTH
@@ -603,12 +603,12 @@ class prime_custom(Variable):
         echelon = individu("echelon", period)
         echelons_custom = parameters(
             period
-        ).remuneration_fonction_publique.prime.prime_custom.echelons
+        ).remuneration_fonction_publique.prime.prime_experimentale.echelons
         valeur_prime = parameters(
             period
-        ).remuneration_fonction_publique.prime.prime_custom.valeur
+        ).remuneration_fonction_publique.prime.prime_experimentale.valeur
 
-        return (echelon in echelons_custom) * valeur_prime
+        return sum([echelon == test for test in echelons_custom]) * valeur_prime
 
 
 class primes_fonction_publique(Variable):
@@ -639,7 +639,7 @@ class primes_fonction_publique(Variable):
             "prime_aviation_technicite",
             "prime_stabilite",
             "prime_stabilite_2",
-            "prime_custom",
+            "prime_experimentale",
         ]
 
         return sum([individu(prime, period) for prime in noms])
