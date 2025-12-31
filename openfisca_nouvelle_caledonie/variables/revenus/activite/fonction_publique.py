@@ -238,6 +238,19 @@ class est_retraite(Variable):
         return age_en_mois >= age_max
 
 
+class valeur_point(Variable):
+    value_type = float
+    entity = Individu
+    label = "Valeur du point dans la fonction publique"
+    definition_period = MONTH
+
+    def formula(individu, period, parameters):
+        type_fonction_publique = individu("type_fonction_publique", period)
+        return parameters(period).remuneration_fonction_publique.valeur_point[
+            type_fonction_publique
+        ]
+
+
 class traitement_brut(Variable):
     value_type = float
     entity = Individu
@@ -249,10 +262,7 @@ class traitement_brut(Variable):
     def formula(individu, period, parameters):
         indice = individu("indice_fonction_publique_paie", period)
         temps_de_travail = individu("temps_de_travail", period)
-        type_fonction_publique = individu("type_fonction_publique", period)
-        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
-            type_fonction_publique
-        ]
+        valeur_point = individu("valeur_point", period)
 
         ajustement = individu("traitement_brut_ajustement", period)
 
@@ -327,10 +337,7 @@ class indemnite_residence(Variable):
         taux_indexation_fonction_publique = individu(
             "taux_indexation_fonction_publique", period
         )
-        type_fonction_publique = individu("type_fonction_publique", period)
-        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
-            type_fonction_publique
-        ]
+        valeur_point = individu("valeur_point", period)
         est_retraite = individu("est_retraite", period)
 
         taux = parameters(
@@ -495,10 +502,7 @@ class base_cotisation_NCJ(Variable):
     def formula(individu, period, parameters):
         indice = individu("indice_fonction_publique", period)
         temps_de_travail = individu("temps_de_travail", period)
-        type_fonction_publique = individu("type_fonction_publique", period)
-        valeur_point = parameters(period).remuneration_fonction_publique.valeur_point[
-            type_fonction_publique
-        ]
+        valeur_point = individu("valeur_point", period)
 
         taux_majoration = parameters(
             period
