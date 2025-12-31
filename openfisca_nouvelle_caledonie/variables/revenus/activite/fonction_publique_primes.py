@@ -27,7 +27,7 @@ class prime_speciale(Variable):
     label = "Prime spéciale pour la DRHFPNC et la DBAF"
     reference = "Délib 405 du 21/08/2008 et 440 du 30/12/2008"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         direction = individu("employeur_public_direction", period)
         elig = (direction == "G0901110") + (direction == "G0600000")
 
@@ -62,7 +62,7 @@ class prime_technicite(Variable):
     label = "Prime technique pour la DRHFPNC et la DBAF"
     reference = "Délib 405 du 21/08/2008 et 440 du 30/12/2008"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         direction = individu("employeur_public_direction", period)
         elig = (direction == "G0901110") + (direction == "G0600000")
 
@@ -97,7 +97,7 @@ class prime_speciale_technicite(Variable):
     label = "Prime pour les dir DITTT, DIMENC, DINUM, DAVAR + filière technique des domaines rural, équipement, informatiques, si pas de prime équivalente"
     reference = "Délib n°358 et n°359 du 18/01/2008, 417 du 26/11/2008"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         direction = individu("employeur_public_direction", period)
         elig_direction = (
             sum(
@@ -148,7 +148,7 @@ class prime_territoriale_a(Variable):
     label = "Prime pour les ingénieurs de la filière technique (hors aviation civil et météo dans leurs directions)"
     reference = "Délib 74/CP du 12/02/2009"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         echelon = individu("echelon", period)
         grille_ok = startswith(list(echelon), "FTIN")  # TO-DO
 
@@ -191,7 +191,7 @@ class prime_territoriale_b(Variable):
     label = "Prime pour les techniciens de la filière technique (hors aviation civil et météo dans leurs directions)"
     reference = "Délib 74/CP du 12/02/2009"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         echelon = individu("echelon", period)
         grille_ok = startswith(list(echelon), "FTTE")  # TO-DO
 
@@ -234,7 +234,7 @@ class prime_territoriale_c(Variable):
     label = "Prime pour les techniciens de la filière technique (hors aviation civil et météo dans leurs directions)"
     reference = "Délib 74/CP du 12/02/2009"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         echelon = individu("echelon", period)
         grille_ok = startswith(list(echelon), "FTTA")  # TO-DO
 
@@ -275,7 +275,7 @@ class prime_direction(Variable):
     definition_period = MONTH
     label = "Prime des personnels de direction"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         fonction = individu("employeur_public_fonction", period)
         elig = sum([fonction == f for f in ["T4DR", "T4DI", "T4A1"]])
 
@@ -304,7 +304,7 @@ class prime_adjoint_direction(Variable):
     definition_period = MONTH
     label = "Prime des personnels adjoints de direction"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         fonction = individu("employeur_public_fonction", period)
         elig = sum([fonction == f for f in ["T4DA", "T4DT", "T4A2"]])
 
@@ -335,7 +335,7 @@ class prime_sujetion_cadre(Variable):
     label = "Prime des personnels d’encadrement et assimilés"
     reference = "Délib 393 du 25/06/2008"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         fonction = individu("employeur_public_fonction", period)
         elig = sum([fonction == f for f in ["T4A3", "T4SC", "T4SI"]])
 
@@ -366,7 +366,7 @@ class prime_sujetion_chef_secteur(Variable):
     label = "Indemnités de sujétion des personnels de direction des services publics de la Nouvelle-Calédonie"
     reference = "Délib 218 du 8/11/2006"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         fonction = individu("employeur_public_fonction", period)
         elig = sum([fonction == f for f in ["T4CS", "T4A8", "T4A5"]])
 
@@ -397,7 +397,7 @@ class prime_sujetion_chef_bureau(Variable):
     label = "Indemnités de sujétion des personnels de direction des services publics de la Nouvelle-Calédonie"
     reference = "Délib 218 du 8/11/2006"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         fonction = individu("employeur_public_fonction", period)
         elig = sum([fonction == f for f in ["T4CB", "T4CI"]])
 
@@ -428,7 +428,7 @@ class prime_sujetion_charge_mission(Variable):
     label = "Indemnité pour chargé de mission"
     reference = "Délib 393 du 25/06/2008"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         fonction = individu("employeur_public_fonction", period)
         elig = sum([fonction == f for f in ["T4CM"]])
 
@@ -476,7 +476,7 @@ class prime_stabilite(Variable):
     label = "Majoration pour grille de sages-femmes"
     reference = "Délib 423 du 20/03/2019"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         echelle = individu("employeur_public_echelle", period)
         elig = startswith(list(echelle), "S012")  # TO-DO
 
@@ -553,7 +553,7 @@ class prime_stabilite_2(Variable):
     label = "Majoration pour grille de sages-femmes"
     reference = "Délib 423 du 20/03/2019"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         employeur = individu("employeur_public", period)
         elig_employeurs = ["C1", "C2", "N2", "S1", "N1", "I1", "T4"]
         elig = sum([elig_employeur == employeur for elig_employeur in elig_employeurs])

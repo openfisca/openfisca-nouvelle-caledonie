@@ -259,7 +259,7 @@ class traitement_brut(Variable):
     definition_period = MONTH
     unit = "currency"
 
-    def formula(individu, period, parameters):
+    def formula(individu, period):
         indice = individu("indice_fonction_publique_paie", period)
         temps_de_travail = individu("temps_de_travail", period)
         valeur_point = individu("valeur_point", period)
