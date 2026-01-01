@@ -1,5 +1,13 @@
 # Changelog
 
+### 15.7.2 [#80](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/80)
+
+* Amélioration technique.
+* Périodes concernées : toutes.
+* Zones impactées : `variables/revenus/activite/fonction_publique*.py`.
+* Détails :
+  - Extrait le calcul de la valeur du point dans la FP dans une variable
+
 ### 15.7.1 [#78](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/78)
 
 * Amélioration technique.
