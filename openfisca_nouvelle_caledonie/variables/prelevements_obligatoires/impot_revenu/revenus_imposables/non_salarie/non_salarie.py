@@ -1,6 +1,6 @@
 """Revenus des non-salariés."""
 
-from openfisca_core.model_api import *
+from openfisca_core.model_api import max_, Variable, YEAR
 from openfisca_nouvelle_caledonie.entities import FoyerFiscal
 
 
@@ -11,8 +11,9 @@ class revenu_categoriel_non_salarie(Variable):
     definition_period = YEAR
 
     def formula(foyer_fiscal, period):
-        return foyer_fiscal.sum(
-            foyer_fiscal.members("bic", period)
-            + foyer_fiscal.members("ba", period)
-            + foyer_fiscal.members("bnc", period)
-        )  # Ajouter régime réel à BA
+        return max_(
+            foyer_fiscal("bic", period)
+            + foyer_fiscal("ba", period)
+            + foyer_fiscal("bnc", period),
+            0,
+        )

@@ -1,6 +1,6 @@
 description: Montant minimum de la déduction pour frais professionnels forfaitaire
 values:
-  2023-01-01:
+  2019-01-01:
     value: 50_000
 metadata:
   label_en: Minimum amount of the flat-rate deduction for professional expenses

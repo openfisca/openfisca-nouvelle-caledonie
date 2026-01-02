@@ -1,6 +1,6 @@
 """Situation de famille."""
 
-from openfisca_core.model_api import *
+from openfisca_core.model_api import Enum, max_, not_, select, Variable, where, YEAR
 from openfisca_nouvelle_caledonie.entities import FoyerFiscal, Individu
 
 

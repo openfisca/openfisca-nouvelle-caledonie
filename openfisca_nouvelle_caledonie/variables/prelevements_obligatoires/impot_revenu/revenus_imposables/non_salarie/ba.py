@@ -1,8 +1,10 @@
 """Bénéfices agricoles (BA)."""
 
-from openfisca_core.model_api import *
-from openfisca_nouvelle_caledonie.entities import Individu
+
+from openfisca_core.model_api import Variable, YEAR, max_, min_
+from openfisca_nouvelle_caledonie.entities import Individu, FoyerFiscal
 from openfisca_nouvelle_caledonie.variables.prelevements_obligatoires.impot_revenu.revenus_imposables.non_salarie import (
+    benefices_apres_imputations_deficits,
     get_multiple_and_plafond_cafat_cotisation,
 )
 
@@ -42,7 +44,6 @@ class benefices_agricoles_regime_forfaitaire(Variable):
     definition_period = YEAR
 
     def formula(individu, period, parameters):
-        # Au forfait
         # Le bénéfice, égal à 1/6 e de ce chiffre d’affaires sera déterminé automatiquement.
         diviseur = parameters(
             period
@@ -54,7 +55,7 @@ class benefices_agricoles_regime_forfaitaire(Variable):
             0,
             individu("chiffre_d_daffaires_agricole_ht_imposable", period) / diviseur
             - min_(
-                individu("reste_cotisations_apres_bic_avant_ba", period),
+                individu("reste_cotisations_apres_bic_bnc_avant_ba", period),
                 multiple * plafond_cafat,
             ),
         )
@@ -87,18 +88,60 @@ class deficits_agricoles_regime_reel(Variable):
     definition_period = YEAR
 
 
+class deficits_agricoles(Variable):
+    unit = "currency"
+    value_type = float
+    entity = FoyerFiscal
+    label = "Déficits agricoles du foyer fiscal"
+    definition_period = YEAR
+
+    def formula(foyer_fiscal, period):
+        return foyer_fiscal.sum(
+            foyer_fiscal.members("deficits_agricoles_regime_reel", period)
+        )
+
+
+class ba_individuel(Variable):
+    unit = "currency"
+    value_type = float
+    entity = Individu
+    label = "Bénéfices agricoles individuels avant imputation des déficits"
+    definition_period = YEAR
+
+    def formula(individu, period):
+        return (
+            individu("benefices_agricoles_regime_forfaitaire", period)
+            + individu("benefices_agricoles_regime_reel", period)
+        )
+
+
+class ba_individuel_apres_imputaion_deficits(Variable):
+    unit = "currency"
+    value_type = float
+    entity = Individu
+    label = "Bénéfices agricoles individuels après imputation des déficits"
+    definition_period = YEAR
+
+    def formula(individu, period):
+
+        return benefices_apres_imputations_deficits(
+            individu,
+            "ba_individuel",
+            "deficits_agricoles",
+            period
+            )
+
+
 class ba(Variable):
     """Bénéfices agricoles (BA) imposables."""
 
     unit = "currency"
-    value_type = float
-    entity = Individu
+    value_type = int
+    entity = FoyerFiscal
     label = "Bénéfices agricoles (BA) imposables"
     definition_period = YEAR
 
-    def formula(individu, period):
-        return individu("benefices_agricoles_regime_forfaitaire", period) + max_(
-            individu("benefices_agricoles_regime_reel", period)
-            - individu("deficits_agricoles_regime_reel", period),
-            0,
+    def formula(foyer_fiscal, period):
+        return foyer_fiscal.sum(
+            foyer_fiscal.members("ba_individuel_apres_imputaion_deficits", period)
         )

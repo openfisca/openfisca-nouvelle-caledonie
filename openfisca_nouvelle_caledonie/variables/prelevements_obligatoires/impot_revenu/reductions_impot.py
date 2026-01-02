@@ -2,7 +2,7 @@
 
 from numpy import ceil
 
-from openfisca_core.model_api import *
+from openfisca_core.model_api import min_, round_, Variable, YEAR, where
 from openfisca_nouvelle_caledonie.entities import FoyerFiscal
 
 
@@ -250,7 +250,7 @@ class souscription_via_plateforme_de_financement_participatif(Variable):
     cerfa_field = "YT"
     label = "Souscription au capital de sociétés par le biais d'une plateforme de financement participatif"
     definition_period = YEAR
-
+    # start = "2020-01-01"  # TODO: uncomment when OpenFisca core supports it
 
 class reduction_souscription_via_plateforme_de_financement_participatif(Variable):
     unit = "currency"
@@ -259,7 +259,7 @@ class reduction_souscription_via_plateforme_de_financement_participatif(Variable
     label = "Réduction d'impôt pour souscription au capital de sociétés par le biais d'une plateforme de financement participatif"
     definition_period = YEAR
 
-    def formula(foyer_fiscal, period, parameters):
+    def formula_2020(foyer_fiscal, period, parameters):
         financement_participatif = parameters(
             period
         ).prelevements_obligatoires.impot_revenu.reductions.financement_participatif
