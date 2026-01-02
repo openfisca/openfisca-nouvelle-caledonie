@@ -31,7 +31,6 @@ optional-dependencies.dev = [
     "pytest>=8.3.2",
     "isort>=5.13.2,<6",
     "ruff>=0.6.9,<1",
-    "ruff-lsp>=0.0.57,<1",
     "yamllint>=1.35.1",
 ]
 urls.Changelog = "https://github.com/openfisca/openfisca-nouvelle-caledonie/blob/main/CHANGELOG.md"
@@ -159,4 +158,32 @@ openfisca-nouvelle-caledonie = { workspace = true }
 [dependency-groups]
 dev = [
     "openfisca-nouvelle-caledonie",
+]
+
+
+[tool.pyright]
+# https://chatgpt.com/c/6955192c-1c04-8327-818d-f1455b90206a
+typeCheckingMode = "basic"
+
+# OpenFisca = dynamique par design
+reportGeneralTypeIssues = false
+reportUnknownMemberType = false
+reportUnknownVariableType = false
+reportUnknownParameterType = false
+
+reportSelfClsParameterName = false
+# Paramètres & imports
+reportMissingTypeStubs = false
+reportMissingImports = false
+
+# Optional très fréquent avec parameters(...)
+reportOptionalMemberAccess = false
+reportOptionalSubscript = false
+
+# Code généré / runtime
+exclude = [
+  ".venv/**",
+  "reforms/generated/**",
+  "parameters/generated/**",
+  "**/__pycache__"
 ]

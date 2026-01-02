@@ -1,8 +1,10 @@
 """Bénéfices industriels et commerciaux (BIC)."""
 
-from openfisca_core.model_api import *
-from openfisca_nouvelle_caledonie.entities import Individu
-
+from openfisca_core.model_api import max_, Variable, YEAR
+from openfisca_nouvelle_caledonie.entities import Individu, FoyerFiscal
+from openfisca_nouvelle_caledonie.variables.prelevements_obligatoires.impot_revenu.revenus_imposables.non_salarie import (
+    benefices_apres_imputations_deficits,
+)
 
 class bic_vente_fabrication_transformation_ca_ht(Variable):
     unit = "currency"
@@ -82,47 +84,49 @@ class bic_services_salaires_et_sous_traitance(Variable):
     definition_period = YEAR
 
 
-class bic_forfait(Variable):
+class bic_forfait_vente_individuel(Variable):
     unit = "currency"
     value_type = float
     entity = Individu
-    label = "Bénéfices indutriels et commerciaux au forfait"
+    label = "Bénéfices indutriels et commerciaux au forfait - activités de vente (individuel)"
     definition_period = YEAR
 
     def formula(individu, period, parameters):
-        # Au forfait
         abattement = parameters(
             period
         ).prelevements_obligatoires.impot_revenu.revenus_imposables.non_salarie.bic.abattement
 
-        bic_vente = max_(
-            (
+        return abattement * (
                 individu("bic_vente_fabrication_transformation_ca_ht", period)
                 - individu("bic_vente_fabrication_transformation_achats", period)
                 - individu(
                     "bic_vente_fabrication_transformation_salaires_et_sous_traitance",
-                    period,
+                    period
                 )
-            ),
-            0,
         )
-        bic_services = max_(
-            (
+
+
+class bic_forfait_services_individuel(Variable):
+    unit = "currency"
+    value_type = float
+    entity = Individu
+    label = "Bénéfices indutriels et commerciaux au forfait - activités de services (individuel)"
+    definition_period = YEAR
+
+    def formula(individu, period, parameters):
+        abattement = parameters(
+            period
+        ).prelevements_obligatoires.impot_revenu.revenus_imposables.non_salarie.bic.abattement
+
+        return abattement * (
                 individu("bic_services_ca_ht", period)
                 - individu("bic_services_achats", period)
                 - individu("bic_services_salaires_et_sous_traitance", period)
-            ),
-            0,
-        )
-        return max_(
-            0,
-            (bic_vente + bic_services) * abattement
-            - individu("cotisations_non_salarie", period),
-        )
+            )
+
 
 
 # Régime réel simplifié (Cadre 10 de la déclaration complémentaire)
-
 
 class benefices_industriels_et_commerciaux_reel_simplifie(Variable):
     unit = "currency"
@@ -150,7 +154,6 @@ class deficits_industriels_et_commerciaux_reel_simplifie(Variable):
 
 # Régime réel normal (Cadre 10 de la déclaration complémentaire)
 
-
 class benefices_industriels_et_commerciaux_reel_normal(Variable):
     unit = "currency"
     cerfa_field = {
@@ -175,32 +178,95 @@ class deficits_industriels_et_commerciaux_reel_normal(Variable):
     definition_period = YEAR
 
 
-class bic_reel(Variable):
+class bic_individuel(Variable):
     unit = "currency"
     value_type = float
     entity = Individu
-    label = "Bénéfices indutriels et commerciaux au réel"
+    label = "Bénéfices indutriels et commerciaux au réel (individuel)"
     definition_period = YEAR
 
     def formula(individu, period):
-        # Au réel
-        return max_(
-            (
-                individu("benefices_industriels_et_commerciaux_reel_simplifie", period)
+        return (
+                individu("bic_forfait_individuel_net_de_cotisations", period)
+                + individu("benefices_industriels_et_commerciaux_reel_simplifie", period)
                 + individu("benefices_industriels_et_commerciaux_reel_normal", period)
-                - individu("deficits_industriels_et_commerciaux_reel_simplifie", period)
-                - individu("deficits_industriels_et_commerciaux_reel_normal", period)
-            ),
+            )
+
+
+class deficits_industriels_et_commerciaux_reels(Variable):
+    unit = "currency"
+    value_type = float
+    entity = FoyerFiscal
+    label = "Bénéfices indutriels et commerciaux au réel (individuel)"
+    definition_period = YEAR
+
+    def formula(foyer_fiscal, period):
+        return foyer_fiscal.sum(
+            foyer_fiscal.members("deficits_industriels_et_commerciaux_reel_simplifie", period)
+            + foyer_fiscal.members("deficits_industriels_et_commerciaux_reel_normal", period)
+            )
+
+class bic_individuel_apres_imputaion_deficits(Variable):
+    unit = "currency"
+    value_type = float
+    entity = Individu
+    label = "Bénéfices indutriels et commerciaux individuels"
+    definition_period = YEAR
+
+    def formula(individu, period):
+
+        return benefices_apres_imputations_deficits(
+            individu,
+            "bic_individuel",
+            "deficits_industriels_et_commerciaux_reels",
+            period
+            )
+
+
+class bic_forfait_individuel(Variable):
+    unit = "currency"
+    value_type = float
+    entity = Individu
+    label = "Bénéfices indutriels et commerciaux au forfait (individuel)"
+    definition_period = YEAR
+
+    def formula(individu, period):
+        bic_vente = max_(
+            individu("bic_forfait_vente_individuel", period),
             0,
         )
+        bic_services = max_(
+            individu("bic_forfait_services_individuel", period),
+            0,
+        )
+        return bic_vente + bic_services
+
+
+class bic_forfait_individuel_net_de_cotisations(Variable):
+    unit = "currency"
+    value_type = float
+    entity = Individu
+    label = "Bénéfices indutriels et commerciaux au forfait (individuel) net de cotisations"
+    definition_period = YEAR
+
+    def formula(individu, period):
+        return max_(
+            (
+                individu("bic_forfait_individuel", period)
+                - individu("cotisations_non_salarie", period)
+            ),
+            0
+            )
 
 
 class bic(Variable):
     unit = "currency"
     value_type = float
-    entity = Individu
+    entity = FoyerFiscal
     label = "Bénéfices indutriels et commerciaux"
     definition_period = YEAR
 
-    def formula(individu, period):
-        return individu("bic_reel", period) + individu("bic_forfait", period)
+    def formula(foyer_fiscal, period):
+        return (
+            foyer_fiscal.sum(foyer_fiscal.members("bic_individuel_apres_imputaion_deficits", period))
+        )

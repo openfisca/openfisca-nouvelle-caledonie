@@ -2,7 +2,7 @@
 
 import logging
 
-from openfisca_core.model_api import *
+from openfisca_core.model_api import ParameterNode
 from openfisca_nouvelle_caledonie.variables.prelevements_obligatoires.prelevements_sociaux.cotisations_sociales.salarie import (
     TypesCategorieSalarie,
 )

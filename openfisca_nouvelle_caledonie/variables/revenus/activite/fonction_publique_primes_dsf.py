@@ -1,6 +1,6 @@
 """Primes dans la fonction publique."""
 
-from openfisca_core.model_api import *
+from openfisca_core.model_api import MONTH, Variable
 from openfisca_nouvelle_caledonie.entities import Individu
 
 

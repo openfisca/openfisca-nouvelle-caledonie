@@ -1,10 +1,15 @@
 description: Plafond de la déduction pour services à la personne
 values:
+  2022-01-01:
+    value: 1_957_224
   2023-01-01:
     value: 1_980_384
+  2024-01-01:
+    value: 1_987_904
 metadata:
   short_label: Plafond frais de garde
   label_en: Ceiling of the deduction for childcare expenses
   unit: currency
 documentation: |
-  TODO: trouver la formule de ce plafond si elle existe
+  Le montant est le maximum des dépenses ouvrant droit à la déduction pour les services à la personne.
+  Il correspond à la valeur du SMIG annualisé.

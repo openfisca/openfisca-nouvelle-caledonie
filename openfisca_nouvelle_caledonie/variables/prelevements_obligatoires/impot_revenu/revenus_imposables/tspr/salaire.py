@@ -1,7 +1,17 @@
 """Traitements et salaires."""
 
-from openfisca_core.model_api import *
+from openfisca_core.model_api import (
+    Variable,
+    where,
+    min_,
+    max_,
+    YEAR,
+)
 from openfisca_nouvelle_caledonie.entities import FoyerFiscal, Individu
+from openfisca_nouvelle_caledonie.variables.prelevements_obligatoires.impot_revenu.revenus_imposables.non_salarie import (
+    get_multiple_and_plafond_cafat_cotisation,
+)
+
 
 # TRAITEMENT, SALAIRES
 
@@ -36,7 +46,7 @@ from openfisca_nouvelle_caledonie.entities import FoyerFiscal, Individu
 
 
 class salaire_imposable(Variable):
-    value_type = float
+    value_type = int
     unit = "currency"
     cerfa_field = {
         0: "NA",
@@ -49,7 +59,7 @@ class salaire_imposable(Variable):
 
 
 class salaire_imposable_rectifie(Variable):
-    value_type = float
+    value_type = int
     unit = "currency"
     cerfa_field = {
         0: "NM",
@@ -62,7 +72,7 @@ class salaire_imposable_rectifie(Variable):
 
 
 class salaire_percu(Variable):
-    value_type = float
+    value_type = int
     unit = "currency"
     entity = Individu
     label = "Salaire perçu"
@@ -102,11 +112,9 @@ class gerant_sarl_selarl_sci_cotisant_ruamm(Variable):
     definition_period = YEAR
 
 
-class cotisations_retraite_gerant_cotisant_ruamm(
-    Variable
-):  # TODO: remove me cotisation1
+class cotisations_retraite_gerant_cotisant_ruamm(Variable):
     unit = "currency"
-    value_type = float
+    value_type = int
     cerfa_field = {
         0: "OD",
         1: "OE",
@@ -117,9 +125,9 @@ class cotisations_retraite_gerant_cotisant_ruamm(
     definition_period = YEAR
 
 
-class autres_cotisations_gerant_cotisant_ruamm(Variable):  # TODO: remove me cotisation2
+class autres_cotisations_gerant_cotisant_ruamm(Variable):
     unit = "currency"
-    value_type = float
+    value_type = int
     cerfa_field = {
         0: "OG",
         1: "OH",
@@ -138,14 +146,6 @@ class plafond_cotisations_deductibles_gerant_sarl_selarl_sci(Variable):
     label = "Plafond des cotisations déductibles des gérants de SARL, SELARL ou SCI soumise à l'IS"
 
     # TODO: voir https://github.com/openfisca/openfisca-nouvelle-caledonie/issues/7
-    # Lp.123 du code des impôts de la NC :
-
-    # II - Le total des versements aux organismes de retraites au titre des cotisations d’assurance vieillesse
-    # souscrites à titre obligatoire ou volontaire, sont déductibles dans la limite de sept fois le montant du salaire
-    # plafond de la caisse de compensation des prestations familiales, des accidents du travail et de prévoyance des
-    # travailleurs (C.A.F.A.T.), relatif à la retraitel du mois de novembre de l'année de réalisation des revenus ,
-    # l’excédent est réintégré au bénéfice imposable. Cette limite s'apprécie par personne, quel que soit le nombre
-    # de revenus catégoriels dont elle est titulaire.
 
     def formula_2008(individu, period, parameters):
         period_plafond = period.start.offset("first-of", "month").offset(11, "month")
@@ -168,8 +168,16 @@ class cotisations(Variable):
     entity = Individu
     definition_period = YEAR
     label = "Cotisations"
+    # Lp.123 du code des impôts de la NC :
 
-    def formula_2008(individu, period):
+    # II - Le total des versements aux organismes de retraites au titre des cotisations d’assurance vieillesse
+    # souscrites à titre obligatoire ou volontaire, sont déductibles dans la limite de sept fois le montant du salaire
+    # plafond de la caisse de compensation des prestations familiales, des accidents du travail et de prévoyance des
+    # travailleurs (C.A.F.A.T.), relatif à la retraitel du mois de novembre de l'année de réalisation des revenus ,
+    # l’excédent est réintégré au bénéfice imposable. Cette limite s'apprécie par personne, quel que soit le nombre
+    # de revenus catégoriels dont elle est titulaire.
+
+    def formula_2008(individu, period, parameters):
         cotisations_retraite_gerant_cotisant_ruamm = individu(
             "cotisations_retraite_gerant_cotisant_ruamm", period
         )
@@ -177,9 +185,11 @@ class cotisations(Variable):
             "autres_cotisations_gerant_cotisant_ruamm", period
         )
 
-        plafond_cotisations_deductibles = individu(
-            "plafond_cotisations_deductibles_gerant_sarl_selarl_sci", period
+        multiple, plafond = get_multiple_and_plafond_cafat_cotisation(
+            period, parameters=parameters
         )
+
+        plafond_cotisations_deductibles = multiple * plafond
 
         gerant_sarl_selarl_sci_cotisant_ruamm = individu(
             "gerant_sarl_selarl_sci_cotisant_ruamm", period

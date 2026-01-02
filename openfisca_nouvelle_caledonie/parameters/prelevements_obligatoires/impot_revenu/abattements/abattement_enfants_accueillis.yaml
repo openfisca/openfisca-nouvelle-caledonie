@@ -1,8 +1,14 @@
 description: Abattement d'impôt pour les enfants accueillis
 values:
-  2023-01-01:
+  2001-01-01:
     value: 406_000
 metadata:
   short_label: Abattement enfants accueillis
   label_en: Allowance for hosted children
   unit: currency
+  reference:
+      2001-01-01:
+        - title: Article Lp. 134 bis du Code des Impôts de Nouvelle-Calédonie
+          href: https://mobi-juridoc.gouv.nc/JuriDoc/JdMobi.nsf/mobile.codes.article.jqm?openagent&CI&n=0&514C85263EE0C9054B2575670074B886
+        - title: Loi du pays n° 2001-010 du 25 septembre 2001 – Art. 23
+        - title: Loi du pays n° 2017-1 du 17 janvier 2017 – Art. 19

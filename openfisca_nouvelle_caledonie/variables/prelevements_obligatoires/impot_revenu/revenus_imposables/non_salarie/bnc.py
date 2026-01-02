@@ -1,8 +1,9 @@
 """Bénéfices non commerciaux (BNC)."""
 
-from openfisca_core.model_api import *
-from openfisca_nouvelle_caledonie.entities import Individu
+from openfisca_core.model_api import max_, min_, Variable, YEAR
+from openfisca_nouvelle_caledonie.entities import Individu, FoyerFiscal
 from openfisca_nouvelle_caledonie.variables.prelevements_obligatoires.impot_revenu.revenus_imposables.non_salarie import (
+    benefices_apres_imputations_deficits,
     get_multiple_and_plafond_cafat_cotisation,
 )
 
@@ -47,11 +48,25 @@ class deficits_non_commerciaux_reel_simplifie(Variable):
     definition_period = YEAR
 
 
-class bnc(Variable):
+class bnc_forfait_individuel(Variable):
     unit = "currency"
     value_type = float
+    label = "Bénéfices non commerciaux au forfait (individuel)"
     entity = Individu
-    label = "Bénéfices non commerciaux"
+    definition_period = YEAR
+
+    def formula(individu, period, parameters):
+        diviseur = parameters(
+            period
+        ).prelevements_obligatoires.impot_revenu.revenus_imposables.non_salarie.bnc.diviseur_recettes
+        return individu("bnc_recettes_ht", period) / diviseur  # Forfait
+
+
+class bnc_forfait_individuel_net_de_cotisations(Variable):
+    unit = "currency"
+    value_type = float
+    label = "Bénéfices non commerciaux au forfait (individuel)"
+    entity = Individu
     definition_period = YEAR
 
     def formula(individu, period, parameters):
@@ -65,13 +80,62 @@ class bnc(Variable):
             0,
             individu("bnc_recettes_ht", period) / diviseur  # Forfait
             - min_(
-                individu("reste_cotisations_apres_bic_ba_avant_bnc", period),
+                individu("reste_cotisations_apres_bic_avant_bnc", period),
                 multiple * plafond_cafat,
             ),
-        ) + max_(
-            (
-                individu("benefices_non_commerciaux_reel_simplifie", period)
-                - individu("deficits_non_commerciaux_reel_simplifie", period)
-            ),
-            0,  # Réel
+        )
+
+class bnc_individuel(Variable):
+    unit = "currency"
+    value_type = float
+    entity = Individu
+    label = "Bénéfices non commerciaux au forfait (individuel)"
+    definition_period = YEAR
+
+    def formula(individu, period):
+        return (
+            individu("bnc_forfait_individuel_net_de_cotisations", period)
+            + individu("benefices_non_commerciaux_reel_simplifie", period)
+        )
+
+
+class deficits_non_commerciaux(Variable):
+    unit = "currency"
+    value_type = float
+    entity = FoyerFiscal
+    label = "Déficits non commerciaux du foyer fiscal"
+    definition_period = YEAR
+
+    def formula(foyer_fiscal, period):
+        return foyer_fiscal.sum(
+            foyer_fiscal.members("deficits_non_commerciaux_reel_simplifie", period)
+        )
+
+
+class bnc_individuel_apres_imputaion_deficits(Variable):
+    unit = "currency"
+    value_type = float
+    entity = Individu
+    label = "Bénéfices non commerciaux individuels après imputation des déficits"
+    definition_period = YEAR
+
+    def formula(individu, period):
+        return benefices_apres_imputations_deficits(
+            individu,
+            "bnc_individuel",
+            "deficits_non_commerciaux",
+            period,
+        )
+
+
+class bnc(Variable):
+    unit = "currency"
+    value_type = float
+    entity = FoyerFiscal
+    label = "Bénéfices non commerciaux"
+    definition_period = YEAR
+
+    def formula(individu, period):
+        return individu.sum(
+            individu.members("bnc_individuel_apres_imputaion_deficits", period)
         )

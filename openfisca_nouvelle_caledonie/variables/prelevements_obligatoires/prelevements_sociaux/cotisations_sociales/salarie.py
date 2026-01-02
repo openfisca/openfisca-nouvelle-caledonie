@@ -1,6 +1,6 @@
 """Cotisations sociales pour les salariés en Nouvelle-Calédonie."""
 
-from openfisca_core.model_api import *
+from openfisca_core.model_api import ADD, Enum, calculate_output_add, MONTH, set_input_divide_by_period, set_input_dispatch_by_period, Variable
 from openfisca_nouvelle_caledonie.entities import Individu
 
 
