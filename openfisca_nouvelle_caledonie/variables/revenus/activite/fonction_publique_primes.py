@@ -591,22 +591,47 @@ class prime_fonction_publique(Variable):
         )
 
 
+class prime_experimentale_eligibilite(Variable):
+    value_type = bool
+    entity = Individu
+    definition_period = MONTH
+    label = "Éligibilité à la prime expérimentale dans la fonction publique"
+
+    def formula(individu, period, parameters):
+        echelon = individu("echelon", period)
+        P = parameters(
+            period
+        ).remuneration_fonction_publique.prime.prime_experimentale
+        echelons = P.echelons
+
+        return sum([echelon == test for test in echelons])
+
+
 class prime_experimentale(Variable):
     value_type = float
     entity = Individu
     definition_period = MONTH
-    label = "Prime personnalisée dans la fonction publique"
+    label = "Prime expérimentale dans la fonction publique"
 
     def formula(individu, period, parameters):
-        echelon = individu("echelon", period)
-        echelons_custom = parameters(
+        elig = individu("prime_experimentale_eligibilite", period)
+        P = parameters(
             period
-        ).remuneration_fonction_publique.prime.prime_experimentale.echelons
-        valeur_prime = parameters(
-            period
-        ).remuneration_fonction_publique.prime.prime_experimentale.valeur
+        ).remuneration_fonction_publique.prime.prime_experimentale
 
-        return sum([echelon == test for test in echelons_custom]) * valeur_prime
+        valeur_point = individu("valeur_point", period)
+        coefficient_point = P.coefficient_point
+        montant = P.montant
+
+        bool_temp_partiel = P.prise_en_compte_temps_partiel
+        temps_de_travail = individu("temps_de_travail", period)
+        coef_temps = (1-bool_temp_partiel)+bool_temp_partiel*temps_de_travail
+
+        bool_indexation = P.prise_en_compte_indexation
+        indexation = individu("taux_indexation_fonction_publique", period)
+        coef_indexation = (1-bool_indexation)+bool_indexation*indexation
+
+        return elig * (montant + coefficient_point * valeur_point) * coef_temps * coef_indexation
 
 
 class primes_fonction_publique(Variable):
