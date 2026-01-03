@@ -6,6 +6,7 @@ from openfisca_nouvelle_caledonie.variables.prelevements_obligatoires.impot_reve
     benefices_apres_imputations_deficits,
 )
 
+
 class bic_vente_fabrication_transformation_ca_ht(Variable):
     unit = "currency"
     value_type = float
@@ -97,12 +98,12 @@ class bic_forfait_vente_individuel(Variable):
         ).prelevements_obligatoires.impot_revenu.revenus_imposables.non_salarie.bic.abattement
 
         return abattement * (
-                individu("bic_vente_fabrication_transformation_ca_ht", period)
-                - individu("bic_vente_fabrication_transformation_achats", period)
-                - individu(
-                    "bic_vente_fabrication_transformation_salaires_et_sous_traitance",
-                    period
-                )
+            individu("bic_vente_fabrication_transformation_ca_ht", period)
+            - individu("bic_vente_fabrication_transformation_achats", period)
+            - individu(
+                "bic_vente_fabrication_transformation_salaires_et_sous_traitance",
+                period,
+            )
         )
 
 
@@ -119,14 +120,14 @@ class bic_forfait_services_individuel(Variable):
         ).prelevements_obligatoires.impot_revenu.revenus_imposables.non_salarie.bic.abattement
 
         return abattement * (
-                individu("bic_services_ca_ht", period)
-                - individu("bic_services_achats", period)
-                - individu("bic_services_salaires_et_sous_traitance", period)
-            )
-
+            individu("bic_services_ca_ht", period)
+            - individu("bic_services_achats", period)
+            - individu("bic_services_salaires_et_sous_traitance", period)
+        )
 
 
 # Régime réel simplifié (Cadre 10 de la déclaration complémentaire)
+
 
 class benefices_industriels_et_commerciaux_reel_simplifie(Variable):
     unit = "currency"
@@ -153,6 +154,7 @@ class deficits_industriels_et_commerciaux_reel_simplifie(Variable):
 
 
 # Régime réel normal (Cadre 10 de la déclaration complémentaire)
+
 
 class benefices_industriels_et_commerciaux_reel_normal(Variable):
     unit = "currency"
@@ -187,10 +189,10 @@ class bic_individuel(Variable):
 
     def formula(individu, period):
         return (
-                individu("bic_forfait_individuel_net_de_cotisations", period)
-                + individu("benefices_industriels_et_commerciaux_reel_simplifie", period)
-                + individu("benefices_industriels_et_commerciaux_reel_normal", period)
-            )
+            individu("bic_forfait_individuel_net_de_cotisations", period)
+            + individu("benefices_industriels_et_commerciaux_reel_simplifie", period)
+            + individu("benefices_industriels_et_commerciaux_reel_normal", period)
+        )
 
 
 class deficits_industriels_et_commerciaux_reels(Variable):
@@ -202,9 +204,14 @@ class deficits_industriels_et_commerciaux_reels(Variable):
 
     def formula(foyer_fiscal, period):
         return foyer_fiscal.sum(
-            foyer_fiscal.members("deficits_industriels_et_commerciaux_reel_simplifie", period)
-            + foyer_fiscal.members("deficits_industriels_et_commerciaux_reel_normal", period)
+            foyer_fiscal.members(
+                "deficits_industriels_et_commerciaux_reel_simplifie", period
             )
+            + foyer_fiscal.members(
+                "deficits_industriels_et_commerciaux_reel_normal", period
+            )
+        )
+
 
 class bic_individuel_apres_imputaion_deficits(Variable):
     unit = "currency"
@@ -214,13 +221,12 @@ class bic_individuel_apres_imputaion_deficits(Variable):
     definition_period = YEAR
 
     def formula(individu, period):
-
         return benefices_apres_imputations_deficits(
             individu,
             "bic_individuel",
             "deficits_industriels_et_commerciaux_reels",
-            period
-            )
+            period,
+        )
 
 
 class bic_forfait_individuel(Variable):
@@ -246,7 +252,9 @@ class bic_forfait_individuel_net_de_cotisations(Variable):
     unit = "currency"
     value_type = float
     entity = Individu
-    label = "Bénéfices indutriels et commerciaux au forfait (individuel) net de cotisations"
+    label = (
+        "Bénéfices indutriels et commerciaux au forfait (individuel) net de cotisations"
+    )
     definition_period = YEAR
 
     def formula(individu, period):
@@ -255,8 +263,8 @@ class bic_forfait_individuel_net_de_cotisations(Variable):
                 individu("bic_forfait_individuel", period)
                 - individu("cotisations_non_salarie", period)
             ),
-            0
-            )
+            0,
+        )
 
 
 class bic(Variable):
@@ -267,6 +275,6 @@ class bic(Variable):
     definition_period = YEAR
 
     def formula(foyer_fiscal, period):
-        return (
-            foyer_fiscal.sum(foyer_fiscal.members("bic_individuel_apres_imputaion_deficits", period))
+        return foyer_fiscal.sum(
+            foyer_fiscal.members("bic_individuel_apres_imputaion_deficits", period)
         )

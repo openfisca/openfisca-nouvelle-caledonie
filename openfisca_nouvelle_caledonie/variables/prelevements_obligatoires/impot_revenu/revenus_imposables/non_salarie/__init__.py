@@ -26,25 +26,28 @@ def get_multiple_and_plafond_cafat_cotisation(period, parameters):
     return multiple, plafond_cafat
 
 
-def benefices_apres_imputations_deficits(individu, benefices_individu_name: str, deficits_foyer_fiscal_name: str, period):
+def benefices_apres_imputations_deficits(
+    individu, benefices_individu_name: str, deficits_foyer_fiscal_name: str, period
+):
     """Renvoie les bénéfices après imputation des déficits calculés au niveau du foyer fiscal."""
     deficits = individu.foyer_fiscal(deficits_foyer_fiscal_name, period)
     deficit_impute_declarant = min_(
         deficits,
         individu.foyer_fiscal.declarant_principal(benefices_individu_name, period),
-        )
+    )
 
     deficit_impute_conjoint = min_(
         max_(deficits - deficit_impute_declarant, 0),
         individu.foyer_fiscal.conjoint(benefices_individu_name, period),
-        )
+    )
 
     deficit_impute_pac = min_(
         max_(deficits - deficit_impute_declarant - deficit_impute_conjoint, 0),
         individu.foyer_fiscal.sum(
             individu.foyer_fiscal.members(benefices_individu_name, period),
-            role=FoyerFiscal.ENFANT_A_CHARGE),
-        )
+            role=FoyerFiscal.ENFANT_A_CHARGE,
+        ),
+    )
     return where(
         individu.has_role(FoyerFiscal.DECLARANT_PRINCIPAL),
         individu(benefices_individu_name, period) - deficit_impute_declarant,

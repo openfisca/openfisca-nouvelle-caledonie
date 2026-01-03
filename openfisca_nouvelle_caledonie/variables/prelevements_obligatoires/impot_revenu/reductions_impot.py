@@ -252,6 +252,7 @@ class souscription_via_plateforme_de_financement_participatif(Variable):
     definition_period = YEAR
     # start = "2020-01-01"  # TODO: uncomment when OpenFisca core supports it
 
+
 class reduction_souscription_via_plateforme_de_financement_participatif(Variable):
     unit = "currency"
     value_type = int

@@ -85,6 +85,7 @@ class bnc_forfait_individuel_net_de_cotisations(Variable):
             ),
         )
 
+
 class bnc_individuel(Variable):
     unit = "currency"
     value_type = float
@@ -93,9 +94,8 @@ class bnc_individuel(Variable):
     definition_period = YEAR
 
     def formula(individu, period):
-        return (
-            individu("bnc_forfait_individuel_net_de_cotisations", period)
-            + individu("benefices_non_commerciaux_reel_simplifie", period)
+        return individu("bnc_forfait_individuel_net_de_cotisations", period) + individu(
+            "benefices_non_commerciaux_reel_simplifie", period
         )
 
 

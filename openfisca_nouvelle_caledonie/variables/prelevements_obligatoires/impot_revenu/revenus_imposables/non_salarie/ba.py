@@ -1,6 +1,5 @@
 """Bénéfices agricoles (BA)."""
 
-
 from openfisca_core.model_api import Variable, YEAR, max_, min_
 from openfisca_nouvelle_caledonie.entities import Individu, FoyerFiscal
 from openfisca_nouvelle_caledonie.variables.prelevements_obligatoires.impot_revenu.revenus_imposables.non_salarie import (
@@ -109,9 +108,8 @@ class ba_individuel(Variable):
     definition_period = YEAR
 
     def formula(individu, period):
-        return (
-            individu("benefices_agricoles_regime_forfaitaire", period)
-            + individu("benefices_agricoles_regime_reel", period)
+        return individu("benefices_agricoles_regime_forfaitaire", period) + individu(
+            "benefices_agricoles_regime_reel", period
         )
 
 
@@ -123,13 +121,9 @@ class ba_individuel_apres_imputaion_deficits(Variable):
     definition_period = YEAR
 
     def formula(individu, period):
-
         return benefices_apres_imputations_deficits(
-            individu,
-            "ba_individuel",
-            "deficits_agricoles",
-            period
-            )
+            individu, "ba_individuel", "deficits_agricoles", period
+        )
 
 
 class ba(Variable):
