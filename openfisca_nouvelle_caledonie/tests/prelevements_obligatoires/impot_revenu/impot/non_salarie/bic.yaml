@@ -25,7 +25,6 @@
         cotisations_retraite_exploitant: 3776500
   output:
     cotisations_non_salarie: 3776500
-    # bic_individuel: 5_000_000
     impot_net: 5_000
 
 

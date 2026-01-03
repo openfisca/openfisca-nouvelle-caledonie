@@ -1,5 +1,17 @@
 # Changelog
 
+## 15.8.0 [#79](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/79)
+
+* Évolution du système socio-fiscal.
+* Périodes concernées : toutes.
+* Zones impactées : `openfisca_nouvelle_caledonie/variables/prelevements_obligatoires/impot_revenu/revenus_imposables/non_salarie/bnc.py`, `.../bic.py`, `.../ba.py`, `.../cotisations.py`, `.../non_salarie.py`, `parameters/prelevements_obligatoires/impot_revenu/revenus_imposables/non_salarie/*`, `tests/prelevements_obligatoires/impot_revenu/**`.
+* Détails :
+  - Correction des formules de calcul des revenus non salariaux (BIC, BNC, BA) : prise en compte correcte des abattements.
+  - Correction du plafonnement et de la propagation des montants entre BIC/BNC/BA afin d'éviter le double comptage ou la perte de cotisations.
+  - Distinction clarifiée entre régimes forfaitaire et réel pour les BIC/BNC, et ajustement des cotisations sociales communes.
+  - Ajustements des paramètres et métadonnées liés (fichiers `parameters/...`).
+  - Ajout / mise à jour de tests unitaires couvrant les cas micro/forfait vs réel et les seuils d'abattement.
+
 ### 15.7.2 [#80](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/80)
 
 * Amélioration technique.
