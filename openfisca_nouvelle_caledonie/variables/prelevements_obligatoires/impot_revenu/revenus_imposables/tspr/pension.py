@@ -83,7 +83,8 @@ class pension_imposable_apres_deduction_et_abattement(Variable):
         )
         pension_apres_deduction = max_(pension_imposable - montant_deduction_pension, 0)
         abatemment = where(
-            foyer_fiscal.members("pension_retraite_rente_imposables_rectifiees", period) > 0,
+            foyer_fiscal.members("pension_retraite_rente_imposables_rectifiees", period)
+            > 0,
             0,
             min_(
                 pension_apres_deduction * tspr.abattement.taux, tspr.abattement.plafond
