@@ -1,10 +1,6 @@
 """Revenus d'activité."""
 
-from openfisca_core.model_api import (
-    MONTH,
-    set_input_divide_by_period,
-    Variable,
-)
+from openfisca_core.model_api import MONTH, Variable, set_input_divide_by_period
 from openfisca_nouvelle_caledonie.entities import Individu
 
 

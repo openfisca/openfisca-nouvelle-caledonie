@@ -1,6 +1,6 @@
 """Revenus des non-salariés."""
 
-from openfisca_core.model_api import max_, Variable, YEAR
+from openfisca_core.model_api import YEAR, Variable, max_
 from openfisca_nouvelle_caledonie.entities import FoyerFiscal
 
 

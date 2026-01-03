@@ -1,6 +1,6 @@
 """Revenus de surces extérieures à la Nouvelle Calédonie."""
 
-from openfisca_core.model_api import Variable, YEAR
+from openfisca_core.model_api import YEAR, Variable
 from openfisca_nouvelle_caledonie.entities import FoyerFiscal
 
 # REVENUS DE SOURCE EXTÉRIEURE À LA NOUVELLE-CALÉDONIE
