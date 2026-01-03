@@ -2,7 +2,7 @@
 
 from numpy import ceil
 
-from openfisca_core.model_api import min_, round_, Variable, YEAR, where
+from openfisca_core.model_api import YEAR, Variable, min_, round_, where
 from openfisca_nouvelle_caledonie.entities import FoyerFiscal
 
 

@@ -1,6 +1,6 @@
 """Plus-values professionnelles."""
 
-from openfisca_core.model_api import Variable, YEAR
+from openfisca_core.model_api import YEAR, Variable
 from openfisca_nouvelle_caledonie.entities import FoyerFiscal, Individu
 
 

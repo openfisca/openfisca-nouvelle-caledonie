@@ -1,6 +1,6 @@
 """Revenus des capitaux mobiliers."""
 
-from openfisca_core.model_api import max_, min_, where, Variable, YEAR
+from openfisca_core.model_api import YEAR, Variable, max_, min_, where
 from openfisca_nouvelle_caledonie.entities import FoyerFiscal
 
 # Contribuables fiscalement domiciliés en Nouvelle-Calédonie :

@@ -1,7 +1,7 @@
 # Helpers
 
 
-from openfisca_core.model_api import where, max_, min_
+from openfisca_core.model_api import max_, min_, where
 from openfisca_nouvelle_caledonie.entities import FoyerFiscal
 
 

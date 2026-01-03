@@ -1,17 +1,10 @@
 """Traitements et salaires."""
 
-from openfisca_core.model_api import (
-    Variable,
-    where,
-    min_,
-    max_,
-    YEAR,
-)
+from openfisca_core.model_api import YEAR, Variable, max_, min_, where
 from openfisca_nouvelle_caledonie.entities import FoyerFiscal, Individu
 from openfisca_nouvelle_caledonie.variables.prelevements_obligatoires.impot_revenu.revenus_imposables.non_salarie import (
     get_multiple_and_plafond_cafat_cotisation,
 )
-
 
 # TRAITEMENT, SALAIRES
 
