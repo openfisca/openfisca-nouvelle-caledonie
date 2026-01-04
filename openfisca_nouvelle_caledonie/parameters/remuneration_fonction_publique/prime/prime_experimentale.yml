@@ -20,14 +20,20 @@ fonctions:
   values:
     2025-01-01:
       value: []
+  metadata:
+    unit: list
 cadres:
   values:
     2025-01-01:
       value: []
+  metadata:
+    unit: list
 corps:
   values:
     2025-01-01:
       value: []
+  metadata:
+    unit: list
 montant:
   values:
     2025-01-01:
