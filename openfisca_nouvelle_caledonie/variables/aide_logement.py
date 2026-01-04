@@ -70,9 +70,9 @@ class loyer_mensuel_reference(Variable):
 
     def formula(menage, period, parameters):
         typologie_logement = menage("typologie_logement", period)
-        return parameters(period).prestations_sociales.aide_logement.loyer_mensuel_reference[
-            typologie_logement
-        ]
+        return parameters(
+            period
+        ).prestations_sociales.aide_logement.loyer_mensuel_reference[typologie_logement]
 
 
 class loyer_mensuel_plafond(Variable):
@@ -83,7 +83,9 @@ class loyer_mensuel_plafond(Variable):
 
     def formula(menage, period, parameters):
         loyer_mensuel_reference = menage("loyer_mensuel_reference", period)
-        params = parameters(period).prestations_sociales.aide_logement.loyer_mensuel_plafond
+        params = parameters(
+            period
+        ).prestations_sociales.aide_logement.loyer_mensuel_plafond
         pourcentage_plafond = params.pourcentage
         excedent_pour_charges = params.excedent_pour_charges
 
@@ -136,7 +138,9 @@ class aide_logement_forfait_familial(Variable):
         nb_adultes = menage("aide_logement_nb_adultes", period)
         nb_enfants = menage("aide_logement_nb_enfants", period)
 
-        forfait_familial = parameters(period).prestations_sociales.aide_logement.forfait_familial
+        forfait_familial = parameters(
+            period
+        ).prestations_sociales.aide_logement.forfait_familial
         forfait_individuel = forfait_familial.forfait_individuel
 
         coef_base = forfait_familial.coefficient
@@ -536,7 +540,9 @@ class aide_logement_montant(Variable):
     label = "Aide au logement"
 
     def formula(menage, period, parameters):
-        seuil_paiement = parameters(period).prestations_sociales.aide_logement.seuil_paiement
+        seuil_paiement = parameters(
+            period
+        ).prestations_sociales.aide_logement.seuil_paiement
 
         loyer = menage("aide_logement_loyer", period)
         supplement_loyer = menage("aide_logement_supplement_loyer", period)
