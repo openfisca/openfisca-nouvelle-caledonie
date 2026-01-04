@@ -24,9 +24,7 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Information Analysis",
 ]
 
-dependencies = [
-    "openfisca-core[web-api]>=43.4",
-]
+dependencies = ["openfisca-core[web-api]>=43.4"]
 optional-dependencies.dev = [
     "ipython>=8.18.1",
     "pdbpp>=0.11.7",
@@ -156,7 +154,6 @@ deps = ["build", "twine"]
 
 [tool.uv.sources]
 openfisca-nouvelle-caledonie = { workspace = true }
-openfisca-core = { path = "../openfisca-core", editable = true }
 
 [dependency-groups]
 dev = [
