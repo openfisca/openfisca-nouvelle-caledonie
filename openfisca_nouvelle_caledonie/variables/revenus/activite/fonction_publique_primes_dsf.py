@@ -12,7 +12,9 @@ class prime_dsf_fixe_montant(Variable):
     reference = "Délib 439 du 30/12/2008"
 
     def formula(individu, period, parameters):
-        return parameters(period).marche_travail.remuneration_fonction_publique.prime.dsf.fixe
+        return parameters(
+            period
+        ).marche_travail.remuneration_fonction_publique.prime.dsf.fixe
 
 
 class prime_dsf_fixe(Variable):

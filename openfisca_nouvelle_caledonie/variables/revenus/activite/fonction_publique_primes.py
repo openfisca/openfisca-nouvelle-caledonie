@@ -576,7 +576,9 @@ class prime_fonction_publique(Variable):
 
     def formula(individu, period, parameters):
         cat = individu("categorie_fonction_publique", period)
-        prime = parameters(period).marche_travail.remuneration_fonction_publique.prime.categorie[cat]
+        prime = parameters(
+            period
+        ).marche_travail.remuneration_fonction_publique.prime.categorie[cat]
 
         temps_de_travail = individu("temps_de_travail", period)
         taux_indexation_fonction_publique = individu(
