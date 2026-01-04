@@ -1,0 +1,6 @@
+- period: 2025-07
+  input:
+    echelon: [CACORECHELON, C1CO2CHELON]
+  output:
+    cadre: [CA, C1]
+    corps: [CACOR, C1CO2]
