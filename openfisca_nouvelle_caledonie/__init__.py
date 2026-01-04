@@ -46,5 +46,5 @@ class CountryTaxBenefitSystem(TaxBenefitSystem):
         # used in the OpenAPI specification
         self.open_api_config = {
             "variable_example": "aide_sociale_et_bourse",
-            "parameter_example": "benefits.aide_logement.base_ressources.franchise_aides_et_bourses",
+            "parameter_example": "prestations_sociales.aide_logement.base_ressources.franchise_aides_et_bourses",
         }

@@ -70,7 +70,7 @@ class loyer_mensuel_reference(Variable):
 
     def formula(menage, period, parameters):
         typologie_logement = menage("typologie_logement", period)
-        return parameters(period).benefits.aide_logement.loyer_mensuel_reference[
+        return parameters(period).prestations_sociales.aide_logement.loyer_mensuel_reference[
             typologie_logement
         ]
 
@@ -83,7 +83,7 @@ class loyer_mensuel_plafond(Variable):
 
     def formula(menage, period, parameters):
         loyer_mensuel_reference = menage("loyer_mensuel_reference", period)
-        params = parameters(period).benefits.aide_logement.loyer_mensuel_plafond
+        params = parameters(period).prestations_sociales.aide_logement.loyer_mensuel_plafond
         pourcentage_plafond = params.pourcentage
         excedent_pour_charges = params.excedent_pour_charges
 
@@ -136,7 +136,7 @@ class aide_logement_forfait_familial(Variable):
         nb_adultes = menage("aide_logement_nb_adultes", period)
         nb_enfants = menage("aide_logement_nb_enfants", period)
 
-        forfait_familial = parameters(period).benefits.aide_logement.forfait_familial
+        forfait_familial = parameters(period).prestations_sociales.aide_logement.forfait_familial
         forfait_individuel = forfait_familial.forfait_individuel
 
         coef_base = forfait_familial.coefficient
@@ -185,7 +185,7 @@ class aide_logement_supplement_loyer_sr_negatif(Variable):
         typologie = menage("typologie_logement", period)
         p = parameters(
             period
-        ).benefits.aide_logement.supplement_loyer.solde_revenu_negatif_pourcentage[
+        ).prestations_sociales.aide_logement.supplement_loyer.solde_revenu_negatif_pourcentage[
             typologie
         ]
 
@@ -221,7 +221,7 @@ class aide_logement_supplement_loyer_sr_bas_positif(Variable):
 
         pa = parameters(
             period
-        ).benefits.aide_logement.supplement_loyer.solde_revenu_positif_pourcentage_charges
+        ).prestations_sociales.aide_logement.supplement_loyer.solde_revenu_positif_pourcentage_charges
         a = pa * (
             loyer * (1 - aide_logement_neutralisation_loyer)
             + charges
@@ -230,7 +230,7 @@ class aide_logement_supplement_loyer_sr_bas_positif(Variable):
 
         pb = parameters(
             period
-        ).benefits.aide_logement.supplement_loyer.solde_revenu_positif_pourcentage[
+        ).prestations_sociales.aide_logement.supplement_loyer.solde_revenu_positif_pourcentage[
             typologie
         ]
         b = pb * loyer_reference
@@ -252,7 +252,7 @@ class aide_logement_supplement_loyer(Variable):
 
         plafond_sr = parameters(
             period
-        ).benefits.aide_logement.supplement_loyer.pourcentage_plafond_solde_revenu
+        ).prestations_sociales.aide_logement.supplement_loyer.pourcentage_plafond_solde_revenu
 
         return select(
             [solde_revenu <= 0, solde_revenu <= plafond_sr * loyer_reference],
@@ -321,7 +321,7 @@ class aide_sociale_et_bourse(Variable):
         bourse = menage("bourse", period)
         franchise_aides_et_bourses = parameters(
             period
-        ).benefits.aide_logement.base_ressources.franchise_aides_et_bourses
+        ).prestations_sociales.aide_logement.base_ressources.franchise_aides_et_bourses
         return max_(0, aide_sociale - franchise_aides_et_bourses) + max_(
             0, bourse - franchise_aides_et_bourses
         )
@@ -355,7 +355,7 @@ class aide_logement_contribution_locataire_sr_negatif(Variable):
 
         contribution_locataire = parameters(
             period
-        ).benefits.aide_logement.contribution_locataire
+        ).prestations_sociales.aide_logement.contribution_locataire
         minimum = contribution_locataire.montant_minimum
         minimum_aides_bourses = contribution_locataire.montant_minimum_aides_bourses
 
@@ -392,7 +392,7 @@ class aide_logement_plafond_contribution(Variable):
 
         contribution_locataire = parameters(
             period
-        ).benefits.aide_logement.contribution_locataire
+        ).prestations_sociales.aide_logement.contribution_locataire
         pourcentage_plafond = (
             contribution_locataire.plafond.pourcentage_ressources.calc(nb_personnes)
         )
@@ -450,7 +450,7 @@ class aide_logement_contribution_minimale_montant_base(Variable):
 
         contribution_locataire = parameters(
             period
-        ).benefits.aide_logement.contribution_locataire
+        ).prestations_sociales.aide_logement.contribution_locataire
         pourcentage_ressources = contribution_locataire.pourcentage_ressources
 
         return pourcentage_ressources * base_ressources + solde_revenu * menage(
@@ -467,11 +467,11 @@ class aide_logement_contribution_minimale_montant_retraite(Variable):
         base_ressources = menage("aide_logement_base_ressources", period)
         plafond = parameters(
             period
-        ).benefits.aide_logement.base_ressources.franchise_aides_et_bourses
+        ).prestations_sociales.aide_logement.base_ressources.franchise_aides_et_bourses
 
         contribution_locataire = parameters(
             period
-        ).benefits.aide_logement.contribution_locataire
+        ).prestations_sociales.aide_logement.contribution_locataire
         minimum = contribution_locataire.montant_minimum
         minimum_aides_bourses = contribution_locataire.montant_minimum_aides_bourses
 
@@ -536,7 +536,7 @@ class aide_logement_montant(Variable):
     label = "Aide au logement"
 
     def formula(menage, period, parameters):
-        seuil_paiement = parameters(period).benefits.aide_logement.seuil_paiement
+        seuil_paiement = parameters(period).prestations_sociales.aide_logement.seuil_paiement
 
         loyer = menage("aide_logement_loyer", period)
         supplement_loyer = menage("aide_logement_supplement_loyer", period)
