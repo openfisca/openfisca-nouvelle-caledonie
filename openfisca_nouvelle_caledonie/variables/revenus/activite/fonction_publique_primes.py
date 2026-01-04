@@ -5,6 +5,9 @@ from numpy.core.defchararray import startswith
 
 from openfisca_core.model_api import *
 from openfisca_nouvelle_caledonie.entities import Individu
+from openfisca_nouvelle_caledonie.variables.revenus.activite.fonction_publique import (
+    CategorieFonctionPublique,
+)
 
 
 class prime_speciale_points(Variable):
@@ -598,13 +601,22 @@ class prime_experimentale_eligibilite(Variable):
     label = "Éligibilité à la prime expérimentale dans la fonction publique"
 
     def formula(individu, period, parameters):
-        echelon = individu("echelon", period)
-        P = parameters(
-            period
-        ).remuneration_fonction_publique.prime.prime_experimentale
-        echelons = P.echelons
+        cat = individu("categorie_fonction_publique", period)
+        fonction = individu("employeur_public_fonction", period)
+        P = parameters(period).remuneration_fonction_publique.prime.prime_experimentale
+        C = CategorieFonctionPublique
+        categories = P.categories
+        elig_cat = (
+            (cat == C.categorie_a) * categories.a
+            + (cat == C.categorie_b) * categories.b
+            + (cat == C.categorie_c) * categories.c
+            + (cat == C.categorie_d) * categories.d
+        )
 
-        return sum([echelon == test for test in echelons])
+        elig_fonction = len(P.fonctions) == 0 + sum(
+            [fonction == test for test in P.fonctions]
+        )
+        return elig_cat * elig_fonction
 
 
 class prime_experimentale(Variable):
@@ -615,9 +627,7 @@ class prime_experimentale(Variable):
 
     def formula(individu, period, parameters):
         elig = individu("prime_experimentale_eligibilite", period)
-        P = parameters(
-            period
-        ).remuneration_fonction_publique.prime.prime_experimentale
+        P = parameters(period).remuneration_fonction_publique.prime.prime_experimentale
 
         valeur_point = individu("valeur_point", period)
         coefficient_point = P.coefficient_point
@@ -625,13 +635,18 @@ class prime_experimentale(Variable):
 
         bool_temp_partiel = P.prise_en_compte_temps_partiel
         temps_de_travail = individu("temps_de_travail", period)
-        coef_temps = (1-bool_temp_partiel)+bool_temp_partiel*temps_de_travail
+        coef_temps = (1 - bool_temp_partiel) + bool_temp_partiel * temps_de_travail
 
         bool_indexation = P.prise_en_compte_indexation
         indexation = individu("taux_indexation_fonction_publique", period)
-        coef_indexation = (1-bool_indexation)+bool_indexation*indexation
+        coef_indexation = (1 - bool_indexation) + bool_indexation * indexation
 
-        return elig * (montant + coefficient_point * valeur_point) * coef_temps * coef_indexation
+        return (
+            elig
+            * (montant + coefficient_point * valeur_point)
+            * coef_temps
+            * coef_indexation
+        )
 
 
 class primes_fonction_publique(Variable):
