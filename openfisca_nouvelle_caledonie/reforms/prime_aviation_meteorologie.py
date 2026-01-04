@@ -22,7 +22,7 @@ class TableReform(Reform):
             # [["Echelle", "K_TCH"]]
             for echelle, value in self.data:
                 param = Parameter(echelle, data=build_param(value))
-                local_parameters.remuneration_fonction_publique.tch.add_child(
+                local_parameters.marche_travail.remuneration_fonction_publique.tch.add_child(
                     echelle, param
                 )
 

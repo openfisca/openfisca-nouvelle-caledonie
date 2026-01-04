@@ -17,7 +17,7 @@ class prime_speciale_points(Variable):
     def formula(individu, period, parameters):
         return parameters(
             period
-        ).remuneration_fonction_publique.prime.prime_speciale.points
+        ).marche_travail.remuneration_fonction_publique.prime.prime_speciale.points
 
 
 class prime_speciale(Variable):
@@ -52,7 +52,7 @@ class prime_technicite_points(Variable):
     def formula(individu, period, parameters):
         return parameters(
             period
-        ).remuneration_fonction_publique.prime.prime_technicite.points
+        ).marche_travail.remuneration_fonction_publique.prime.prime_technicite.points
 
 
 class prime_technicite(Variable):
@@ -87,7 +87,7 @@ class prime_speciale_technicite_points(Variable):
     def formula(individu, period, parameters):
         return parameters(
             period
-        ).remuneration_fonction_publique.prime.prime_speciale_technicite.points
+        ).marche_travail.remuneration_fonction_publique.prime.prime_speciale_technicite.points
 
 
 class prime_speciale_technicite(Variable):
@@ -138,7 +138,7 @@ class prime_territoriale_a_points(Variable):
     def formula(individu, period, parameters):
         return parameters(
             period
-        ).remuneration_fonction_publique.prime.prime_territoriale_a.points
+        ).marche_travail.remuneration_fonction_publique.prime.prime_territoriale_a.points
 
 
 class prime_territoriale_a(Variable):
@@ -181,7 +181,7 @@ class prime_territoriale_b_points(Variable):
     def formula(individu, period, parameters):
         return parameters(
             period
-        ).remuneration_fonction_publique.prime.prime_territoriale_b.points
+        ).marche_travail.remuneration_fonction_publique.prime.prime_territoriale_b.points
 
 
 class prime_territoriale_b(Variable):
@@ -224,7 +224,7 @@ class prime_territoriale_c_points(Variable):
     def formula(individu, period, parameters):
         return parameters(
             period
-        ).remuneration_fonction_publique.prime.prime_territoriale_c.points
+        ).marche_travail.remuneration_fonction_publique.prime.prime_territoriale_c.points
 
 
 class prime_territoriale_c(Variable):
@@ -266,7 +266,7 @@ class prime_direction_points(Variable):
     def formula(individu, period, parameters):
         return parameters(
             period
-        ).remuneration_fonction_publique.prime.prime_direction.points
+        ).marche_travail.remuneration_fonction_publique.prime.prime_direction.points
 
 
 class prime_direction(Variable):
@@ -295,7 +295,7 @@ class prime_adjoint_direction_points(Variable):
     def formula(individu, period, parameters):
         return parameters(
             period
-        ).remuneration_fonction_publique.prime.prime_adjoint_direction.points
+        ).marche_travail.remuneration_fonction_publique.prime.prime_adjoint_direction.points
 
 
 class prime_adjoint_direction(Variable):
@@ -325,7 +325,7 @@ class prime_sujetion_cadre_points(Variable):
     def formula(individu, period, parameters):
         return parameters(
             period
-        ).remuneration_fonction_publique.prime.prime_sujetion_cadre.points
+        ).marche_travail.remuneration_fonction_publique.prime.prime_sujetion_cadre.points
 
 
 class prime_sujetion_cadre(Variable):
@@ -356,7 +356,7 @@ class prime_sujetion_chef_secteur_points(Variable):
     def formula(individu, period, parameters):
         return parameters(
             period
-        ).remuneration_fonction_publique.prime.prime_sujetion_chef_secteur.points
+        ).marche_travail.remuneration_fonction_publique.prime.prime_sujetion_chef_secteur.points
 
 
 class prime_sujetion_chef_secteur(Variable):
@@ -387,7 +387,7 @@ class prime_sujetion_chef_bureau_points(Variable):
     def formula(individu, period, parameters):
         return parameters(
             period
-        ).remuneration_fonction_publique.prime.prime_sujetion_chef_bureau.points
+        ).marche_travail.remuneration_fonction_publique.prime.prime_sujetion_chef_bureau.points
 
 
 class prime_sujetion_chef_bureau(Variable):
@@ -418,7 +418,7 @@ class prime_sujetion_charge_mission_points(Variable):
     def formula(individu, period, parameters):
         return parameters(
             period
-        ).remuneration_fonction_publique.prime.prime_sujetion_charge_mission.points
+        ).marche_travail.remuneration_fonction_publique.prime.prime_sujetion_charge_mission.points
 
 
 class prime_sujetion_charge_mission(Variable):
@@ -448,7 +448,7 @@ class prime_aviation_technicite(Variable):
 
     def formula(individu, period, parameters):
         echelle = individu("employeur_public_echelle", period)
-        tch = parameters(period).remuneration_fonction_publique.tch
+        tch = parameters(period).marche_travail.remuneration_fonction_publique.tch
         temps_de_travail = individu("temps_de_travail", period)
 
         indexes = np.array([e if e in tch else "ZERO" for e in echelle])
@@ -466,7 +466,7 @@ class prime_stabilite_points(Variable):
     def formula(individu, period, parameters):
         return parameters(
             period
-        ).remuneration_fonction_publique.prime.prime_stabilite.points
+        ).marche_travail.remuneration_fonction_publique.prime.prime_stabilite.points
 
 
 class prime_stabilite(Variable):
@@ -496,7 +496,7 @@ class prime_stabilite_2_points_categorie_a(Variable):
     def formula(individu, period, parameters):
         return parameters(
             period
-        ).remuneration_fonction_publique.prime.prime_stabilite_2.categorie_a.points
+        ).marche_travail.remuneration_fonction_publique.prime.prime_stabilite_2.categorie_a.points
 
 
 class prime_stabilite_2_points_categorie_b(Variable):
@@ -507,7 +507,7 @@ class prime_stabilite_2_points_categorie_b(Variable):
     def formula(individu, period, parameters):
         return parameters(
             period
-        ).remuneration_fonction_publique.prime.prime_stabilite_2.categorie_b.points
+        ).marche_travail.remuneration_fonction_publique.prime.prime_stabilite_2.categorie_b.points
 
 
 class prime_stabilite_2_points(Variable):
@@ -576,7 +576,7 @@ class prime_fonction_publique(Variable):
 
     def formula(individu, period, parameters):
         cat = individu("categorie_fonction_publique", period)
-        prime = parameters(period).remuneration_fonction_publique.prime.categorie[cat]
+        prime = parameters(period).marche_travail.remuneration_fonction_publique.prime.categorie[cat]
 
         temps_de_travail = individu("temps_de_travail", period)
         taux_indexation_fonction_publique = individu(

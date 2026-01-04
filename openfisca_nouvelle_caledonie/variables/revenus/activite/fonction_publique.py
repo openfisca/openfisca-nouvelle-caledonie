@@ -34,10 +34,10 @@ class echelon(Variable):
         nb_mois_echelon = individu("nb_mois_echelon", period.last_month)
         p = period.last_month
         echelon = individu("echelon", p)
-        P = parameters(period).remuneration_fonction_publique.echelons.meta[echelon]
+        P = parameters(period).marche_travail.remuneration_fonction_publique.echelons.meta[echelon]
         ajustement = parameters(
             period
-        ).remuneration_fonction_publique.ajustement_duree_echelon
+        ).marche_travail.remuneration_fonction_publique.ajustement_duree_echelon
         duree = P.duree_moyenne + ajustement
         suivant = P.suivant
 
@@ -53,7 +53,7 @@ class indice_fonction_publique(Variable):
 
     def formula(individu, period, parameters):
         echelon = individu("echelon", period)
-        echelons = parameters(period).remuneration_fonction_publique.echelons.indice
+        echelons = parameters(period).marche_travail.remuneration_fonction_publique.echelons.indice
         return echelons[echelon]
 
 
@@ -78,10 +78,10 @@ class echelon_paie(Variable):
         nb_mois_echelon = individu("nb_mois_echelon_paie", period.last_month)
         p = period.last_month
         echelon = individu("echelon_paie", p)
-        P = parameters(period).remuneration_fonction_publique.echelons.meta[echelon]
+        P = parameters(period).marche_travail.remuneration_fonction_publique.echelons.meta[echelon]
         ajustement = parameters(
             period
-        ).remuneration_fonction_publique.ajustement_duree_echelon
+        ).marche_travail.remuneration_fonction_publique.ajustement_duree_echelon
         duree = P.duree_moyenne + ajustement
         suivant = P.suivant
 
@@ -97,7 +97,7 @@ class indice_fonction_publique_paie(Variable):
 
     def formula(individu, period, parameters):
         echelon = individu("echelon_paie", period)
-        echelons = parameters(period).remuneration_fonction_publique.echelons.indice
+        echelons = parameters(period).marche_travail.remuneration_fonction_publique.echelons.indice
         return echelons[echelon]
 
 
@@ -110,7 +110,7 @@ class echelon_domaine(Variable):
 
     def formula(individu, period, parameters):
         echelon = individu("echelon", period)
-        P = parameters(period).remuneration_fonction_publique.echelons.meta[echelon]
+        P = parameters(period).marche_travail.remuneration_fonction_publique.echelons.meta[echelon]
         return P.domaine
 
 
@@ -185,7 +185,7 @@ class employeur_public_echelle(Variable):
         echelon = individu("echelon", period)
         return (
             parameters(period)
-            .remuneration_fonction_publique.echelons.meta[echelon]
+            .marche_travail.remuneration_fonction_publique.echelons.meta[echelon]
             .echelle
         )
 
@@ -214,7 +214,7 @@ class taux_indexation_fonction_publique(Variable):
 
     def formula(individu, period, parameters):
         lieu = individu("zone_travail_fonction_publique", period)
-        return parameters(period).remuneration_fonction_publique.taux_indexation[lieu]
+        return parameters(period).marche_travail.remuneration_fonction_publique.taux_indexation[lieu]
 
 
 class temps_de_travail(__ForwardVariable):
@@ -234,7 +234,7 @@ class est_retraite(Variable):
 
     def formula(individu, period, parameters):
         age_en_mois = individu("age_en_mois", period)
-        age_max = parameters(period).remuneration_fonction_publique.mois_retraite
+        age_max = parameters(period).marche_travail.remuneration_fonction_publique.mois_retraite
         return age_en_mois >= age_max
 
 
@@ -246,7 +246,7 @@ class valeur_point(Variable):
 
     def formula(individu, period, parameters):
         type_fonction_publique = individu("type_fonction_publique", period)
-        return parameters(period).remuneration_fonction_publique.valeur_point[
+        return parameters(period).marche_travail.remuneration_fonction_publique.valeur_point[
             type_fonction_publique
         ]
 
@@ -312,7 +312,7 @@ class traitement_complement_indexation(Variable):
         taux_indexation_fonction_publique = individu(
             "taux_indexation_fonction_publique", period
         )
-        P = parameters(period).remuneration_fonction_publique
+        P = parameters(period).marche_travail.remuneration_fonction_publique
         taux_equilibre = P.taux_equilibre
 
         traitement_brut = individu("traitement_brut", period)
@@ -342,7 +342,7 @@ class indemnite_residence(Variable):
 
         taux = parameters(
             period
-        ).remuneration_fonction_publique.indemnite_residence.taux
+        ).marche_travail.remuneration_fonction_publique.indemnite_residence.taux
 
         return not_(est_retraite) * (
             indice
@@ -404,7 +404,7 @@ class cotisation_RUAMMS(Variable):
 
     def formula(individu, period, parameters):
         base = individu("base_cotisation_fonction_publique", period)
-        P = parameters(period).remuneration_fonction_publique.ruamm
+        P = parameters(period).marche_travail.remuneration_fonction_publique.ruamm
 
         ajustement = individu("cotisation_RUAMM_ajustement", period)
         not_nul_ajustement = where(ajustement == 0, 1, ajustement)
@@ -421,7 +421,7 @@ class cotisation_RUAMMP(Variable):
 
     def formula(individu, period, parameters):
         base = individu("base_cotisation_fonction_publique", period)
-        P = parameters(period).remuneration_fonction_publique.ruamm
+        P = parameters(period).marche_travail.remuneration_fonction_publique.ruamm
         ajustement = individu("cotisation_RUAMM_ajustement", period)
         not_nul_ajustement = where(ajustement == 0, 1, ajustement)
         return P.bareme_patronale.calc(base / not_nul_ajustement) * ajustement
@@ -437,7 +437,7 @@ class cotisation_MCS(Variable):
 
     def formula(individu, period, parameters):
         base = individu("base_cotisation_fonction_publique", period)
-        P = parameters(period).remuneration_fonction_publique.mcs
+        P = parameters(period).marche_travail.remuneration_fonction_publique.mcs
         return -P.taux_salarie * base
 
 
@@ -449,7 +449,7 @@ class cotisation_NMF_taux_salarie(Variable):
     definition_period = MONTH
 
     def formula(individu, period, parameters):
-        return parameters(period).remuneration_fonction_publique.nmf.taux_salarie
+        return parameters(period).marche_travail.remuneration_fonction_publique.nmf.taux_salarie
 
 
 class cotisation_NMFS(Variable):
@@ -474,7 +474,7 @@ class cotisation_NMF_taux_patronale(Variable):
     definition_period = MONTH
 
     def formula(individu, period, parameters):
-        return parameters(period).remuneration_fonction_publique.nmf.taux_patronale
+        return parameters(period).marche_travail.remuneration_fonction_publique.nmf.taux_patronale
 
 
 class cotisation_NMFP(Variable):
@@ -506,7 +506,7 @@ class base_cotisation_NCJ(Variable):
 
         taux_majoration = parameters(
             period
-        ).remuneration_fonction_publique.ncj.taux_majoration
+        ).marche_travail.remuneration_fonction_publique.ncj.taux_majoration
 
         return indice * valeur_point * temps_de_travail * (1 + taux_majoration)
 
@@ -522,7 +522,7 @@ class cotisation_NCJS(Variable):
     def formula(individu, period, parameters):
         base = individu("base_cotisation_NCJ", period)
 
-        P = parameters(period).remuneration_fonction_publique.ncj
+        P = parameters(period).marche_travail.remuneration_fonction_publique.ncj
         return -P.taux_salarie * base
 
 
@@ -537,5 +537,5 @@ class cotisation_NCJP(Variable):
     def formula(individu, period, parameters):
         base = individu("base_cotisation_NCJ", period)
 
-        P = parameters(period).remuneration_fonction_publique.ncj
+        P = parameters(period).marche_travail.remuneration_fonction_publique.ncj
         return P.taux_patronale * base

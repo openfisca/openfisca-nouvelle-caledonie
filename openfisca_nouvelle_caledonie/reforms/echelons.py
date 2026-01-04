@@ -35,7 +35,7 @@ class GrilleReform(Reform):
 
     def apply(self):
         def modify_parameters(local_parameters):
-            local_parameters.remuneration_fonction_publique.add_child(
+            local_parameters.marche_travail.remuneration_fonction_publique.add_child(
                 "echelons", ParameterNode("echelons", data={})
             )
 
@@ -45,14 +45,14 @@ class GrilleReform(Reform):
                 for [name, domaine, echelle, next_name, value] in self.meta_data
             }
             meta = ParameterNode("meta", data=meta_nodes)
-            local_parameters.remuneration_fonction_publique.echelons.add_child(
+            local_parameters.marche_travail.remuneration_fonction_publique.echelons.add_child(
                 "meta", meta
             )
 
             # VIASGRILLESINM[["Grille", "Inm"]]
             indice_data = {n: build_param(v) for [n, v] in self.indice_data}
             indice = ParameterNode("indice", data=indice_data)
-            local_parameters.remuneration_fonction_publique.echelons.add_child(
+            local_parameters.marche_travail.remuneration_fonction_publique.echelons.add_child(
                 "indice", indice
             )
 
