@@ -601,9 +601,8 @@ class prime_experimentale_eligibilite(Variable):
     label = "Éligibilité à la prime expérimentale dans la fonction publique"
 
     def formula(individu, period, parameters):
-        cat = individu("categorie_fonction_publique", period)
-        fonction = individu("employeur_public_fonction", period)
         P = parameters(period).remuneration_fonction_publique.prime.prime_experimentale
+        cat = individu("categorie_fonction_publique", period)
         C = CategorieFonctionPublique
         categories = P.categories
         elig_cat = (
@@ -613,10 +612,17 @@ class prime_experimentale_eligibilite(Variable):
             + (cat == C.categorie_d) * categories.d
         )
 
+        fonction = individu("employeur_public_fonction", period)
         elig_fonction = len(P.fonctions) == 0 + sum(
             [fonction == test for test in P.fonctions]
         )
-        return elig_cat * elig_fonction
+
+        cadre = individu("cadre", period)
+        elig_cadre = len(P.cadres) == 0 + sum([cadre == test for test in P.cadres])
+
+        corps = individu("corps", period)
+        elig_corps = len(P.corps) == 0 + sum([corps == test for test in P.corps])
+        return elig_cat * elig_fonction * elig_cadre * elig_corps
 
 
 class prime_experimentale(Variable):

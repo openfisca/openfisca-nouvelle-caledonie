@@ -44,6 +44,26 @@ class echelon(Variable):
         return where(nb_mois_echelon >= duree, suivant, echelon)
 
 
+class cadre(Variable):
+    value_type = str
+    entity = Individu
+    definition_period = MONTH
+
+    def formula(individu, period):
+        echelon = individu("echelon", period)
+        return [e[:2] for e in echelon]
+
+
+class corps(Variable):
+    value_type = str
+    entity = Individu
+    definition_period = MONTH
+
+    def formula(individu, period):
+        echelon = individu("echelon", period)
+        return [e[:5] for e in echelon]
+
+
 class indice_fonction_publique(Variable):
     value_type = float
     entity = Individu

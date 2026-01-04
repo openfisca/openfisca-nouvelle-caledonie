@@ -24,8 +24,18 @@
             values:
               2010-01-01:
                 value: []
+          cadres:
+            values:
+              2010-01-01:
+                value: []
+          corps:
+            values:
+              2010-01-01:
+                value: []
   input:
     categorie_fonction_publique: [categorie_a, categorie_b , categorie_c]
+    cadre: [OK, OK, OK]
+    corps: [CACOR, CACOR, CACOR]
   output:
     prime_experimentale_eligibilite: [true, true, false]
 
@@ -55,8 +65,18 @@
             values:
               2010-01-01:
                 value: [T4CB]
+          cadres:
+            values:
+              2010-01-01:
+                value: []
+          corps:
+            values:
+              2010-01-01:
+                value: []
   input:
     categorie_fonction_publique: [categorie_a, categorie_a]
     employeur_public_fonction: [T4CB, T4A8]
+    cadre: [OK, OK]
+    corps: [CACOR, CACOR]
   output:
     prime_experimentale_eligibilite: [true, false]

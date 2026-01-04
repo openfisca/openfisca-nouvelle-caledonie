@@ -20,6 +20,14 @@ fonctions:
   values:
     2025-01-01:
       value: []
+cadres:
+  values:
+    2025-01-01:
+      value: []
+corps:
+  values:
+    2025-01-01:
+      value: []
 montant:
   values:
     2025-01-01:
