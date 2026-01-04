@@ -3,21 +3,6 @@
     remuneration_fonction_publique:
       prime:
         prime_experimentale:
-          echelons:
-            values:
-              2010-01-01:
-                value:
-                  - OK
-  input:
-    echelon: [OK, KO]
-  output:
-    prime_experimentale_eligibilite: [true, false]
-
-- period: 2025-07
-  parameters:
-    remuneration_fonction_publique:
-      prime:
-        prime_experimentale:
           montant:
             values:
               2010-01-01:
@@ -34,7 +19,6 @@
             values:
               2010-01-01:
                 value: 0
-
   input:
     prime_experimentale_eligibilite: [true, true]
     valeur_point: [0, 12]
@@ -64,7 +48,6 @@
             values:
               2010-01-01:
                 value: 1
-
   input:
     prime_experimentale_eligibilite: [true, true]
     valeur_point: [0, 0]

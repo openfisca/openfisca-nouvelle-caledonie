@@ -1,0 +1,62 @@
+- period: 2025-07
+  parameters:
+    remuneration_fonction_publique:
+      prime:
+        prime_experimentale:
+          categories:
+            a:
+              values:
+                2010-01-01:
+                  value: 1
+            b:
+              values:
+                2010-01-01:
+                  value: 1
+            c:
+              values:
+                2010-01-01:
+                  value: 0
+            d:
+              values:
+                2010-01-01:
+                  value: 0
+          fonctions:
+            values:
+              2010-01-01:
+                value: []
+  input:
+    categorie_fonction_publique: [categorie_a, categorie_b , categorie_c]
+  output:
+    prime_experimentale_eligibilite: [true, true, false]
+
+- period: 2025-07
+  parameters:
+    remuneration_fonction_publique:
+      prime:
+        prime_experimentale:
+          categories:
+            a:
+              values:
+                2010-01-01:
+                  value: 1
+            b:
+              values:
+                2010-01-01:
+                  value: 0
+            c:
+              values:
+                2010-01-01:
+                  value: 0
+            d:
+              values:
+                2010-01-01:
+                  value: 0
+          fonctions:
+            values:
+              2010-01-01:
+                value: [T4CB]
+  input:
+    categorie_fonction_publique: [categorie_a, categorie_a]
+    employeur_public_fonction: [T4CB, T4A8]
+  output:
+    prime_experimentale_eligibilite: [true, false]
