@@ -1,18 +1,24 @@
 # Changelog
 
+## 17.0.0
+
+* Amélioration technique.
+* Périodes concernées : toutes.
+* Zones impactées : `parameters/remuneration_fonction_publique`, `variables/revenus/activite/fonction_publique*.py`, `reforms/echelons.py`, `reforms/prime_aviation_meteorologie.py`.
+* Détails :
+  - Réorganisation des paramètres : création du répertoire `marche_travail` et déplacement de `remuneration_fonction_publique` à l'intérieur.
+  - Mise à jour de toutes les références dans le code (`parameters(period).remuneration_fonction_publique` → `parameters(period).marche_travail.remuneration_fonction_publique`).
+  - **Breaking change** : Les chemins de paramètres ont changé (ex: `remuneration_fonction_publique.*` → `marche_travail.remuneration_fonction_publique.*`).
+
 ## 16.0.0
 
 * Amélioration technique.
 * Périodes concernées : toutes.
-* Zones impactées : `parameters/benefits`, `parameters/remuneration_fonction_publique`, `variables/aide_logement.py`, `variables/revenus/activite/fonction_publique*.py`, `reforms/echelons.py`, `reforms/prime_aviation_meteorologie.py`, `__init__.py`.
+* Zones impactées : `parameters/benefits`, `variables/aide_logement.py`, `__init__.py`.
 * Détails :
   - Renommage du répertoire de paramètres `benefits` en `prestations_sociales` pour une meilleure cohérence terminologique.
   - Mise à jour de toutes les références dans le code (`parameters(period).benefits` → `parameters(period).prestations_sociales`).
-  - Réorganisation des paramètres : création du répertoire `marche_travail` et déplacement de `remuneration_fonction_publique` à l'intérieur.
-  - Mise à jour de toutes les références dans le code (`parameters(period).remuneration_fonction_publique` → `parameters(period).marche_travail.remuneration_fonction_publique`).
-  - **Breaking change** : Les chemins de paramètres ont changé :
-    - `benefits.aide_logement.*` → `prestations_sociales.aide_logement.*`
-    - `remuneration_fonction_publique.*` → `marche_travail.remuneration_fonction_publique.*`
+  - **Breaking change** : Les chemins de paramètres ont changé (ex: `benefits.aide_logement.*` → `prestations_sociales.aide_logement.*`).
 
 ## 15.8.0 [#79](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/79)
 
