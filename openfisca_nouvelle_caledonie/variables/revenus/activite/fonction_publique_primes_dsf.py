@@ -12,7 +12,7 @@ class prime_dsf_fixe_montant(Variable):
     reference = "Délib 439 du 30/12/2008"
 
     def formula(individu, period, parameters):
-        return parameters(period).remuneration_fonction_publique.prime.dsf.fixe
+        return parameters(period).marche_travail.remuneration_fonction_publique.prime.dsf.fixe
 
 
 class prime_dsf_fixe(Variable):
@@ -41,7 +41,7 @@ class prime_dsf_variable_numerateur(Variable):
     def formula(individu, period, parameters):
         return parameters(
             period
-        ).remuneration_fonction_publique.prime.dsf.variable.numerateur
+        ).marche_travail.remuneration_fonction_publique.prime.dsf.variable.numerateur
 
 
 class prime_dsf_variable_denominateur(Variable):
@@ -54,7 +54,7 @@ class prime_dsf_variable_denominateur(Variable):
     def formula(individu, period, parameters):
         return parameters(
             period
-        ).remuneration_fonction_publique.prime.dsf.variable.denominateur
+        ).marche_travail.remuneration_fonction_publique.prime.dsf.variable.denominateur
 
 
 class prime_dsf_variable(Variable):
