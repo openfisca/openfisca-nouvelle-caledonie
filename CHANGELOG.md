@@ -1,12 +1,22 @@
 # Changelog
 
+## 16.0.0
+
+* Amélioration technique.
+* Périodes concernées : toutes.
+* Zones impactées : `parameters/benefits`, `variables/aide_logement.py`, `__init__.py`.
+* Détails :
+  - Renommage du répertoire de paramètres `benefits` en `prestations_sociales` pour une meilleure cohérence terminologique.
+  - Mise à jour de toutes les références dans le code (`parameters(period).benefits` → `parameters(period).prestations_sociales`).
+  - **Breaking change** : Les chemins de paramètres ont changé (ex: `benefits.aide_logement.*` → `prestations_sociales.aide_logement.*`).
+
 ## 15.8.0 [#79](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/79)
 
 * Évolution du système socio-fiscal.
 * Périodes concernées : toutes.
 * Zones impactées : `openfisca_nouvelle_caledonie/variables/prelevements_obligatoires/impot_revenu/revenus_imposables/non_salarie/bnc.py`, `.../bic.py`, `.../ba.py`, `.../cotisations.py`, `.../non_salarie.py`, `parameters/prelevements_obligatoires/impot_revenu/revenus_imposables/non_salarie/*`, `tests/prelevements_obligatoires/impot_revenu/**`.
 * Détails :
-  - Correction des formules de calcul des revenus non salariaux (BIC, BNC, BA) : prise en compte correcte des abattements.
+  - Correction des formules de calcul des revenus non salariaux (BIC, BNC, BA) : prise en compte correcte des abattements.
   - Correction du plafonnement et de la propagation des montants entre BIC/BNC/BA afin d'éviter le double comptage ou la perte de cotisations.
   - Distinction clarifiée entre régimes forfaitaire et réel pour les BIC/BNC, et ajustement des cotisations sociales communes.
   - Ajustements des paramètres et métadonnées liés (fichiers `parameters/...`).
