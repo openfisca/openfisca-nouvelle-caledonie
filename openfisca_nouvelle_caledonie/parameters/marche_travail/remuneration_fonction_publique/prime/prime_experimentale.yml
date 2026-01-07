@@ -1,0 +1,52 @@
+description: "Prime utilisée dans l’interface web pour les simulations personnalisées"
+categories:
+  a:
+    values:
+      2025-01-01:
+        value: 0
+  b:
+    values:
+      2025-01-01:
+        value: 0
+  c:
+    values:
+      2025-01-01:
+        value: 0
+  d:
+    values:
+      2025-01-01:
+        value: 0
+fonctions:
+  values:
+    2025-01-01:
+      value: []
+  metadata:
+    unit: list
+cadres:
+  values:
+    2025-01-01:
+      value: []
+  metadata:
+    unit: list
+corps:
+  values:
+    2025-01-01:
+      value: []
+  metadata:
+    unit: list
+montant:
+  values:
+    2025-01-01:
+      value: 0
+coefficient_point:
+  values:
+    2025-01-01:
+      value: 0
+prise_en_compte_temps_partiel:
+  values:
+    2025-01-01:
+      value: 0
+prise_en_compte_indexation:
+  values:
+    2025-01-01:
+      value: 0

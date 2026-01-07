@@ -1,0 +1,57 @@
+- period: 2025-07
+  parameters:
+    remuneration_fonction_publique:
+      prime:
+        prime_experimentale:
+          montant:
+            values:
+              2010-01-01:
+                value: 2
+          coefficient_point:
+            values:
+              2010-01-01:
+                value: 1
+          prise_en_compte_temps_partiel:
+            values:
+              2010-01-01:
+                value: 0
+          prise_en_compte_indexation:
+            values:
+              2010-01-01:
+                value: 0
+  input:
+    prime_experimentale_eligibilite: [true, true]
+    valeur_point: [0, 12]
+    temps_de_travail: [1, 1]
+    taux_indexation_fonction_publique: [1, 1]
+  output:
+    prime_experimentale: [2, 14]
+
+- period: 2025-07
+  parameters:
+    remuneration_fonction_publique:
+      prime:
+        prime_experimentale:
+          montant:
+            values:
+              2010-01-01:
+                value: 1
+          coefficient_point:
+            values:
+              2010-01-01:
+                value: 0
+          prise_en_compte_temps_partiel:
+            values:
+              2010-01-01:
+                value: 1
+          prise_en_compte_indexation:
+            values:
+              2010-01-01:
+                value: 1
+  input:
+    prime_experimentale_eligibilite: [true, true]
+    valeur_point: [0, 0]
+    temps_de_travail: [0.5, 1]
+    taux_indexation_fonction_publique: [1, 0.75]
+  output:
+    prime_experimentale: [0.5, 0.75]
