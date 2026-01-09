@@ -1,4 +1,4 @@
-description: nombre de parts fiscales pour un veuf avec au moins une personne à charge
+description: Nombre de parts fiscales pour un veuf avec au moins une personne à charge (hors première année de veuvage)
 values:
   2017-01-01:
     value: 1.5
