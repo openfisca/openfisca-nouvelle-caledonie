@@ -5,21 +5,19 @@ requires = ["setuptools>=61"]
 [project]
 name = "openfisca-nouvelle-caledonie"
 
-version = "17.0.0"
+version = "17.1.0"
 description = "OpenFisca Rules as Code model for Nouvelle Calédonie."
 readme = "README.md"
 keywords = [ "benefit", "microsimulation", "rac", "rules-as-code", "tax" ]
 maintainers = [  ]
 authors = [  ]
-requires-python = ">=3.9,<3.12"
+requires-python = ">=3.11"
 license = "GPL-3.0-or-later"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Operating System :: POSIX",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Topic :: Scientific/Engineering :: Information Analysis",
 ]
@@ -43,7 +41,7 @@ urls.Repository = "https://github.com/openfisca/openfisca-nouvelle-caledonie"
 include = ["openfisca_nouvelle_caledonie", "openfisca_nouvelle_caledonie.*"]
 
 [tool.ruff]
-target-version = "py39"
+target-version = "py311"
 format.docstring-code-line-length = 72
 format.docstring-code-format = true
 # format.quote-style = "single"
@@ -93,7 +91,7 @@ known_typing = ["*collections.abc*", "*typing*", "*typing_extensions*"]
 known_types = ["*types*"]
 multi_line_output = 3
 profile = "black"
-py_version = 39
+py_version = 311
 sections = [
     "FUTURE",
     "TYPING",
@@ -117,7 +115,7 @@ python_files = "**/*.py"
 
 [tool.tox]
 requires = ["tox>=4.20"]
-env_list = ["py39", "py310", "py311", "lint", "dist"]
+env_list = ["py311", "lint", "dist"]
 
 [tool.tox.env_run_base]
 allowlist_externals = ["make"]
@@ -134,7 +132,7 @@ commands_pre = [
 
 [tool.tox.env.lint]
 allowlist_externals = ["make"]
-basepython = ["py39"]
+basepython = ["py311"]
 commands = [["make", "lint"]]
 commands_pre = [
     [
@@ -147,7 +145,7 @@ commands_pre = [
 ]
 
 [tool.tox.env.dist]
-basepython = ["py39"]
+basepython = ["py311"]
 commands = [["twine", "check", "dist/*"]]
 commands_pre = [["python", "-m", "build"]]
 deps = ["build", "twine"]
@@ -179,6 +177,11 @@ reportMissingImports = false
 # Optional très fréquent avec parameters(...)
 reportOptionalMemberAccess = false
 reportOptionalSubscript = false
+
+# Entity objects are callable in OpenFisca (e.g. foyer_fiscal("variable", period))
+reportUnnecessaryCall = false
+reportCallInDefaultInitializer = false
+reportUnknownAttribute = false
 
 # Code généré / runtime
 exclude = [

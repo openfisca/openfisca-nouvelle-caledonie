@@ -1,0 +1,8 @@
+description: Nombre de parts fiscales pour un veuf avec au moins une personne à charge la première année de veuvage
+values:
+  2017-01-01:
+    value: 2
+metadata:
+  short_label: Parts fiscales pour un veuf avec au moins une personne à charge la première année de veuvage
+  label_en: Tax parts for widower with one dependent in the first year of bereavement
+  unit: part_fiscale

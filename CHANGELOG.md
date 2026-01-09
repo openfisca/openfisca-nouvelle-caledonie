@@ -1,5 +1,23 @@
 # Changelog
 
+## 17.1.0
+
+* Évolution du système socio-fiscal.
+* Périodes concernées : toutes.
+* Zones impactées : `openfisca_nouvelle_caledonie/variables/prelevements_obligatoires/impot_revenu/situation_de_famille.py`, `openfisca_nouvelle_caledonie/parameters/prelevements_obligatoires/impot_revenu/parts_fiscales/veuf_avec_pac.yaml`, `openfisca_nouvelle_caledonie/tests/prelevements_obligatoires/impot_revenu/parts_fiscales.yaml`
+* Détails :
+  - Refactorisation de la logique des parts fiscales pour les veufs avec personne à charge.
+  - Introduction de la variable `premiere_annee_veuvage` pour gérer le cas spécifique de la première année de veuvage.
+  - Renommage de `veuf_avec_pac` en `demi_parts_veuf_avec_pac` pour plus de clarté.
+  - Ajout d'un nouveau fichier de paramètre `veuf_avec_pac_premiere_annee.yaml`.
+
+* Amélioration technique.
+* Périodes concernées : toutes.
+* Zones impactées : `pyproject.toml`, `uv.lock`.
+* Détails :
+  - Montée de version de python à 3.11.
+  - Mise à jour des dépendances.
+
 ## 17.0.0
 
 * Amélioration technique.
