@@ -1,6 +1,6 @@
 # Changelog
 
-## 17.1.0
+## 17.1.0 [#84](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/84)
 
 * Évolution du système socio-fiscal.
 * Périodes concernées : toutes.
@@ -18,7 +18,7 @@
   - Montée de version de python à 3.11.
   - Mise à jour des dépendances.
 
-## 17.0.0
+## 17.0.0 [#83](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/83)
 
 * Amélioration technique.
 * Périodes concernées : toutes.
@@ -28,7 +28,7 @@
   - Mise à jour de toutes les références dans le code (`parameters(period).remuneration_fonction_publique` → `parameters(period).marche_travail.remuneration_fonction_publique`).
   - **Breaking change** : Les chemins de paramètres ont changé (ex: `remuneration_fonction_publique.*` → `marche_travail.remuneration_fonction_publique.*`).
 
-## 16.0.0
+## 16.0.0 [#82](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/82)
 
 * Amélioration technique.
 * Périodes concernées : toutes.
