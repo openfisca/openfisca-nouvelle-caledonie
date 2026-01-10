@@ -213,11 +213,13 @@ class invalides(Variable):
             role=FoyerFiscal.DECLARANT,
         )
 
+
 class premiere_annee_veuvage(Variable):
     value_type = bool
     entity = FoyerFiscal
     label = "Première année de veuvage"
     definition_period = YEAR
+
 
 class demi_parts_veuf_avec_pac(Variable):
     value_type = int
@@ -232,9 +234,7 @@ class demi_parts_veuf_avec_pac(Variable):
         nombre_de_pac = foyer_fiscal.nb_persons(
             role=FoyerFiscal.ENFANT_A_CHARGE
         ) + foyer_fiscal.nb_persons(role=FoyerFiscal.ASCENDANT_A_CHARGE)
-        premiere_annee_veuvage = foyer_fiscal(
-            "premiere_annee_veuvage", period
-        )
+        premiere_annee_veuvage = foyer_fiscal("premiere_annee_veuvage", period)
         return (veuf & (nombre_de_pac > 0)) * 1 + premiere_annee_veuvage * 1
 
 
@@ -272,7 +272,7 @@ class parts_fiscales(Variable):
             [
                 parts_fiscales.celibataire_divorce_ou_veuf_sans_pac,
                 parts_fiscales.marie_ou_pacse,
-                1 + demi_parts_veuf_avec_pac * .5,
+                1 + demi_parts_veuf_avec_pac * 0.5,
             ],
         )
         parts_additionnelles = parts_fiscales.ancien_combattant * foyer_fiscal(
@@ -324,7 +324,9 @@ class parts_fiscales_reduites(Variable):
         parts_fiscales = parameters(
             period
         ).prelevements_obligatoires.impot_revenu.parts_fiscales
-        demi_parts_veuf_avec_pac = foyer_fiscal("demi_parts_veuf_avec_pac", period) * .5
+        demi_parts_veuf_avec_pac = (
+            foyer_fiscal("demi_parts_veuf_avec_pac", period) * 0.5
+        )
         parts_additionnelles = parts_fiscales.ancien_combattant * foyer_fiscal(
             "anciens_combattants", period
         ) + parts_fiscales.invalide * foyer_fiscal("invalides", period)
