@@ -11,13 +11,6 @@
   - Renommage de `veuf_avec_pac` en `demi_parts_veuf_avec_pac` pour plus de clarté.
   - Ajout d'un nouveau fichier de paramètre `veuf_avec_pac_premiere_annee.yaml`.
 
-* Amélioration technique.
-* Périodes concernées : toutes.
-* Zones impactées : `pyproject.toml`, `uv.lock`.
-* Détails :
-  - Montée de version de python à 3.11.
-  - Mise à jour des dépendances.
-
 ## 17.0.0 [#83](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/83)
 
 * Amélioration technique.
