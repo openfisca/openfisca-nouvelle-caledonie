@@ -11,7 +11,7 @@ readme = "README.md"
 keywords = [ "benefit", "microsimulation", "rac", "rules-as-code", "tax" ]
 maintainers = [  ]
 authors = [  ]
-requires-python = ">=3.9,<3.12"
+requires-python = ">=3.11"
 license = "GPL-3.0-or-later"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -24,7 +24,7 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Information Analysis",
 ]
 
-dependencies = ["openfisca-core[web-api]>=43.4"]
+dependencies = ["openfisca-core[web-api]>=44.1.0"]
 optional-dependencies.dev = [
     "ipython>=8.18.1",
     "pdbpp>=0.11.7",
