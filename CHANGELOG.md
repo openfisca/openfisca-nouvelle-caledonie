@@ -1,5 +1,13 @@
 # Changelog
 
+## 17.2.0 [#70](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/70)
+
+* Évolution du système socio-fiscal.
+* Périodes concernées : toutes.
+* Zones impactées : `openfisca_nouvelle_caledonie/variables/revenus/activite/fonction_publique_primes.py`
+* Détails :
+  - Ajoute une prime nulle par défaut mais permettant au service DRH de faire des simulations en autonomie
+
 ## 17.1.0 [#84](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/84)
 
 * Évolution du système socio-fiscal.
