@@ -1,0 +1,18 @@
+description: Plafond de la déduction pour cotisations sociales (retraite volontaire)
+values:
+  2008-01-01:
+    value: 3_176_000
+  2011-01-01:
+    value: 3_371_000
+  2012-01-01:
+    value: 3_443_000
+  2013-01-01:
+    value: 3_494_000
+  2014-01-01:
+    value: 3_520_000
+  2015-01-01:
+    value: 3_549_000
+metadata:
+  short_label: Plafond déduction cotisations sociales
+  label_en: Ceiling of the deduction for social contributions
+  unit: currency

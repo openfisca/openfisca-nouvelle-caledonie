@@ -7,29 +7,33 @@ brackets:
     1945-01-01:
       value: 0
 - threshold:
-    2020-01-01:
+    2008-01-01:
       value: 1_000_000
   rate:
-    2020-01-01:
+    2008-01-01:
       value: 0.04
 - threshold:
     2000-01-01:
       value: 1_800_000
   rate:
-    2020-01-01:
+    2008-01-01:
       value: 0.12
 - threshold:
-    2020-01-01:
+    2008-01-01:
       value: 3_000_000
   rate:
-    2020-01-01:
+    2008-01-01:
       value: 0.25
 - threshold:
-    2020-01-01:
+    2008-01-01:
       value: 4_500_000
   rate:
-    2020-01-01:
+    2008-01-01:
       value: 0.40
 metadata:
   rate_unit: /1
   threshold_unit: currency
+  reference:
+    2008-01-01:
+      title: Article 136 du Code des impôts de la Nouvelle-Calédonie
+      href: https://juridoc.gouv.nc/JuriDoc/JdMobi.nsf/0/514C85263EE0C9054B2575670074B886

@@ -359,12 +359,11 @@ class retenue_cotisations_sociales(Variable):
     label = "Retenue pour cotisations sociales"
     definition_period = YEAR
 
-    def formula_2013(foyer_fiscal, period, parameters):
+    def formula(foyer_fiscal, period, parameters):
         resident = foyer_fiscal("resident", period)
-        period_plafond = period.start.offset("first-of", "month").offset(11, "month")
-        plafond_cafat_retraite = parameters(
-            period_plafond
-        ).prelevements_obligatoires.prelevements_sociaux.cafat.maladie_retraite.plafond_retraite_mensuel
+        plafond = parameters(
+            period
+        ).prelevements_obligatoires.impot_revenu.charges_deductibles.plafond_cotisation_sociale
         return where(
             resident,
             (
@@ -379,7 +378,7 @@ class retenue_cotisations_sociales(Variable):
                             period,
                         )
                     ),
-                    7 * plafond_cafat_retraite,
+                    plafond,
                 )
                 + foyer_fiscal(
                     "cotisations_sociales_hors_gerant_societes_autres", period
