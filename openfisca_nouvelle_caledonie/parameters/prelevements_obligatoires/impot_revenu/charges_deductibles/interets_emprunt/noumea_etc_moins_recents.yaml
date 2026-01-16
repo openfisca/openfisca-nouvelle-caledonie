@@ -1,5 +1,7 @@
 description: Plafond de la déduction pour intérêts d'emprunt
 values:
+  2008-01-01:
+    value: 500_000
   2023-01-01:
     value: 500_000
 metadata:

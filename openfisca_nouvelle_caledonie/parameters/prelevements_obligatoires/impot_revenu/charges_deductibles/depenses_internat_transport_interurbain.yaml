@@ -1,6 +1,6 @@
 description: Plafond de la déduction pour dépenses d'internat et de transport interurbain
 values:
-  2023-01-01:
+  2016-01-01:
     value: 200_000
 metadata:
   short_label: Plafond dépenses internat et transport interurbain

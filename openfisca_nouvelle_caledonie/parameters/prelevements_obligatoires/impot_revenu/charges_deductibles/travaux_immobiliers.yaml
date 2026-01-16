@@ -1,6 +1,6 @@
 description: Plafond de la déduction des charges déductible pour travaux immobiliers
 values:
-  2007-01-01:
+  2008-01-01:
     value: 1_000_000
 metadata:
   short_label: Plafond travaux immobiliers

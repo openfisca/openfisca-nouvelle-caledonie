@@ -1,5 +1,9 @@
 description: Plafond de la déduction pour services à la personne
 values:
+  2008-01-01:
+    value: 1_320_000
+  2016-01-01:
+    value: 1_835_000
   2022-01-01:
     value: 1_957_224
   2023-01-01:
@@ -10,6 +14,10 @@ metadata:
   short_label: Plafond frais de garde
   label_en: Ceiling of the deduction for childcare expenses
   unit: currency
+  reference:
+    2016-01-01:
+      title: Loi du pays n° 2017-1 du 17 janvier 2017
+      href: https://juridoc.gouv.nc/JuriDoc/JdMobi.nsf/0/514C85263EE0C9054B2575670074B886
 documentation: |
   Le montant est le maximum des dépenses ouvrant droit à la déduction pour les services à la personne.
   Il correspond à la valeur du SMIG annualisé.

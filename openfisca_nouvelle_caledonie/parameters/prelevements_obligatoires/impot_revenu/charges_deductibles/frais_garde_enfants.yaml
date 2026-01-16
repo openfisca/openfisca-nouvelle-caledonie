@@ -1,8 +1,14 @@
 description: Plafond de la déduction pour frais de garde d'enfants
 values:
-  2023-01-01:
+  2008-01-01:
+    value: 500_000
+  2016-01-01:
     value: 1_000_000
 metadata:
   short_label: Plafond frais de garde
   label_en: Ceiling of the deduction for childcare expenses
   unit: currency
+  reference:
+    2016-01-01:
+      title: Loi du pays n° 2017-1 du 17 janvier 2017
+      href: https://juridoc.gouv.nc/JuriDoc/JdMobi.nsf/0/514C85263EE0C9054B2575670074B886
