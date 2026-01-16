@@ -6,9 +6,9 @@
 * Périodes concernées : 2008 - aujourd'hui.
 * Zones impactées : `parameters/prelevements_obligatoires/impot_revenu`, `variables/non_salarie`.
 * Détails :
-  - Migration des paramètres historiques de l'impôt sur le revenu (IR) depuis l'ancien simulateur Java (valeurs 2008, 2016, 2019).
+  - Migration des paramètres historiques de l'impôt sur le revenu (IR) (valeurs 2008, 2016, 2019).
   - Ajout du paramètre `plafond_cotisation_sociale.yaml` pour l'historique des déductions de cotisations.
-  - Ajout de références législatives et nettoyage des métadonnées (suppression références `nc_code`).
+  - Ajout de références législatives et nettoyage des métadonnées internes.
   - Documentation du changement de plafond de cotisation CAFAT (passage de 10x à 7x).
   - Standardisation de l'indentation des fichiers YAML.
 
