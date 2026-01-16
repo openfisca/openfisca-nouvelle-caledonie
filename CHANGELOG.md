@@ -1,5 +1,17 @@
 # Changelog
 
+## 17.3.0
+
+* Évolution du système socio-fiscal.
+* Périodes concernées : 2008 - aujourd'hui.
+* Zones impactées : `parameters/prelevements_obligatoires/impot_revenu`, `variables/non_salarie`.
+* Détails :
+  - Migration des paramètres historiques de l'impôt sur le revenu (IR) depuis l'ancien simulateur Java (valeurs 2008, 2016, 2019).
+  - Ajout du paramètre `plafond_cotisation_sociale.yaml` pour l'historique des déductions de cotisations.
+  - Ajout de références législatives et nettoyage des métadonnées (suppression références `nc_code`).
+  - Documentation du changement de plafond de cotisation CAFAT (passage de 10x à 7x).
+  - Standardisation de l'indentation des fichiers YAML.
+
 ## 17.2.0 [#70](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/70)
 
 * Évolution du système socio-fiscal.
