@@ -1,6 +1,6 @@
 # Changelog
 
-## 17.5.0
+## 18.0.0
 
 * Amélioration technique.
 * Périodes concernées : toutes.
