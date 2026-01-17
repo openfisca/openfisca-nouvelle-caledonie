@@ -78,3 +78,10 @@
   short_label:
     one: an
     other: ans
+- name: list
+  label:
+    one: liste
+    other: listes
+  short_label:
+    one: liste
+    other: listes
