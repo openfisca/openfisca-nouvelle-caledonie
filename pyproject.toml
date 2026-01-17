@@ -43,7 +43,7 @@ urls.Repository = "https://github.com/openfisca/openfisca-nouvelle-caledonie"
 include = ["openfisca_nouvelle_caledonie", "openfisca_nouvelle_caledonie.*"]
 
 [tool.ruff]
-target-version = "py39"
+target-version = "py311"
 format.docstring-code-line-length = 72
 format.docstring-code-format = true
 # format.quote-style = "single"
@@ -93,7 +93,7 @@ known_typing = ["*collections.abc*", "*typing*", "*typing_extensions*"]
 known_types = ["*types*"]
 multi_line_output = 3
 profile = "black"
-py_version = 39
+py_version = 311
 sections = [
     "FUTURE",
     "TYPING",
@@ -134,7 +134,7 @@ commands_pre = [
 
 [tool.tox.env.lint]
 allowlist_externals = ["make"]
-basepython = ["py39"]
+basepython = ["py311"]
 commands = [["make", "lint"]]
 commands_pre = [
     [
@@ -147,7 +147,7 @@ commands_pre = [
 ]
 
 [tool.tox.env.dist]
-basepython = ["py39"]
+basepython = ["py311"]
 commands = [["twine", "check", "dist/*"]]
 commands_pre = [["python", "-m", "build"]]
 deps = ["build", "twine"]
