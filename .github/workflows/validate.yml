@@ -21,7 +21,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.9.12
+          python-version: 3.11
 
       - name: Lint files
         run: tox -r -e lint
@@ -38,10 +38,10 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.9.12
+          python-version: 3.11
 
       - name: Test files
-        run: tox -r -e py39
+        run: tox -r -e py311
 
   test-dist:
     runs-on: ubuntu-22.04
@@ -52,7 +52,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.9.12
+          python-version: 3.11
 
       - name: Restore built package
         uses: actions/cache@v4
@@ -74,7 +74,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.9.12
+          python-version: 3.11
 
       - name: Restore build
         uses: actions/cache@v4
@@ -95,7 +95,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.9.12
+          python-version: 3.11
 
       - name: Check version number has been properly updated
         run: "${GITHUB_WORKSPACE}/.github/is-version-number-acceptable.sh"
