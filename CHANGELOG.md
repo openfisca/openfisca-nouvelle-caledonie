@@ -8,7 +8,15 @@
 * Détails :
   - Corrige les unités
 
-# 9.0.0 [#4](https://github.com/openfisca/openfisca-nouvelle_caledonie/pull/4)
+## 17.4.0
+
+* Évolution du système socio-fiscal.
+* Périodes concernées : toutes.
+* Zones impactées : `prelevements_obligatoires`.
+* Détails :
+  - Mise à jour manuelle des paramètres (PR #25).
+
+## 17.3.0 [#85](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/85)
 
 * Évolution du système socio-fiscal.
 * Périodes concernées : toutes. | jusqu'au JJ/MM/AAAA. | à partir du JJ/MM/AAAA.
