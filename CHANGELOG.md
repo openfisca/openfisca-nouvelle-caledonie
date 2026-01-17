@@ -1,11 +1,25 @@
 # Changelog
 
+## 18.0.0
+
+* Évolution du système socio-fiscal.
+* Périodes concernées : 2008 - 2023.
+* Zones impactées : `parameters/prelevements_obligatoires/impot_revenu`, `variables/prelevements_obligatoires/impot_revenu`.
+* Détails :
+  - Intégration complète de l'historique législatif (2008-2023).
+  - Ajout des nouveaux crédits d'impôt : Recherche et Innovation (YS), Financement Participatif (YT), Sécurité (WS).
+  - Ajout de la réduction pour déclaration dans les délais (YD) pour la période 2013-2017.
+  - Implémentation des nouvelles charges déductibles : Travaux Verts (XG) et Internat/Transport (XZ).
+  - Mise à jour des plafonds de cotisations sociales (XE, XT) pour les années passées.
+  - Refactorisation des tests pour respecter l'arborescence des variables.
+
 ## 17.5.0
 
-* Amélioration technique.
+* Évolution du système socio-fiscal et améliorations techniques.
 * Périodes concernées : toutes.
-* Zones impactées : `units.yaml`.
+* Zones impactées : `prelevements_obligatoires`, `units.yaml`.
 * Détails :
+  - Mise à jour manuelle des paramètres (PR #25).
   - Ajout de l'unité "list" (liste/listes) dans le fichier des unités.
 
 ## 17.4.0
