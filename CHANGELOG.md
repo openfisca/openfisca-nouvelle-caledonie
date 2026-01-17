@@ -1,5 +1,7 @@
 # Changelog
 
+## 17.5.0\n\n* Évolution du système socio-fiscal.\n* Périodes concernées : toutes.\n* Zones impactées : `prelevements_obligatoires`.\n* Détails :\n  - Mise à jour manuelle des paramètres (PR #25).
+
 ## 17.4.0
 
 * Évolution du système socio-fiscal.
