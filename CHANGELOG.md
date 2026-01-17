@@ -1,5 +1,13 @@
 # Changelog
 
+## 17.5.0
+
+* Amélioration technique.
+* Périodes concernées : toutes.
+* Zones impactées : `units.yaml`.
+* Détails :
+  - Ajout de l'unité "list" (liste/listes) dans le fichier des unités.
+
 ## 17.4.0
 
 * Évolution du système socio-fiscal.
