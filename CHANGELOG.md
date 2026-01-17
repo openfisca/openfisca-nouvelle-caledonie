@@ -4,11 +4,18 @@
 
 * Amélioration technique.
 * Périodes concernées : toutes.
-* Zones impactées : `pyproject.toml`, `units.yaml`.
+* Zones impactées : `pyproject.toml`.
 * Détails :
   - Mise à jour de la version Python requise de `>=3.9,<3.12` à `>=3.11` pour s'aligner avec `openfisca-nouvelle-caledonie-data`.
   - Mise à jour des configurations de développement (ruff, isort, tox) pour cibler Python 3.11 uniquement.
   - Amélioration de la configuration Pyright pour ignorer les erreurs de type liées aux objets entités OpenFisca (qui sont callables par design).
+
+## 17.5.0
+
+* Amélioration technique.
+* Périodes concernées : toutes.
+* Zones impactées : `units.yaml`.
+* Détails :
   - Ajout de l'unité "list" (liste/listes) dans le fichier des unités.
 
 ## 17.4.0
