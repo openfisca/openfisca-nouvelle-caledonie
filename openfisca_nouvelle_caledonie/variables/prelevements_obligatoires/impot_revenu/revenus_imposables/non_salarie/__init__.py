@@ -17,9 +17,7 @@ def get_multiple_and_plafond_cafat_cotisation(period, parameters):
     if period_plafond.year >= 2023:
         # A partir des revenus 2023 (imposition 2024), le plafond est de 7 fois le plafond CAFAT RETRAITE
         # Voir Loi du pays 2024-3 Article 25
-        plafond_cafat = (
-            cafat.maladie_retraite.plafond_retraite_mensuel
-        )
+        plafond_cafat = cafat.maladie_retraite.plafond_retraite_mensuel
         multiple = cotisations.plafond_depuis_ir_2024
     else:
         # Avant les revenus 2023, le plafond était de 10 fois le plafond CAFAT "Autres régimes"
