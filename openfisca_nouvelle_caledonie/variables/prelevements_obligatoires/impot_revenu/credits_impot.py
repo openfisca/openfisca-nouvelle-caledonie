@@ -17,6 +17,15 @@ class amortissements_excedentaires(Variable):
     definition_period = YEAR
 
 
+class credit_impot_report_non_impute(Variable):
+    unit = "currency"
+    value_type = float
+    entity = FoyerFiscal
+    cerfa_field = "WW"
+    label = "Crédit d'impôt pour report non imputé d'investissements antérieurs"
+    definition_period = YEAR
+
+
 ## Crédits d'impôts des entreprises
 
 
@@ -53,6 +62,15 @@ class depenses_recherche_innovation(Variable):
     entity = FoyerFiscal
     cerfa_field = "YS"
     label = "Dépenses de recherche et d'innovation"
+    definition_period = YEAR
+
+
+class depenses_securite(Variable):
+    unit = "currency"
+    value_type = float
+    entity = FoyerFiscal
+    cerfa_field = "WS"
+    label = "Dépenses de sécurité (installations d'alarmes, clôtures, etc.)"
     definition_period = YEAR
 
 
@@ -168,7 +186,11 @@ class credits_impot(Variable):
             souscription_fcp > 0,
             np.ceil(plafond.plafond_60 * impot_apres_reductions),
             0,
-        )  # TOD0: manque case WW https://github.com/openfisca/openfisca-nouvelle-caledonie/issues/34
+        )
+
+        credit_impot_report_non_impute = foyer_fiscal(
+            "credit_impot_report_non_impute", period
+        )
 
         mecenat_creche = foyer_fiscal("mecenat_entreprise", period) + foyer_fiscal(
             "creche_entreprise", period
@@ -500,6 +522,22 @@ class credits_impot(Variable):
             ),
             0,
         )
+
+        # WS
+        credit_depenses_securite = where(
+            foyer_fiscal("resident", period),
+            min_(
+                foyer_fiscal("depenses_securite", period),
+                (
+                    impot_apres_reductions
+                    - credit_mecenat_entreprise
+                    - credit_depenses_exportation
+                    - credit_depenses_recherche_innovation
+                    - credits_totaux
+                ),
+            ),
+            0,
+        )
         return (
             credit_solde_noumea_etc
             + credit_solde_autres
@@ -509,7 +547,9 @@ class credits_impot(Variable):
             + credit_investissement_productif_industriel
             + credit_souscription_fcp
             + credits_amortissements_excedentaires
+            + credit_impot_report_non_impute
             + credit_mecenat_entreprise
             + credit_depenses_exportation
-            + credit_depenses_recherche_innovation,
+            + credit_depenses_recherche_innovation
+            + credit_depenses_securite
         )

@@ -27,6 +27,7 @@ class reductions_impot(Variable):
                 period,
             )
             + foyer_fiscal("reduction_dons_organismes_aide_pme", period)
+            + foyer_fiscal("reduction_declaration_delais", period)
         )
 
 
@@ -357,3 +358,30 @@ class reduction_dons_organismes_aide_pme(Variable):
 
 
 # TODO: cases YE YF nontrouvées dans déclarations
+
+
+class declaration_delais_yd(Variable):
+    unit = "currency"
+    value_type = bool
+    entity = FoyerFiscal
+    cerfa_field = "YD"
+    label = "Déclaration déposée dans les délais (première fois)"
+    definition_period = YEAR
+
+
+class reduction_declaration_delais(Variable):
+    unit = "currency"
+    value_type = int
+    entity = FoyerFiscal
+    label = "Réduction d'impôt pour déclaration dans les délais"
+    definition_period = YEAR
+
+    def formula(foyer_fiscal, period, parameters):
+        montant = parameters(
+            period
+        ).prelevements_obligatoires.impot_revenu.reductions.declaration_delais
+        return where(
+            foyer_fiscal("declaration_delais_yd", period),
+            montant,
+            0,
+        )
