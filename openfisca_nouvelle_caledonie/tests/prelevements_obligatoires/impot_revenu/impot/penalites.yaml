@@ -1,0 +1,9 @@
+- name: Vérification des nouvelles variables (Pénalités) - 2024
+  period: 2024
+  input:
+    # 2. Pénalités
+    penalites_recouvrement_ko: 1_000
+    penalites_recouvrement_lm: 200
+  output:
+    # 2. Pénalités
+    penalites: 800
