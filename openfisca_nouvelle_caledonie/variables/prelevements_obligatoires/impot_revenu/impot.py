@@ -247,13 +247,32 @@ class impot_net(Variable):
         )
 
 
+class penalites_recouvrement_ko(Variable):
+    value_type = int
+    entity = FoyerFiscal
+    label = "Pénalités de recouvrement (Case KO)"
+    definition_period = YEAR
+    cerfa_field = "KO"
+
+
+class penalites_recouvrement_lm(Variable):
+    value_type = int
+    entity = FoyerFiscal
+    label = "Pénalités de recouvrement (Case LM)"
+    definition_period = YEAR
+    cerfa_field = "LM"
+
+
 class penalites(Variable):
     value_type = int
     entity = FoyerFiscal
     label = "Pénalités"
     definition_period = YEAR
 
-    # TODO: faut-il faire une formule avec 10% de pénalité
+    def formula(foyer_fiscal, period):
+        ko = foyer_fiscal("penalites_recouvrement_ko", period)
+        lm = foyer_fiscal("penalites_recouvrement_lm", period)
+        return max_(ko - lm, 0)
 
 
 class impot_et_ccs_apres_penalites(Variable):
