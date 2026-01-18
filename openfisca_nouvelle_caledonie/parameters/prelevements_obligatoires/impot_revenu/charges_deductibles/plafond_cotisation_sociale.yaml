@@ -12,7 +12,15 @@ values:
     value: 3_520_000
   2015-01-01:
     value: 3_549_000
+  2016-01-01:
+    value: 3_549_000
+  2018-01-01:
+    value: 3_000_000
 metadata:
   short_label: Plafond déduction cotisations sociales
   label_en: Ceiling of the deduction for social contributions
   unit: currency
+documentation: |
+  Plafond pour les cotisations volontaires (XE, XT).
+  Doc 2015/2016: 3 549 000 F.
+  Doc 2018, 2022: Ce plafond est de 3 000 000 CFP. Note: This drop seems explicitly documented in the "Regles de calcul" despite the "10x CAFAT" rule text.
