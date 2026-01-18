@@ -147,7 +147,7 @@ class credits_impot(Variable):
     label = "Crédits d'impôt"
     definition_period = YEAR
 
-    def formula(foyer_fiscal, period, parameters):
+    def formula(foyer_fiscal, period, parameters):  # noqa: PLR0915
         impot_apres_reductions = foyer_fiscal("impot_apres_reductions", period)
 
         solde_investissements_agrees = foyer_fiscal(
