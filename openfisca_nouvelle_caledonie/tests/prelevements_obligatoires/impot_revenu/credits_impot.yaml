@@ -3,7 +3,7 @@
   input:
     depenses_recherche_innovation: 1_000_000
     revenu_categoriel_non_salarie: 10_000_000
-    resident: True
+    resident: true
   output:
     credits_impot: 1_000_000 # Capped by tax if tax < 1M, or full amount. Assuming tax is high enough.
     # We should probably check against a case where tax is low to verify capping.
@@ -13,7 +13,7 @@
   input:
     impot_brut_avant_quotient: 200_000
     credit_impot_report_non_impute: 50_000  # Case WW
-    resident: True
+    resident: true
   output:
     # Verification indirecte, si on peut checker credits_impot total
     # Supposons 0 report, 0 investissement productif etc. sauf WW
@@ -26,6 +26,6 @@
   input:
     depenses_securite: 200_000
     revenu_categoriel_non_salarie: 5_000_000
-    resident: True
+    resident: true
   output:
     credits_impot: 200_000 # Should be fully deductible if tax is sufficient
