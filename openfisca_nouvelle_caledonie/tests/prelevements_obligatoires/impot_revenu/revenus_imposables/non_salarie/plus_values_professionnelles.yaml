@@ -4,7 +4,7 @@
     # 1. Plus-values
     plus_values_professionnelles_a_taux_normal: 1_000_000
     plus_values_professionnelles_a_taux_reduit: 500_000
-    resident: True
+    resident: true
   output:
     # 1. Plus-values -> doit impacter RBG
     # Taux normal (2008+) : 0.25
