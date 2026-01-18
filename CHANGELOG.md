@@ -1,6 +1,6 @@
 # Changelog
 
-## 18.0.0
+## 18.0.0 [#90](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/90)
 
 * Évolution du système socio-fiscal.
 * Périodes concernées : 2008 - 2023.
@@ -13,7 +13,7 @@
   - Mise à jour des plafonds de cotisations sociales (XE, XT) pour les années passées.
   - Refactorisation des tests pour respecter l'arborescence des variables.
 
-## 17.5.0
+## 17.5.0 [#25](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/25)
 
 * Évolution du système socio-fiscal et améliorations techniques.
 * Périodes concernées : toutes.
@@ -22,7 +22,7 @@
   - Mise à jour manuelle des paramètres (PR #25).
   - Ajout de l'unité "list" (liste/listes) dans le fichier des unités.
 
-## 17.4.0
+## 17.4.0 [#86](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/86)
 
 * Évolution du système socio-fiscal.
 * Périodes concernées : toutes.
