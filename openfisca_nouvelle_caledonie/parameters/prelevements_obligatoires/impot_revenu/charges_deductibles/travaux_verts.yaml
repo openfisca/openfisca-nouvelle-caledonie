@@ -1,0 +1,11 @@
+description: Plafond de la déduction pour travaux verts (XG)
+values:
+  2016-01-01:
+    value: 1_000_000
+metadata:
+  short_label: Plafond travaux verts
+  label_en: Ceiling for green works deduction
+  unit: currency
+documentation: |
+  A partir de 2016, nouvelle charge XG plafonnée à 1 000 000 F.
+  A partir de 2019, XG et XX ont un plafond commun de 2 000 000 F (voir charges_deductibles/travaux.yaml).
