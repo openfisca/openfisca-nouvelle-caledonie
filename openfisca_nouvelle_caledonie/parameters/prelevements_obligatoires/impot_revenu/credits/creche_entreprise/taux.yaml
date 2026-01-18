@@ -2,6 +2,8 @@ description: Taux du crédit d'impôt pour les crèches d'entreprise
 values:
   2022-01-01:
     value: 0.5
+  2011-01-01:
+    value: 0.25
   2012-01-01:
     value: 0.25
 metadata:
