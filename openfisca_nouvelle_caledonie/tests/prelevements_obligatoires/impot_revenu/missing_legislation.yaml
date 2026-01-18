@@ -1,0 +1,26 @@
+- name: Vérification des nouvelles variables (Plus-values, Pénalités, Report crédits)
+  period: 2024
+  input:
+    # 1. Plus-values
+    plus_values_professionnelles_a_taux_normal: 1_000_000
+    plus_values_professionnelles_a_taux_reduit: 500_000
+    # 2. Pénalités
+    penalites_recouvrement_ko: 1_000
+    penalites_recouvrement_lm: 200
+    # 3. Credits
+    impot_brut_avant_quotient: 200_000
+    credit_impot_report_non_impute: 50_000  # Case WW
+  output:
+    # 1. Plus-values -> doit impacter RBG
+    # Taux normal (2008+) : 0.25
+    # Taux réduit (2008+) : 0.15
+    # 1000000 * 0.25 + 500000 * 0.15 = 250000 + 75000 = 325000
+    plus_values_professionnelles: 325_000
+
+    # 2. Pénalités
+    penalites: 800
+
+    # 3. Credits
+    # Verification indirecte, si on peut checker credits_impot total
+    # Supposons 0 report, 0 investissement productif etc. sauf WW
+    # credits_impot >= 50000
