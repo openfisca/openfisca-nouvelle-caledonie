@@ -1,5 +1,13 @@
 # Changelog
 
+### 17.5.1 [#91](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/91)
+
+* Correction d'un crash.
+* Périodes concernées : toutes.
+* Zones impactées : `openfisca_nouvelle_caledonie/variables/revenus/activite/fonction_publique_primes`.
+* Détails :
+  - Corrige le chemin de paramètres de la prime exceptionnelle suite au passage à v17.
+
 ## 17.5.0
 
 * Amélioration technique.
