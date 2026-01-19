@@ -1,5 +1,11 @@
 # Changelog
 
+## 18.0.1
+
+* Amélioration technique.
+* Détails :
+  - Limitation de la dépendance `openfisca-core` à `<45.0.0` pour éviter les incompatibilités potentielles.
+
 ## 18.0.0 [#90](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/90)
 
 * Évolution du système socio-fiscal.
