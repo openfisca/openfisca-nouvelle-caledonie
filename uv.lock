@@ -438,7 +438,7 @@ web-api = [
 
 [[package]]
 name = "openfisca-nouvelle-caledonie"
-version = "17.5.0"
+version = "18.0.1"
 source = { editable = "." }
 dependencies = [
     { name = "openfisca-core", extra = ["web-api"] },
@@ -465,7 +465,7 @@ dev = [
 requires-dist = [
     { name = "ipython", marker = "extra == 'dev'", specifier = ">=8.18.1" },
     { name = "isort", marker = "extra == 'dev'", specifier = ">=5.13.2,<6" },
-    { name = "openfisca-core", extras = ["web-api"], specifier = ">=44.1.0" },
+    { name = "openfisca-core", extras = ["web-api"], specifier = ">=44.1.0,<45.0.0" },
     { name = "pdbpp", marker = "extra == 'dev'", specifier = ">=0.11.7" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.3.2" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.6.9,<1" },

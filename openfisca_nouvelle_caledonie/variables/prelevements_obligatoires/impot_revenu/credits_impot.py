@@ -352,10 +352,8 @@ class credits_impot(Variable):
                 (foyer_fiscal("investissements_agrees_autres", period) > 0)
                 & (foyer_fiscal("investissements_agrees_mixtes", period) == 0)
             ),
-            (
-                reliquat_credits_investissement_restants_plafonnes
-                - credit_investissements_agrees_noumea_etc,
-            ),
+            reliquat_credits_investissement_restants_plafonnes
+            - credit_investissements_agrees_noumea_etc,
             credit_investissements_agrees_autres,
         )
 
