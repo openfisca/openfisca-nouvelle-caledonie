@@ -1,5 +1,11 @@
 # Changelog
 
+## 18.0.2
+
+* Amélioration technique.
+* Détails :
+  - Correction des crédits d'impôt.
+
 ## 18.0.1
 
 * Amélioration technique.
