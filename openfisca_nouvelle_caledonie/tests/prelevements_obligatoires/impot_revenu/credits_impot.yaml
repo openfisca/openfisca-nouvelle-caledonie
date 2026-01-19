@@ -29,3 +29,13 @@
     resident: true
   output:
     credits_impot: 200_000 # Should be fully deductible if tax is sufficient
+
+- name: Test vectoriel - Investissements agréés autres (YP) - multiples foyers
+  period: 2024
+  input:
+    investissements_agrees_autres: [100_000, 200_000, 0]
+    investissements_agrees_mixtes: [0, 0, 0]
+    revenu_categoriel_non_salarie: [5_000_000, 8_000_000, 3_000_000]
+    resident: [true, true, true]
+  output:
+    credits_impot: [100_000, 200_000, 0]  # Vérifie que le calcul vectoriel fonctionne correctement
