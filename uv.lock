@@ -467,7 +467,7 @@ web-api = [
 
 [[package]]
 name = "openfisca-nouvelle-caledonie"
-version = "18.0.3"
+version = "19.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "openfisca-core", extra = ["web-api"] },
