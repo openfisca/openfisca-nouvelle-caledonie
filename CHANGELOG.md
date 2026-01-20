@@ -1,5 +1,12 @@
 # Changelog
 
+## 18.0.3
+
+* Amélioration technique.
+* Détails :
+  - Mise à jour de la version Python requise à 3.11.
+  - Alignement des dépendances (bump uv.lock).
+
 ## 18.0.2
 
 * Amélioration technique.
