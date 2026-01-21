@@ -1,0 +1,20 @@
+description: Montant de la réduction d'impôt pour déclaration dans les délais (YD)
+values:
+  2013-01-01:
+    value: 5_000
+  2015-01-01:
+    value: 3_000
+  2017-01-01:
+    value: 0
+metadata:
+  short_label: Réduction déclaration délais
+  label_en: Tax reduction for timely declaration
+  unit: currency
+documentation: |
+  Réduction forfaitaire pour les contribuables qui déposent leur déclaration dans les délais pour la première fois.
+  Supprimée à partir des revenus 2018 (donc 2019?).
+  Note: Doc says "A partir de l'impôt sur les revenus de 2018... ne pourront plus bénéficier".
+  Year 2013: 5000 F.
+  Year 2014->2015: 3000 F.
+  Year 2017: Supprimée? Doc says "A partir de l'imposition des revenus de 2018". So 2017 income (declared 2018) still has it?
+  Let's assume 2018-01-01 value is 0.

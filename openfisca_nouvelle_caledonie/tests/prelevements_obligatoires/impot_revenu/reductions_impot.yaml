@@ -1,0 +1,17 @@
+- name: Vérification Réduction Déclaration Délais (YD) - 2013
+  period: 2013
+  input:
+    declaration_delais_yd: true
+    revenu_categoriel_non_salarie: 4_000_000
+    resident: true
+  output:
+    reduction_declaration_delais: 5_000
+
+- name: Vérification Réduction Déclaration Délais (YD) - 2015
+  period: 2015
+  input:
+    declaration_delais_yd: true
+    revenu_categoriel_non_salarie: 4_000_000
+    resident: true
+  output:
+    reduction_declaration_delais: 3_000

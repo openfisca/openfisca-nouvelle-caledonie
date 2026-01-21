@@ -22,3 +22,4 @@ dist
 .DS_Store
 *~
 tmp
+.claude/settings.json

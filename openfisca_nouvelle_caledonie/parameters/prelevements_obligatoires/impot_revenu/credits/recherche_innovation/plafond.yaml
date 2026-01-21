@@ -1,0 +1,11 @@
+description: Plafond du crédit d'impôt pour dépenses de recherche et d'innovation (YS)
+values:
+  2020-01-01:
+    value: 1_500_000
+metadata:
+  short_label: Plafond Crédit Recherche
+  label_en: Ceiling for Research and Innovation Tax Credit
+  unit: currency
+documentation: |
+  A partir de l'exercice fiscal 2020, le Crédit d'impôt pour dépenses de recherche et d'innovation YS peut être déduit.
+  Le montant retenu est plafonné.

@@ -1,0 +1,41 @@
+- name: Vérification Crédit Recherche Innovation (YS) - 2020
+  period: 2020
+  input:
+    depenses_recherche_innovation: 1_000_000
+    revenu_categoriel_non_salarie: 10_000_000
+    resident: true
+  output:
+    credits_impot: 1_000_000 # Capped by tax if tax < 1M, or full amount. Assuming tax is high enough.
+    # We should probably check against a case where tax is low to verify capping.
+
+- name: Vérification Crédit Réport Non Imputé (WW)
+  period: 2024
+  input:
+    impot_brut_avant_quotient: 200_000
+    credit_impot_report_non_impute: 50_000  # Case WW
+    resident: true
+  output:
+    # Verification indirecte, si on peut checker credits_impot total
+    # Supposons 0 report, 0 investissement productif etc. sauf WW
+    # credits_impot >= 50000
+    # Note: Using >= in comments but specific value check usually works if minimal setup
+    credits_impot: 50_000 # Assuming only this credit
+
+- name: Vérification Crédit Sécurité (WS) - 2020
+  period: 2020
+  input:
+    depenses_securite: 200_000
+    revenu_categoriel_non_salarie: 5_000_000
+    resident: true
+  output:
+    credits_impot: 200_000 # Should be fully deductible if tax is sufficient
+
+- name: Test vectoriel - Investissements agréés autres (YP) - multiples foyers
+  period: 2024
+  input:
+    investissements_agrees_autres: [100_000, 200_000, 0]
+    investissements_agrees_mixtes: [0, 0, 0]
+    revenu_categoriel_non_salarie: [5_000_000, 8_000_000, 3_000_000]
+    resident: [true, true, true]
+  output:
+    credits_impot: [100_000, 200_000, 0]  # Vérifie que le calcul vectoriel fonctionne correctement

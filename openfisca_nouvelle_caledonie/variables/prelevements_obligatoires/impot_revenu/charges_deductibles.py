@@ -22,7 +22,6 @@ class charges_deductibles(Variable):
             + foyer_fiscal("deduction_primes_assurance_vie", period)
             + foyer_fiscal("deduction_services_a_la_personne", period)
             + foyer_fiscal("deduction_travaux_immobiliers_equipements_verts", period)
-            + foyer_fiscal("deduction_travaux_immobiliers", period)
             + foyer_fiscal("deduction_pensions_alimentaires", period)
             + foyer_fiscal("retenue_cotisations_sociales", period)
         )
@@ -198,7 +197,7 @@ class deduction_travaux_immobiliers_equipements_verts(Variable):
     label = "Charges déductibles du revenu global au titre des travaux immobiliers et équipements verts"
     definition_period = YEAR
 
-    def formula_2023(foyer_fiscal, period, parameters):
+    def formula_2019(foyer_fiscal, period, parameters):
         travaux_immobiliers = foyer_fiscal("travaux_immobiliers", period)
         equipements_verts = foyer_fiscal("equipements_verts", period)
 
@@ -206,6 +205,28 @@ class deduction_travaux_immobiliers_equipements_verts(Variable):
             period
         ).prelevements_obligatoires.impot_revenu.charges_deductibles.travaux
         return max_(min_(travaux_immobiliers + equipements_verts, plafond), 0)
+
+    def formula_2016(foyer_fiscal, period, parameters):
+        travaux_immobiliers = foyer_fiscal("travaux_immobiliers", period)
+        equipements_verts = foyer_fiscal("equipements_verts", period)
+
+        plafond_xx = parameters(
+            period
+        ).prelevements_obligatoires.impot_revenu.charges_deductibles.travaux_immobiliers
+        plafond_xg = parameters(
+            period
+        ).prelevements_obligatoires.impot_revenu.charges_deductibles.travaux_verts
+
+        deduction_xx = min_(travaux_immobiliers, plafond_xx)
+        deduction_xg = min_(equipements_verts, plafond_xg)
+        return max_(deduction_xx + deduction_xg, 0)
+
+    def formula_2008(foyer_fiscal, period, parameters):
+        travaux_immobiliers = foyer_fiscal("travaux_immobiliers", period)
+        plafond_xx = parameters(
+            period
+        ).prelevements_obligatoires.impot_revenu.charges_deductibles.travaux_immobiliers
+        return max_(min_(travaux_immobiliers, plafond_xx), 0)
 
 
 class pensions_alimentaires(Variable):

@@ -1,6 +1,6 @@
 # Changelog
 
-### 17.5.1 [#91](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/91)
+### 19.0.1 [#91](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/91)
 
 * Correction d'un crash.
 * Périodes concernées : toutes.
@@ -8,15 +8,48 @@
 * Détails :
   - Corrige le chemin de paramètres de la prime exceptionnelle suite au passage à v17.
 
-## 17.5.0
+# 19.0.0
 
 * Amélioration technique.
-* Périodes concernées : toutes.
-* Zones impactées : `units.yaml`.
 * Détails :
+  - Mise à jour de la version Python requise à 3.11.
+  - Alignement des dépendances (bump uv.lock).
+
+## 18.0.2
+
+* Amélioration technique.
+* Détails :
+  - Correction des crédits d'impôt.
+
+## 18.0.1
+
+* Amélioration technique.
+* Détails :
+  - Limitation de la dépendance `openfisca-core` à `<45.0.0` pour éviter les incompatibilités potentielles.
+
+# 18.0.0 [#90](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/90)
+
+* Évolution du système socio-fiscal.
+* Périodes concernées : 2008 - 2023.
+* Zones impactées : `parameters/prelevements_obligatoires/impot_revenu`, `variables/prelevements_obligatoires/impot_revenu`.
+* Détails :
+  - Intégration complète de l'historique législatif (2008-2023).
+  - Ajout des nouveaux crédits d'impôt : Recherche et Innovation (YS), Financement Participatif (YT), Sécurité (WS).
+  - Ajout de la réduction pour déclaration dans les délais (YD) pour la période 2013-2017.
+  - Implémentation des nouvelles charges déductibles : Travaux Verts (XG) et Internat/Transport (XZ).
+  - Mise à jour des plafonds de cotisations sociales (XE, XT) pour les années passées.
+  - Refactorisation des tests pour respecter l'arborescence des variables.
+
+## 17.5.0 [#25](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/25)
+
+* Évolution du système socio-fiscal et améliorations techniques.
+* Périodes concernées : toutes.
+* Zones impactées : `prelevements_obligatoires`, `units.yaml`.
+* Détails :
+  - Mise à jour manuelle des paramètres (PR #25).
   - Ajout de l'unité "list" (liste/listes) dans le fichier des unités.
 
-## 17.4.0
+## 17.4.0 [#86](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/86)
 
 * Évolution du système socio-fiscal.
 * Périodes concernées : toutes.
@@ -55,7 +88,7 @@
   - Renommage de `veuf_avec_pac` en `demi_parts_veuf_avec_pac` pour plus de clarté.
   - Ajout d'un nouveau fichier de paramètre `veuf_avec_pac_premiere_annee.yaml`.
 
-## 17.0.0 [#83](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/83)
+# 17.0.0 [#83](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/83)
 
 * Amélioration technique.
 * Périodes concernées : toutes.
@@ -65,7 +98,7 @@
   - Mise à jour de toutes les références dans le code (`parameters(period).remuneration_fonction_publique` → `parameters(period).marche_travail.remuneration_fonction_publique`).
   - **Breaking change** : Les chemins de paramètres ont changé (ex: `remuneration_fonction_publique.*` → `marche_travail.remuneration_fonction_publique.*`).
 
-## 16.0.0 [#82](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/82)
+# 16.0.0 [#82](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/82)
 
 * Amélioration technique.
 * Périodes concernées : toutes.

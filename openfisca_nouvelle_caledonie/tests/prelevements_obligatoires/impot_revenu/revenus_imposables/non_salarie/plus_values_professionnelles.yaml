@@ -1,0 +1,13 @@
+- name: Vérification des nouvelles variables (Plus-values) - 2024
+  period: 2024
+  input:
+    # 1. Plus-values
+    plus_values_professionnelles_a_taux_normal: 1_000_000
+    plus_values_professionnelles_a_taux_reduit: 500_000
+    resident: true
+  output:
+    # 1. Plus-values -> doit impacter RBG
+    # Taux normal (2008+) : 0.25
+    # Taux réduit (2008+) : 0.15
+    # 1000000 * 0.25 + 500000 * 0.15 = 250000 + 75000 = 325000
+    plus_values_professionnelles: 325_000
