@@ -1,0 +1,7 @@
+description: NCJ
+metadata:
+  short_label: NCJ
+  order:
+  - taux_majoration
+  - taux_patronale
+  - taux_salarie

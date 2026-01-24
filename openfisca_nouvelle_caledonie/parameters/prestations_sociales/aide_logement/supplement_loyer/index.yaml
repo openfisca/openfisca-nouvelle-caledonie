@@ -1,0 +1,8 @@
+description: Supplément de loyer
+metadata:
+  short_label: Supplément loyer
+  order:
+  - pourcentage_plafond_solde_revenu
+  - solde_revenu_negatif_pourcentage
+  - solde_revenu_positif_pourcentage_charges
+  - solde_revenu_positif_pourcentage

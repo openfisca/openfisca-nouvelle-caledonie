@@ -1,0 +1,6 @@
+description: Prime DSF variable
+metadata:
+  short_label: DSF variable
+  order:
+  - denominateur
+  - numerateur
