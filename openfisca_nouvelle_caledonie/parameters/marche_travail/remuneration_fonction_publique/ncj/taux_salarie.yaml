@@ -4,3 +4,5 @@ values:
     value: 0.131
 documentation: |
     K_TauxCLR_PS = K200
+metadata:
+  unit: /1

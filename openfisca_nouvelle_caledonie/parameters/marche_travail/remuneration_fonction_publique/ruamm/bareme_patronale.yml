@@ -15,3 +15,6 @@ brackets:
 documentation: |
     K_TauxRuammTR1_PP = K359 K_PlafondRuamm = K357
     K_TauxRuammTR2_PP = K283 K_PlafondRuamm = K357
+metadata:
+  rate_unit: /1
+  threshold_unit: currency

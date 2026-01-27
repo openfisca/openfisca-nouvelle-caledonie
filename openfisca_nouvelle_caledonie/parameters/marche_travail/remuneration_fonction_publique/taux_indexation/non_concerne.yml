@@ -2,3 +2,5 @@ description: Taux d'indexation par défaut
 values:
   2006-01-01:
     value: 0
+metadata:
+  unit: /1

@@ -4,3 +4,5 @@ values:
     value: 0.074
 documentation: |
     K_TauxEquilibre = K197
+metadata:
+  unit: /1
