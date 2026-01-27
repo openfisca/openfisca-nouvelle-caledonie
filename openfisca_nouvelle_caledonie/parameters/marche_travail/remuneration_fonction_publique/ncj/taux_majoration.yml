@@ -2,3 +2,5 @@ description: Taux de majoration pour le calcul de l'assiette pour les cotisation
 values:
   2006-01-01:
     value: 0.73
+metadata:
+  unit: /1
