@@ -73,16 +73,10 @@ class bnc_forfait_individuel_net_de_cotisations(Variable):
         diviseur = parameters(
             period
         ).prelevements_obligatoires.impot_revenu.revenus_imposables.non_salarie.bnc.diviseur_recettes
-        multiple, plafond_cafat = get_multiple_and_plafond_cafat_cotisation(
-            period, parameters
-        )
         return max_(
             0,
             individu("bnc_recettes_ht", period) / diviseur  # Forfait
-            - min_(
-                individu("reste_cotisations_apres_bic_avant_bnc", period),
-                multiple * plafond_cafat,
-            ),
+            - individu("reste_cotisations_apres_bic_avant_bnc", period),
         )
 
 
