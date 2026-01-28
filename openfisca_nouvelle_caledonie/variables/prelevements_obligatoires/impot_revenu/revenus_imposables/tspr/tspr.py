@@ -49,5 +49,6 @@ class revenus_bruts_salaires_pensions(Variable):
             + foyer_fiscal.members(
                 "rentes_viageres_a_titre_onereux_plus_de_69_ans", period
             )
-            + foyer_fiscal.members("indemnites_elus_municipaux", period)
+            + foyer_fiscal.members("indemnites_elus_municipaux_eligible_abattement", period)
+            + foyer_fiscal.members("indemnites_elus_municipaux_non_eligible_abattement", period)
         )

@@ -414,7 +414,7 @@ class salaire_differe_apres_deduction(Variable):
         )
 
 
-class indemnites_elus_municipaux(Variable):
+class indemnites_elus_municipaux_eligible_abattement(Variable):
     unit = "currency"
     value_type = float
     cerfa_field = {
@@ -423,7 +423,20 @@ class indemnites_elus_municipaux(Variable):
         2: "NR",
     }
     entity = Individu
-    label = "Indemnités des élus municipaux"
+    label = "Indemnités des élus municipaux (éligibles à l'abattement)"
+    definition_period = YEAR
+
+
+class indemnites_elus_municipaux_non_eligible_abattement(Variable):
+    unit = "currency"
+    value_type = float
+    cerfa_field = {
+        0: "NS",
+        1: "NT",
+        2: "NV",
+    }
+    entity = Individu
+    label = "Indemnités des élus municipaux (non éligibles à l'abattement)"
     definition_period = YEAR
 
 
@@ -436,16 +449,22 @@ class indemnites(Variable):
 
     def formula(foyer_fiscal, period, parameters):
         # 20 % de l'indemnité brute dans la limote du reste de l'abattement sur salaire
+        # L'abattement s'applique uniquement sur la 1ère rubrique (NP, NQ, NR)
+        # La 2ème rubrique (NS, NT, NV) n'a pas d'abattement
         taux = parameters(
             period
         ).prelevements_obligatoires.impot_revenu.revenus_imposables.tspr.abattement.taux
-        return foyer_fiscal.sum(
+        indemnites_eligible = foyer_fiscal.sum(
             max_(
-                foyer_fiscal.members("indemnites_elus_municipaux", period)
+                foyer_fiscal.members("indemnites_elus_municipaux_eligible_abattement", period)
                 - min_(
-                    foyer_fiscal.members("indemnites_elus_municipaux", period) * taux,
+                    foyer_fiscal.members("indemnites_elus_municipaux_eligible_abattement", period) * taux,
                     foyer_fiscal.members("reliquat_abattement_sur_salaire", period),
                 ),
                 0,
             )
         )
+        indemnites_non_eligible = foyer_fiscal.sum(
+            foyer_fiscal.members("indemnites_elus_municipaux_non_eligible_abattement", period)
+        )
+        return indemnites_eligible + indemnites_non_eligible
