@@ -1,6 +1,14 @@
 # Changelog
 
-## 19.0.0
+### 19.0.1 [#91](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/91)
+
+* Correction d'un crash.
+* Périodes concernées : toutes.
+* Zones impactées : `openfisca_nouvelle_caledonie/variables/revenus/activite/fonction_publique_primes`.
+* Détails :
+  - Corrige le chemin de paramètres de la prime exceptionnelle suite au passage à v17.
+
+# 19.0.0
 
 * Amélioration technique.
 * Détails :
@@ -19,7 +27,7 @@
 * Détails :
   - Limitation de la dépendance `openfisca-core` à `<45.0.0` pour éviter les incompatibilités potentielles.
 
-## 18.0.0 [#90](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/90)
+# 18.0.0 [#90](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/90)
 
 * Évolution du système socio-fiscal.
 * Périodes concernées : 2008 - 2023.
@@ -80,7 +88,7 @@
   - Renommage de `veuf_avec_pac` en `demi_parts_veuf_avec_pac` pour plus de clarté.
   - Ajout d'un nouveau fichier de paramètre `veuf_avec_pac_premiere_annee.yaml`.
 
-## 17.0.0 [#83](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/83)
+# 17.0.0 [#83](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/83)
 
 * Amélioration technique.
 * Périodes concernées : toutes.
@@ -90,7 +98,7 @@
   - Mise à jour de toutes les références dans le code (`parameters(period).remuneration_fonction_publique` → `parameters(period).marche_travail.remuneration_fonction_publique`).
   - **Breaking change** : Les chemins de paramètres ont changé (ex: `remuneration_fonction_publique.*` → `marche_travail.remuneration_fonction_publique.*`).
 
-## 16.0.0 [#82](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/82)
+# 16.0.0 [#82](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/82)
 
 * Amélioration technique.
 * Périodes concernées : toutes.
