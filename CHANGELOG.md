@@ -1,6 +1,14 @@
 # Changelog
 
-### 19.0.1 [#91](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/91)
+## 19.0.2 [#96](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/96)
+
+* Amélioration technique.
+* Détails :
+  - Ajout des unités manquantes dans les fichiers de paramètres.
+  - Ajout de `unit: /1` aux fichiers de taux (indemnite_residence, ncj, mcs, taux_indexation, taux_equilibre).
+  - Ajout de `rate_unit: /1` et `threshold_unit: currency` aux barèmes RUAMM.
+
+## 19.0.1 [#91](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/91)
 
 * Correction d'un crash.
 * Périodes concernées : toutes.
@@ -8,7 +16,7 @@
 * Détails :
   - Corrige le chemin de paramètres de la prime exceptionnelle suite au passage à v17.
 
-# 19.0.0
+## 19.0.0
 
 * Amélioration technique.
 * Détails :
