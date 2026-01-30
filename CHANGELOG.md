@@ -1,5 +1,14 @@
 # Changelog
 
+## 19.0.6 [#100](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/100)
+
+* Évolution du système socio-fiscal.
+* Périodes concernées : toutes.
+* Zones impactées : `parameters/prelevements_obligatoires/impot_revenu`.
+* Détails :
+  - Ajout des index de paramètres manquants pour assurer la cohérence de l'arborescence des paramètres.
+
+
 ## 19.0.4 [#97](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/97)
 
 * Évolution du système socio-fiscal et améliorations techniques.
