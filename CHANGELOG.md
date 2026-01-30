@@ -1,5 +1,11 @@
 # Changelog
 
+## 19.0.3
+
+* Amélioration technique.
+* Détails :
+  - Mise à jour de la version et alignement des branches.
+
 ## 19.0.2 [#96](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/96)
 
 * Amélioration technique.
