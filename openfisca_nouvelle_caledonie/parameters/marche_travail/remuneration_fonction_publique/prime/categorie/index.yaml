@@ -1,0 +1,9 @@
+description: Catégories de prime
+metadata:
+  short_label: Catégories
+  order:
+  - categorie_a
+  - categorie_b
+  - categorie_c
+  - categorie_d
+  - non_concerne

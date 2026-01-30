@@ -1,0 +1,6 @@
+description: Prime DSF
+metadata:
+  short_label: DSF
+  order:
+  - fixe
+  - variable

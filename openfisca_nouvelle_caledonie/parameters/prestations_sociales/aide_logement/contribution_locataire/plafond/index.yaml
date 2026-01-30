@@ -1,0 +1,5 @@
+description: Plafond de contribution du locataire
+metadata:
+  short_label: Plafond
+  order:
+  - pourcentage_ressources

@@ -1,0 +1,7 @@
+description: Taux d'indexation
+metadata:
+  short_label: Taux d'indexation
+  order:
+  - brousse
+  - non_concerne
+  - noumea
