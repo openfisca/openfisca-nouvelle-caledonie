@@ -1,9 +1,0 @@
-description: Forfait familial
-metadata:
-  short_label: Forfait familial
-  order:
-  - coefficient_adulte
-  - coefficient_enfant
-  - coefficient_monoparentale
-  - coefficient
-  - forfait_individuel

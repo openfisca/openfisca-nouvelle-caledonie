@@ -1,7 +1,0 @@
-description: Valeur du point
-metadata:
-  short_label: Valeur du point
-  order:
-  - etat
-  - non_concerne
-  - territoriale

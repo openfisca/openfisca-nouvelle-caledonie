@@ -1,8 +1,0 @@
-description: Contribution du locataire
-metadata:
-  short_label: Contribution locataire
-  order:
-  - montant_minimum_aides_bourses
-  - montant_minimum
-  - plafond
-  - pourcentage_ressources

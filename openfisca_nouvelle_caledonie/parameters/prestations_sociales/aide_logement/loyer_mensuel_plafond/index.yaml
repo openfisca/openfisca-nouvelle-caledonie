@@ -1,6 +1,0 @@
-description: Loyer mensuel plafond
-metadata:
-  short_label: Loyer plafond
-  order:
-  - excedent_pour_charges
-  - pourcentage
