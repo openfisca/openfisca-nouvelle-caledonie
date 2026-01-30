@@ -15,7 +15,6 @@ class plafond_fsh(Variable):
     definition_period = MONTH
     set_input = set_input_divide_by_period
 
-
     def formula(individu, period, parameters):
         plafond_temps_plein = parameters(
             period
@@ -37,7 +36,6 @@ class plafond_fsh(Variable):
         # Source : https://boss.gouv.fr/portail/accueil/regles-dassujettissement/assiette-generale.html#titre-chapitre-6---le-plafond-de-la-se-section-2---determination-de-las-a-principe-de-lajustement-a-due-2-salaries-a-temps-partiel
         # §810
         return min_(plafond, plafond_temps_plein)
-
 
     # def formula_2023_09(individu, period, parameters):
     #     plafond_temps_plein = parameters(period).prelevements_obligatoires.prelevements_sociaux.fsh.plafond_mensuel
@@ -70,7 +68,6 @@ class plafond_cafat_autres_regimes(Variable):
     definition_period = MONTH
     set_input = set_input_divide_by_period
 
-
     def formula(individu, period, parameters):
         plafond_temps_plein = parameters(
             period
@@ -92,7 +89,6 @@ class plafond_cafat_autres_regimes(Variable):
         # Source : https://boss.gouv.fr/portail/accueil/regles-dassujettissement/assiette-generale.html#titre-chapitre-6---le-plafond-de-la-se-section-2---determination-de-las-a-principe-de-lajustement-a-due-2-salaries-a-temps-partiel
         # §810
         return min_(plafond, plafond_temps_plein)
-
 
     # def formula_2023_09(individu, period, parameters):
     #     plafond_temps_plein = parameters(period).prelevements_obligatoires.prelevements_sociaux.pss.plafond_securite_sociale_mensuel
@@ -125,7 +121,6 @@ class plafond_retraite(Variable):
     definition_period = MONTH
     set_input = set_input_divide_by_period
 
-
     def formula(individu, period, parameters):
         plafond_temps_plein = parameters(
             period
@@ -147,7 +142,6 @@ class plafond_retraite(Variable):
         # Source : https://boss.gouv.fr/portail/accueil/regles-dassujettissement/assiette-generale.html#titre-chapitre-6---le-plafond-de-la-se-section-2---determination-de-las-a-principe-de-lajustement-a-due-2-salaries-a-temps-partiel
         # §810
         return min_(plafond, plafond_temps_plein)
-
 
     # def formula_2023_09(individu, period, parameters):
     #     plafond_temps_plein = parameters(period).prelevements_obligatoires.prelevements_sociaux.pss.plafond_securite_sociale_mensuel
@@ -180,7 +174,6 @@ class plafond_securite_sociale(Variable):
     definition_period = MONTH
     set_input = set_input_divide_by_period
 
-
     def formula(individu, period, parameters):
         plafond_temps_plein = parameters(
             period
@@ -202,7 +195,6 @@ class plafond_securite_sociale(Variable):
         # Source : https://boss.gouv.fr/portail/accueil/regles-dassujettissement/assiette-generale.html#titre-chapitre-6---le-plafond-de-la-se-section-2---determination-de-las-a-principe-de-lajustement-a-due-2-salaries-a-temps-partiel
         # §810
         return min_(plafond, plafond_temps_plein)
-
 
     # def formula_2023_09(individu, period, parameters):
     #     plafond_temps_plein = parameters(period).prelevements_obligatoires.prelevements_sociaux.pss.plafond_securite_sociale_mensuel
@@ -309,7 +301,6 @@ class nombre_jours_calendaires(Variable):
             ),
             0,
         )
-
 
 
 class contrat_de_travail_debut(Variable):
