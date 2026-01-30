@@ -1,12 +1,18 @@
 # Changelog
 
-## 19.0.3
+## 19.0.4 [#97](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/97)
 
-* Amélioration technique.
+* Évolution du système socio-fiscal et améliorations techniques.
+* Périodes concernées : 2020 - aujourd'hui.
+* Zones impactées : `variables/prelevements_obligatoires/impot_revenu/revenus_imposables/tspr`, `parameters/prelevements_obligatoires/impot_revenu/charges_deductibles`.
 * Détails :
-  - Mise à jour de la version et alignement des branches.
+  - **Amélioration du calcul des pensions** : mise en œuvre des déductions et abattements individuels pour les pensions (rectifiées et non rectifiées).
+  - **Mise à jour des paramètres sociaux** : actualisation des plafonds de déduction des cotisations sociales et des taux de taxe de participation au financement pour les années 2020 et 2023.
+  - **Simplification des revenus non-salariés** : suppression des coefficients et plafonds superflus dans le calcul du revenu imposable BIC/BNC/BA.
+  - **Indemnités municipales** : mise à jour de la classification et des valeurs déductibles pour les élus.
+  - Alignement technique des branches et nettoyage via Ruff.
 
-## 19.0.2 [#96](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/96)
+## 19.0.3 [#96](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/96)
 
 * Amélioration technique.
 * Détails :
