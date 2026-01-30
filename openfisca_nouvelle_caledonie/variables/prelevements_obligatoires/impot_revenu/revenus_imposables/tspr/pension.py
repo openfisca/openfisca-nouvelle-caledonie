@@ -68,44 +68,62 @@ class pension_imposable_apres_deduction_et_abattement(Variable):
             period
         ).prelevements_obligatoires.impot_revenu.revenus_imposables.tspr
 
-        pension_imposable = max_(
-            foyer_fiscal.members("pension_retraite_rente_imposables", period)
-            + foyer_fiscal.members(
-                "pension_retraite_rente_imposables_rectifiees", period
-            ),
-            0,
-        )
-
         deduction_pension = tspr.deduction_pension
-        montant_deduction_pension = min_(
-            pension_imposable * deduction_pension.taux,
-            deduction_pension.plafond,
+
+        # Calcul par individu (comme dans le code Java)
+        # Pensions non rectifiées (PA/PB/PC) et rectifiées (PP/PQ/PR) par individu
+        pension_non_rectifiee = foyer_fiscal.members(
+            "pension_retraite_rente_imposables", period
         )
-        pension_apres_deduction = max_(pension_imposable - montant_deduction_pension, 0)
-        abatemment = where(
-            foyer_fiscal.members("pension_retraite_rente_imposables_rectifiees", period)
-            > 0,
-            0,
-            min_(
-                pension_apres_deduction * tspr.abattement.taux, tspr.abattement.plafond
-            ),
+        pension_rectifiee = foyer_fiscal.members(
+            "pension_retraite_rente_imposables_rectifiees", period
+        )
+        pension_totale_individu = pension_non_rectifiee + pension_rectifiee
+
+        # DeductionsPensionsRule2008: déduction 10% sur le total (PA+PP) par individu (plafond 550k par individu)
+        deduction_10_totale_individu = min_(
+            pension_totale_individu * deduction_pension.taux, deduction_pension.plafond
         )
 
-        pension_apres_abattement = foyer_fiscal.sum(
-            max_(pension_apres_deduction - abatemment, 0)
+        # DeductionPensionsRectifieRule2008: déduction 10% sur la partie non rectifiée (PA) par individu (plafond 550k par individu)
+        deduction_10_non_rectifiee_individu = min_(
+            pension_non_rectifiee * deduction_pension.taux, deduction_pension.plafond
         )
+
+        # AbattementPensionsRule2008: abattement 20% sur (PA - deduction_10_sur_PA) par individu (plafond 1800k par individu)
+        pension_non_rectifiee_apres_deduction_10_individu = max_(
+            pension_non_rectifiee - deduction_10_non_rectifiee_individu, 0
+        )
+        abattement_individu = min_(
+            pension_non_rectifiee_apres_deduction_10_individu * tspr.abattement.taux,
+            tspr.abattement.plafond,
+        )
+
+        # PensionsRule2008: pension = pension_totale - deduction_10_totale - abattement_20
+        pension_apres_abattement_individu = max_(
+            pension_totale_individu
+            - deduction_10_totale_individu
+            - abattement_individu,
+            0,
+        )
+
+        # Total au niveau du foyer fiscal
+        pension_apres_abattement = foyer_fiscal.sum(pension_apres_abattement_individu)
+
         # Abattement spécial sur les pensions pour les non-résidents
-        pension_apres_abattements_non_resident = foyer_fiscal.sum(
-            max_(
-                (
-                    pension_apres_deduction
-                    - abatemment
-                    - min_(
-                        pension_imposable, deduction_pension.plafond_non_resident
-                    )  # Abattement spécial non résident
-                ),
-                0,
-            )
+        pension_totale_apres_deduction = foyer_fiscal.sum(
+            max_(pension_totale_individu - deduction_10_totale_individu, 0)
+        )
+        abattement_total = foyer_fiscal.sum(abattement_individu)
+        pension_imposable_totale = foyer_fiscal.sum(pension_totale_individu)
+
+        pension_apres_abattements_non_resident = max_(
+            pension_totale_apres_deduction
+            - abattement_total
+            - min_(
+                pension_imposable_totale, deduction_pension.plafond_non_resident
+            ),  # Abattement spécial non résident
+            0,
         )
         return where(
             foyer_fiscal("resident", period),

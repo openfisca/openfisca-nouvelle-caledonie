@@ -16,6 +16,16 @@ values:
     value: 3_549_000
   2018-01-01:
     value: 3_000_000
+  2019-01-01:
+    value: 3_637_000
+  2020-01-01:
+    value: 3_637_000
+  2021-01-01:
+    value: 3_637_000
+  2022-01-01:
+    value: 3_661_000
+  2023-01-01:
+    value: 3_776_500
 metadata:
   short_label: Plafond déduction cotisations sociales
   label_en: Ceiling of the deduction for social contributions
