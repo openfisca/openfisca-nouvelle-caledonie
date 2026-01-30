@@ -7,6 +7,7 @@ from openfisca_nouvelle_caledonie.entities import FoyerFiscal
 
 # Cadre 14 Autres réductions et crédits d'impôt
 
+
 class amortissements_excedentaires(Variable):
     unit = "currency"
     value_type = float
@@ -367,7 +368,7 @@ class credits_impot(Variable):
             min_(
                 foyer_fiscal("amortissements_excedentaires", period),
                 plaf_50,
-                ),
+            ),
             reliquat_plafond_credits,
         )
 
@@ -452,7 +453,9 @@ class credits_impot(Variable):
         credit_mecenat_entreprise = where(
             foyer_fiscal("resident", period),
             min_(
-                np.ceil(mecenat_entreprise.taux * foyer_fiscal("mecenat_entreprise", period)),
+                np.ceil(
+                    mecenat_entreprise.taux * foyer_fiscal("mecenat_entreprise", period)
+                ),
                 impot_apres_reductions - credits_totaux,
             ),
             0,

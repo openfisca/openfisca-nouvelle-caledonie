@@ -108,9 +108,7 @@ def apply_bareme_for_relevant_type_sal(
                 )
             else:
                 msg = "cotisations_employeur nor cotisations_salarie not found"
-                raise NameError(
-                    msg
-                )
+                raise NameError(msg)
 
             try:
                 categorie_salarie_baremes = bareme_by_categorie_salarie[
@@ -127,10 +125,7 @@ def apply_bareme_for_relevant_type_sal(
             else:
                 continue
                 msg = f"{bareme_name} not in {bareme_by_categorie_salarie._name} for {categorie_salarie_type.name}"
-                raise KeyError(
-                    msg
-                )
-
+                raise KeyError(msg)
 
             yield bareme.calc(
                 base * (categorie_salarie == categorie_salarie_type),
