@@ -1,0 +1,10 @@
+description: Seuil de mise en recouvrement pour l'impôt et la CCS après pénalités
+values:
+  2022-01-01:
+    value: 10_000
+  2023-01-01:
+    value: 5_000
+metadata:
+  unit: currency
+  short_label: Seuil de mise en recouvrement
+  label_en: Collection threshold for tax and CCS after penalties
