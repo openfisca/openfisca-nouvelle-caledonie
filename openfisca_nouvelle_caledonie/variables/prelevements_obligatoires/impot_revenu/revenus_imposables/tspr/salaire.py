@@ -456,15 +456,22 @@ class indemnites(Variable):
         ).prelevements_obligatoires.impot_revenu.revenus_imposables.tspr.abattement.taux
         indemnites_eligible = foyer_fiscal.sum(
             max_(
-                foyer_fiscal.members("indemnites_elus_municipaux_eligible_abattement", period)
+                foyer_fiscal.members(
+                    "indemnites_elus_municipaux_eligible_abattement", period
+                )
                 - min_(
-                    foyer_fiscal.members("indemnites_elus_municipaux_eligible_abattement", period) * taux,
+                    foyer_fiscal.members(
+                        "indemnites_elus_municipaux_eligible_abattement", period
+                    )
+                    * taux,
                     foyer_fiscal.members("reliquat_abattement_sur_salaire", period),
                 ),
                 0,
             )
         )
         indemnites_non_eligible = foyer_fiscal.sum(
-            foyer_fiscal.members("indemnites_elus_municipaux_non_eligible_abattement", period)
+            foyer_fiscal.members(
+                "indemnites_elus_municipaux_non_eligible_abattement", period
+            )
         )
         return indemnites_eligible + indemnites_non_eligible
