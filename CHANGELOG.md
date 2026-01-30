@@ -1,5 +1,15 @@
 # Changelog
 
+## 19.0.5 [#96](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/96)
+
+* Évolution du système socio-fiscal.
+* Périodes concernées : toutes.
+* Zones impactées : `parameters/marche_travail/remuneration_fonction_publique`.
+* Détails :
+  - Ajout des unités manquantes (`unit: /1`) aux fichiers de taux (indemnité de résidence, mcs, ncj, taux d'équilibre, taux d'indexation).
+  - Ajout des unités (`rate_unit`, `threshold_unit`) aux barèmes RUAMM.
+
+
 ## 19.0.4 [#97](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/97)
 
 * Évolution du système socio-fiscal et améliorations techniques.
