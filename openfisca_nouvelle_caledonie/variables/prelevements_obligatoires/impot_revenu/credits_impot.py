@@ -410,9 +410,9 @@ class credits_impot(Variable):
         # plaf_credits = plaf_credits - RETENUE_W
         # REPORT_YW = max(yw) - RETENUE_YW, 0
 
-        # First compute global plaf_credits (as max of all individual ceilings)
-        # In current OpenFisca, reliquat_plafond_credits represents plaf_credits - previous_uses
-        # We must ensure YQ and YV are only capped by the global reliquat, matching legacy behavior.
+        # On calcule d'abord le plafond global des crédits (max des plafonds individuels).
+        # reliquat_plafond_credits représente le plafond moins les crédits déjà imputés.
+        # YQ et YV ne sont plafonnés que par ce reliquat global, comme dans le code Java.
 
         # YQ
         investissement_productif_industriel_params = parameters(
@@ -464,7 +464,7 @@ class credits_impot(Variable):
             * min_(
                 foyer_fiscal("creche_entreprise", period),
                 creche_entreprise.plafond
-                / creche_entreprise.taux,  # kept for compatibility with Java implementation (may be redundant)
+                / creche_entreprise.taux,  # conservé pour compatibilité avec le code Java (peut être redondant)
             ),
             creche_entreprise.plafond,
         )
