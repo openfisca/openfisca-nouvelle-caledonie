@@ -198,7 +198,9 @@ class impot_apres_reductions(Variable):
         # L'impôt minimum est mis à 0 lorsque le foyer a FCP (YV) ou immeubles neufs (YI) ;
         # cette exception n'a pas de source trouvée dans le doc ni sur le web (possible
         # interprétation du seuil de mise en recouvrement ou règle métier non documentée).
-        has_floor_breaking_investments = (foyer_fiscal("souscription_fcp", period) > 0) | (
+        has_floor_breaking_investments = (
+            foyer_fiscal("souscription_fcp", period) > 0
+        ) | (
             foyer_fiscal(
                 "investissement_immeubles_neufs_acquis_loues_nus_habitation_principale",
                 period,
@@ -228,7 +230,7 @@ class impot_apres_reductions(Variable):
             foyer_fiscal("reductions_impot", period),
         )
 
-        return max_(impot_apres_imputations - reductions_palfonnees, 0)
+        return max_(impot_apres_imputations - reductions_palfonnees, impot_minimum)
 
 
 class resident(Variable):
@@ -309,7 +311,9 @@ class impot_et_ccs_apres_penalites(Variable):
         ccs_revenu_du_capital = foyer_fiscal("ccs_revenu_du_capital", period)
         penalites = foyer_fiscal("penalites", period)
 
-        seuil = parameters(period).prelevements_obligatoires.impot_revenu.seuil_mise_en_recouvrement
+        seuil = parameters(
+            period
+        ).prelevements_obligatoires.impot_revenu.seuil_mise_en_recouvrement
         total = impot_net + penalites + ccs_revenu_du_capital
 
         return round_(where(total < seuil, 0, total))
