@@ -193,15 +193,38 @@ class impot_apres_reductions(Variable):
     definition_period = YEAR
 
     def formula(foyer_fiscal, period, parameters):
-        impot_minimum = parameters(
-            period
-        ).prelevements_obligatoires.impot_revenu.reductions.impot_minimum
+        # Plancher 5 000 F sur les réductions : source nc_code/doc "Règles de calcul IR v1.4.41",
+        # règle 169.2 (équivalent Java ReductionsRule : min(TotalRI, impot_brut - 5000)).
+        # L'impôt minimum est mis à 0 lorsque le foyer a FCP (YV) ou immeubles neufs (YI) ;
+        # cette exception n'a pas de source trouvée dans le doc ni sur le web (possible
+        # interprétation du seuil de mise en recouvrement ou règle métier non documentée).
+        has_floor_breaking_investments = (foyer_fiscal("souscription_fcp", period) > 0) | (
+            foyer_fiscal(
+                "investissement_immeubles_neufs_acquis_loues_nus_habitation_principale",
+                period,
+            )
+            > 0
+        )
+        impot_minimum = where(
+            has_floor_breaking_investments,
+            0,
+            parameters(
+                period
+            ).prelevements_obligatoires.impot_revenu.reductions.impot_minimum,
+        )
         impot_brut = foyer_fiscal("impot_brut", period)
         impot_apres_imputations = max_(
             impot_brut - foyer_fiscal("imputations", period), 0
         )
+        # Plancher sur l'impôt BRUT (avant imputations), règle 169.2 du doc + ReductionsRule Java :
+        # RetenueTotalRI = min(TotalRI, impot_brut - 5000). On utilise toujours 5000 pour ce plafond
+        # (pas impot_minimum) pour rester aligné avec le code Java.
+        plancher_plafond_reductions = parameters(
+            period
+        ).prelevements_obligatoires.impot_revenu.reductions.impot_minimum
+        reductions_plafond_brut = max_(impot_brut - plancher_plafond_reductions, 0)
         reductions_palfonnees = min_(
-            max_(impot_apres_imputations - impot_minimum, 0),
+            reductions_plafond_brut,
             foyer_fiscal("reductions_impot", period),
         )
 
@@ -281,11 +304,15 @@ class impot_et_ccs_apres_penalites(Variable):
     label = "Impot + CCS net des pénalités"
     definition_period = YEAR
 
-    def formula(foyer_fiscal, period):
+    def formula(foyer_fiscal, period, parameters):
         impot_net = foyer_fiscal("impot_net", period)
         ccs_revenu_du_capital = foyer_fiscal("ccs_revenu_du_capital", period)
         penalites = foyer_fiscal("penalites", period)
-        return round_(impot_net + penalites + ccs_revenu_du_capital)
+
+        seuil = parameters(period).prelevements_obligatoires.impot_revenu.seuil_mise_en_recouvrement
+        total = impot_net + penalites + ccs_revenu_du_capital
+
+        return round_(where(total < seuil, 0, total))
 
 
 # Helpers

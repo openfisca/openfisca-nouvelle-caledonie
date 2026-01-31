@@ -391,7 +391,11 @@ class credits_impot(Variable):
         credits_amortissements_excedentaires = min_(
             min_(
                 foyer_fiscal("amortissements_excedentaires", period),
-                plaf_50,
+                where(
+                    foyer_fiscal("amortissements_excedentaires", period) > 0,
+                    np.ceil(plafond.plafond_50 * impot_apres_reductions),
+                    0,
+                ),
             ),
             reliquat_plafond_credits,
         )
@@ -406,30 +410,28 @@ class credits_impot(Variable):
         # plaf_credits = plaf_credits - RETENUE_W
         # REPORT_YW = max(yw) - RETENUE_YW, 0
 
+        # First compute global plaf_credits (as max of all individual ceilings)
+        # In current OpenFisca, reliquat_plafond_credits represents plaf_credits - previous_uses
+        # We must ensure YQ and YV are only capped by the global reliquat, matching legacy behavior.
+
         # YQ
-        investissement_productif_industriel = parameters(
+        investissement_productif_industriel_params = parameters(
             period
         ).prelevements_obligatoires.impot_revenu.credits.investissement_productif_industriel
         credit_investissement_productif_industriel = min_(
-            min_(
-                investissement_productif_industriel.taux
-                * foyer_fiscal("investissement_productif_industriel", period),
-                plaf_50,
-            ),
+            investissement_productif_industriel_params.taux
+            * foyer_fiscal("investissement_productif_industriel", period),
             reliquat_plafond_credits,
         )
 
         reliquat_plafond_credits = max_(
-            reliquat_plafond_credits - reliquat_plafond_credits,
+            reliquat_plafond_credits - credit_investissement_productif_industriel,
             0,
         )
-        # REPORT_YQ = retenue - plaf_yq if retenue > plaf_yq else
+
         # YV
         credit_souscription_fcp = min_(
-            min_(
-                0.15 * souscription_fcp,
-                plaf_50,
-            ),
+            0.5 * souscription_fcp,
             reliquat_plafond_credits,
         )
         reliquat_plafond_credits = max_(
@@ -438,7 +440,7 @@ class credits_impot(Variable):
         )
         # report_yv
         _ = max_(
-            (credit_souscription_fcp - plaf_50),
+            (credit_souscription_fcp - plaf_60),
             0,
         )
         credits_totaux = (
