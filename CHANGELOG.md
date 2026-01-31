@@ -2,12 +2,13 @@
 
 ## 19.1.0
 
-* Documentation et paramètres.
+* Documentation, paramètres et correction de l’impôt après réductions.
 * Périodes concernées : 2008 - aujourd'hui.
 * Zones impactées : `parameters/prelevements_obligatoires/impot_revenu/seuil_mise_en_recouvrement`, `variables/prelevements_obligatoires/impot_revenu/impot`.
 * Détails :
-  - **Seuil de mise en recouvrement** : alignement des valeurs sur nc_code (10 000 F de 2008 à 2022, 5 000 F à partir de 2023) ; correction de la valeur erronée pour 2021.
-  - **Impôt après réductions** : commentaires sourcés (doc « Règles de calcul IR v1.4.41 », règle 169.2 pour le plancher 5 000 F) ; mention de l’absence de source trouvée pour l’exception FCP/YI.
+  - **Seuil de mise en recouvrement** : alignement sur nc_code — 10 000 F (2008-2022), 5 000 F (2023 et suivants) ; correction de la valeur erronée pour 2021.
+  - **Impôt après réductions** : application du plancher d’impôt minimum (0 en cas de FCP/YI ou immeubles neufs, sinon 5 000 F) au résultat ; commentaires sourcés (doc « Règles de calcul IR v1.4.41 », règle 169.2).
+  - Mention dans les commentaires de l’absence de source officielle pour l’exception FCP/YI au plancher.
 
 ## 19.0.4 [#97](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/97)
 
