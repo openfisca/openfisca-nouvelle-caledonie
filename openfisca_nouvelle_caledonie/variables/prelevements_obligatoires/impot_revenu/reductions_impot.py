@@ -2,7 +2,7 @@
 
 from numpy import ceil
 
-from openfisca_core.model_api import YEAR, Variable, min_, round_, where
+from openfisca_core.model_api import YEAR, Variable, max_, min_, round_, where
 from openfisca_nouvelle_caledonie.entities import FoyerFiscal
 
 
@@ -29,6 +29,37 @@ class reductions_impot(Variable):
             + foyer_fiscal("reduction_dons_organismes_aide_pme", period)
             + foyer_fiscal("reduction_declaration_delais", period)
         )
+
+
+class total_reductions(Variable):
+    unit = "currency"
+    value_type = float
+    entity = FoyerFiscal
+    label = "Total des réductions (DSF)"
+    definition_period = YEAR
+
+    def formula(foyer_fiscal, period, parameters):
+        # Le champ DSF "Total des réductions" est un agrégat de comparaison.
+        # L'analyse des écarts (foyer 52412) montre qu'il s'agit d'une somme de catégories
+        # plafonnées INDÉPENDAMMENT par l'impôt brut, sans suivre la séquence d'imputation.
+        impot_brut = foyer_fiscal("impot_brut", period)
+        impot_minimum = parameters(
+            period
+        ).prelevements_obligatoires.impot_revenu.reductions.impot_minimum
+
+        # 1. Imputations (plafonnées par le brut)
+        imputations = foyer_fiscal("imputations", period)
+        imputations_retenues = min_(impot_brut, imputations)
+
+        # 2. Réductions (plafonnées par brut - 5000)
+        reductions = foyer_fiscal("reductions_impot", period)
+        reductions_retenues = min_(max_(impot_brut - impot_minimum, 0), reductions)
+
+        # 3. Crédits (plafonnés par le brut)
+        credits_impot = foyer_fiscal("credits_impot", period)
+        credits_retenus = min_(impot_brut, credits_impot)
+
+        return imputations_retenues + reductions_retenues + credits_retenus
 
 
 class reduction_impot_redistributive(Variable):
