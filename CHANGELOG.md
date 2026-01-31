@@ -1,5 +1,14 @@
 # Changelog
 
+## 19.1.0
+
+* Documentation et paramètres.
+* Périodes concernées : 2008 - aujourd'hui.
+* Zones impactées : `parameters/prelevements_obligatoires/impot_revenu/seuil_mise_en_recouvrement`, `variables/prelevements_obligatoires/impot_revenu/impot`.
+* Détails :
+  - **Seuil de mise en recouvrement** : alignement des valeurs sur nc_code (10 000 F de 2008 à 2022, 5 000 F à partir de 2023) ; correction de la valeur erronée pour 2021.
+  - **Impôt après réductions** : commentaires sourcés (doc « Règles de calcul IR v1.4.41 », règle 169.2 pour le plancher 5 000 F) ; mention de l’absence de source trouvée pour l’exception FCP/YI.
+
 ## 19.0.4 [#97](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/97)
 
 * Évolution du système socio-fiscal et améliorations techniques.
