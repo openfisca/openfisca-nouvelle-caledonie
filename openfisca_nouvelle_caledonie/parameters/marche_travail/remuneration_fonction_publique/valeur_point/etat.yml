@@ -1,7 +1,7 @@
 description: Valeur du point dans la fonction publique d'État
 values:
   2006-01-01:
-    value: 587
+    value: 587.44
 metadata:
   unit: currency-XPF
 documentation: |

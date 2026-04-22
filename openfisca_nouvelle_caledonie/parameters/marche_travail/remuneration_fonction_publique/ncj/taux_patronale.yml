@@ -1,7 +1,7 @@
-description: Taux pour la cotisation patronale pour NMF
+description: Taux pour la cotisation patronale pour NCJ
 values:
   2006-01-01:
-    value: 0.273
+    value: 0.279
 documentation: |
     K_TauxCLR_PP = K201
 metadata:
