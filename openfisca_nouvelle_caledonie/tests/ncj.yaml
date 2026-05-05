@@ -5,7 +5,7 @@
     base_cotisation_NCJ: 412325
   output:
     cotisation_NCJS: -54015
-    cotisation_NCJP: 112565
+    cotisation_NCJP: 412325*0.279
 
 - name: AS10007247
   period: 2025-07

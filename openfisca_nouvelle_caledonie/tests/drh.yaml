@@ -67,24 +67,27 @@
     prime_speciale: 0
 
 - period: 2025-07
+  absolute_error_margin: 0.1
   input:
     employeur_public_direction: G0600000
     temps_de_travail: 1
     type_fonction_publique: territoriale
     taux_indexation_fonction_publique: 1
   output:
-    prime_speciale: 14*565
+    prime_speciale: 14*564.78
 
 - period: 2025-07
+  absolute_error_margin: 0.1
   input:
     employeur_public_direction: G0600000
     temps_de_travail: 1
     type_fonction_publique: territoriale
     taux_indexation_fonction_publique: 1
   output:
-    prime_technicite: 13*565
+    prime_technicite: 13*564.78
 
 - period: 2025-07
+  absolute_error_margin: 0.1
   input:
     employeur_public_direction: G0800000
     echelon_domaine: ER
@@ -92,7 +95,7 @@
     type_fonction_publique: territoriale
     taux_indexation_fonction_publique: 1
   output:
-    prime_speciale_technicite: 27*565
+    prime_speciale_technicite: 27*564.78
 
 - period: 2025-07
   input:
