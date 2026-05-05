@@ -2,6 +2,8 @@ description: Taux pour la cotisation patronale pour NMF
 values:
   2006-01-01:
     value: 0.0066
+  2026-01-01:
+    value: 0.0068
 documentation: |
     K_TauxMDF_PP = K287
 metadata:

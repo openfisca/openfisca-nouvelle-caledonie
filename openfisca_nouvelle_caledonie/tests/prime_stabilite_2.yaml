@@ -8,7 +8,7 @@
     type_fonction_publique: territoriale
     taux_indexation_fonction_publique: 1
   output:
-    prime_stabilite_2: 565
+    prime_stabilite_2: 564.78
 
 - period: 2025-07
   input:
@@ -32,4 +32,4 @@
     type_fonction_publique: territoriale
     taux_indexation_fonction_publique: 1
   output:
-    prime_stabilite_2: 2*565
+    prime_stabilite_2: 2*564.78

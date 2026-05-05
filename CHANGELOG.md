@@ -1,6 +1,14 @@
 # Changelog
 
-## 19.1.0
+## 19.2.0 [#102](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/102)
+
+* Évolution du système socio-fiscal et améliorations techniques.
+* Périodes concernées : toutes.
+* Zones impactées : `parameters/marche_travail/remuneration_fonction_publique`.
+* Détails :
+  - Correction et mise à jour de paramètres de rémunération dans la fonction publique.
+
+## 19.1.0 [#101](https://github.com/openfisca/openfisca-nouvelle-caledonie/pull/101)
 
 * Documentation, paramètres et correction de l’impôt après réductions.
 * Périodes concernées : 2008 - aujourd'hui.
